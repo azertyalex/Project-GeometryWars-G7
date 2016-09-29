@@ -1,1 +1,1 @@
-# Project-GeometryWars-G7
+# Project GeometryWars G7
