@@ -5,7 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
-import be.howest.objects.Player;
+import be.howest.objects.*;
+
 
 public class Game extends Canvas implements Runnable{
 
@@ -22,6 +23,8 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		
 		handler.addObject(new Player(100, 100, ID.Player));
+		//test player 2
+		handler.addObject(new Player2(100, 100, ID.Player));
 	}
 
 	public synchronized void start(){
@@ -64,7 +67,7 @@ public class Game extends Canvas implements Runnable{
 			
 			if(System.currentTimeMillis() - timer > 1000){
 				timer += 1000;
-				System.out.println("FPS: " + frames);
+				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
 		}
@@ -74,6 +77,8 @@ public class Game extends Canvas implements Runnable{
 	
 	private void tick(){
 		handler.tick();
+		
+		
 	}
 	
 	private void render(){
@@ -95,5 +100,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public static void main(String args[]){
 		new Game();
+
+		
 	}
 }

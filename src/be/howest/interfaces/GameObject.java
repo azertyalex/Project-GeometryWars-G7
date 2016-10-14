@@ -4,7 +4,7 @@ import java.awt.Graphics;
 
 import be.howest.game.ID;
 
-public abstract class GameObject {
+public abstract class GameObject implements GameLoop{
 	protected int x, y;
 	protected ID id;
 	protected int velX, velY;

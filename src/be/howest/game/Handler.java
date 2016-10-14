@@ -4,9 +4,10 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
 
+import be.howest.interfaces.GameLoop;
 import be.howest.interfaces.GameObject;
 
-public class Handler {
+public class Handler implements GameLoop{
 	
 	List<GameObject> object = new LinkedList<GameObject>();
 
