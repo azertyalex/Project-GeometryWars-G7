@@ -1,7 +1,10 @@
-package be.howest.src.main;
+package be.howest.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+
+import be.howest.game.ID;
+import be.howest.interfaces.GameObject;
 
 public class Player extends GameObject{
 	

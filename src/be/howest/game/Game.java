@@ -1,9 +1,11 @@
-package be.howest.src.main;
+package be.howest.game;
 
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+import be.howest.objects.Player;
 
 public class Game extends Canvas implements Runnable{
 

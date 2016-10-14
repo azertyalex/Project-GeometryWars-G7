@@ -1,8 +1,10 @@
-package be.howest.src.main;
+package be.howest.game;
 
 import java.awt.Graphics;
 import java.util.LinkedList;
 import java.util.List;
+
+import be.howest.interfaces.GameObject;
 
 public class Handler {
 	

@@ -1,4 +1,4 @@
-package be.howest.src.main;
+package be.howest.game;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

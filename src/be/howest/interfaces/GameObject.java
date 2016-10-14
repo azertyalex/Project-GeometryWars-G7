@@ -1,6 +1,8 @@
-package be.howest.src.main;
+package be.howest.interfaces;
 
 import java.awt.Graphics;
+
+import be.howest.game.ID;
 
 public abstract class GameObject {
 	protected int x, y;
