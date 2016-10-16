@@ -1,4 +1,4 @@
-package be.howest.interfaces;
+package be.howest.util;
 
 import java.awt.Graphics;
 

@@ -1,9 +1,9 @@
-package be.howest.game;
+package be.howest.input;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+import be.howest.util.GameUtils;
 import net.java.games.input.*;
 import net.java.games.input.Component.Identifier.Button;
 
@@ -11,11 +11,40 @@ public class Gamepad {
 	private List<Controller> controllers = new ArrayList<>();
 	private Controller selectedController;
 	
-	public Gamepad(int index){
+	
+	//For testing purposes
+	@SuppressWarnings("unused")
+	private Gamepad(int index){
 		populateListWithControllers();
 		selectedController = controllers.get(index);
 		
 	}
+	
+	
+	public Gamepad(){
+		populateListWithControllers();
+		boolean foundController = false;
+		while(!foundController){
+			for(Controller controller : controllers){
+				controller.poll();
+				// Button 7 is the "Start" button on the controller!
+				if(controller.getComponent(Component.Identifier.Button._7).getPollData() == 1.0F){
+					foundController = true;
+					selectedController = controller;
+				}
+				controller.poll();
+			}
+		}
+		
+	}
+	
+	
+	
+	public Controller getSelectedController(){
+		return selectedController;
+	}
+	
+	
 	
 	public void turnOnController(){
 		if(!selectedController.poll()){
@@ -29,13 +58,26 @@ public class Gamepad {
 		}
 	}
 	
+	// For testing
 	public List<Component> getComponentFromController(int index){
 		List<Component> components = new ArrayList<>();
 		for(Component com : controllers.get(index).getComponents()){
 			components.add(com);
+			System.out.println(com.getIdentifier().getName());
 		}
 		return components;
 	}
+	
+	public Rumbler[] getRumblers(){
+		for(Rumbler rum: selectedController.getRumblers()){
+			rum.rumble(5.0F);
+			System.out.println(rum.getAxisIdentifier().getName());
+		}
+		return selectedController.getRumblers();
+	}
+	
+	
+
 	
 	private void populateListWithControllers(){
 		Controller[] con = ControllerEnvironment.getDefaultEnvironment().getControllers();
@@ -111,7 +153,7 @@ public class Gamepad {
 	
 	/**
 	 * 
-	 * @return  UP = 0.25 || RIGHT = 0.50 || DOWN = 0.75 || LEFT = 1.0
+	 * @return  UP = 0.25 || RIGHT = 0.50 || DOWN = 0.75 || LEFT = 1.0 || UP + RIGHT = 0.365 || RIGHT + DOWN = 0.625 || DOWN + LEFT = 0.865 || LEFT + UP = 0.125
 	 */
 	public float getDPad(){
 		return selectedController.getComponent(Component.Identifier.Axis.POV).getPollData();
@@ -122,9 +164,6 @@ public class Gamepad {
 		return GameUtils.clamp(selectedController.getComponent(Component.Identifier.Axis.Z).getPollData(), -1F, 1F, 0F);
 	}
 	
-	public float getRZ(){
-		return GameUtils.clamp(selectedController.getComponent(Component.Identifier.Axis.RZ).getPollData(), -1F, 1F, 0F);
-	}
 	
 	
 	

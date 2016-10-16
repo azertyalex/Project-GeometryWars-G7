@@ -1,9 +1,11 @@
-package be.howest.game;
+package be.howest.gfx;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+
+import be.howest.game.Game;
 
 public class Window extends Canvas{
 

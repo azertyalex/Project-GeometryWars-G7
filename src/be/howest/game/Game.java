@@ -4,39 +4,62 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.List;
 
+import be.howest.gfx.Window;
 import be.howest.objects.*;
+import be.howest.util.GameLoop;
 
 
-public class Game extends Canvas implements Runnable{
+public class Game extends Canvas implements Runnable, GameLoop{
 
 	private static final long serialVersionUID = -7744672260366215689L;
 	public static final int WIDTH = 720, HEIGHT = WIDTH / 12 *9;
 	
-	private Thread thread;
-	private boolean running = false;
+	public int frames = 0;
 	
-	private Handler handler;
+	private Graphics g;
+	
+	private Thread thread;
+	private boolean isRunning = false;
+	
+	private Handler handler = new Handler();
+	
+	private List<GameObject> backgroundObjects = new ArrayList<>();
+	private List<GameObject> enemyObjects = new ArrayList<>();
+	private List<GameObject> playerObjects = new ArrayList<>();
+	private List<GameObject> hud = new ArrayList<>();
+	
+	
+	
+	private void addAllObjects(){
+		playerObjects.add(new Player(100,100,ID.Player));
+		
+	}
 	
 	public Game(){
 		new Window(WIDTH,HEIGHT,"Geometry Wars Howest",this);
-		handler = new Handler();
 		
-		handler.addObject(new Player(100, 100, ID.Player));
-		//test player 2
-		handler.addObject(new Player2(100, 100, ID.Player));
+		addAllObjects();
+		
+		
+		handler.addObject(backgroundObjects);
+		handler.addObject(enemyObjects);
+		handler.addObject(playerObjects);
+		handler.addObject(hud);
 	}
 
 	public synchronized void start(){
 		thread = new Thread(this);
 		thread.start();
-		running = true;
+		isRunning = true;
 	}
 	
 	public synchronized void stop(){
 		try{
 			thread.join();
-			running = false;
+			isRunning = false;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -51,8 +74,7 @@ public class Game extends Canvas implements Runnable{
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
-		int frames = 0;
-		while (running){
+		while (isRunning){
 			long now = System.nanoTime();
 			delta += (now -lastTime) / ns;
 			lastTime = now;
@@ -60,8 +82,8 @@ public class Game extends Canvas implements Runnable{
 				tick();
 				delta--;				
 			}
-			if(running){
-				render();
+			if(isRunning){
+				render(g);
 			}
 			frames++;
 			
@@ -70,24 +92,25 @@ public class Game extends Canvas implements Runnable{
 				//System.out.println("FPS: " + frames);
 				frames = 0;
 			}
-		}
-		stop();
-		
+		}		
 	}
 	
-	private void tick(){
+	
+	@Override
+	public void tick(){
 		handler.tick();
 		
 		
 	}
 	
-	private void render(){
+	@Override
+	public void render(Graphics g){
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
 		if(bufferStrategy == null){
 			this.createBufferStrategy(3);
 			return;
 		}
-		Graphics g = bufferStrategy.getDrawGraphics();
+		g = bufferStrategy.getDrawGraphics();
 		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -96,6 +119,8 @@ public class Game extends Canvas implements Runnable{
 		
 		g.dispose();
 		bufferStrategy.show();
+		
+		
 	}
 	
 	public static void main(String args[]){
@@ -103,4 +128,9 @@ public class Game extends Canvas implements Runnable{
 
 		
 	}
+
+
+
+
+
 }

@@ -1,13 +1,16 @@
-package be.howest.interfaces;
+package be.howest.objects;
 
-import java.awt.Graphics;
 
 import be.howest.game.ID;
+import be.howest.input.Inputdevice;
+import be.howest.util.GameLoop;
 
 public abstract class GameObject implements GameLoop{
 	protected int x, y;
 	protected ID id;
 	protected int velX, velY;
+	protected Inputdevice input;
+	
 	
 	public GameObject(int x, int y, ID id){
 		this.x = x;
@@ -15,8 +18,13 @@ public abstract class GameObject implements GameLoop{
 		this.id = id;
 	}
 	
-	public abstract void tick();
-	public abstract void render(Graphics g);
+	public GameObject(int x, int y, ID id, Inputdevice input){
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		this.input = input;
+	}
+	
 	
 	public void setX(int x){
 		this.x = x;
