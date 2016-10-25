@@ -3,13 +3,20 @@ package be.howest.game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import be.howest.gfx.Window;
 import be.howest.objects.*;
 import be.howest.util.GameLoop;
+import be.howest.util.GameUtils;
 
 
 public class Game extends Canvas implements Runnable, GameLoop{
@@ -34,7 +41,8 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		playerObjects.add(new Player(100,100,ID.Player));
+		playerObjects.add(new testObject(200,200,ID.Enemy));
+		//playerObjects.add(new Player(200,200,ID.Player));
 		
 	}
 	
@@ -112,8 +120,15 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		}
 		g = bufferStrategy.getDrawGraphics();
 		
-		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		//g.setColor(Color.black);
+		//g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		g.drawImage(GameUtils.loadImage("resources\\background\\background.jpg"), 0,0, WIDTH, HEIGHT, null);
+		
+		
+		
+		
 		
 		handler.render(g);
 		
@@ -124,6 +139,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	}
 	
 	public static void main(String args[]){
+		//GameUtils.test();
 		new Game();
 
 		

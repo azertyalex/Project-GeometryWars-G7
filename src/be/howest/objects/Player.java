@@ -24,7 +24,6 @@ public class Player extends GameObject{
 	
 	
 		gamePad.turnOnController();
-		Rumbler[] r = gamePad.getRumblers();
 		
 		if(gamePad.getDPad() == 0.25) val++;
 		if(gamePad.getDPad() == 0.75) val--;		

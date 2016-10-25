@@ -20,6 +20,8 @@ public class Gamepad {
 		
 	}
 	
+
+	
 	
 	public Gamepad(){
 		populateListWithControllers();
@@ -67,18 +69,7 @@ public class Gamepad {
 		}
 		return components;
 	}
-	
-	public Rumbler[] getRumblers(){
-		for(Rumbler rum: selectedController.getRumblers()){
-			rum.rumble(5.0F);
-			System.out.println(rum.getAxisIdentifier().getName());
-		}
-		return selectedController.getRumblers();
-	}
-	
-	
-
-	
+		
 	private void populateListWithControllers(){
 		Controller[] con = ControllerEnvironment.getDefaultEnvironment().getControllers();
 		for(Controller controller : con){
