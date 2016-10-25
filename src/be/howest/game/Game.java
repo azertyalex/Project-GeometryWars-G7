@@ -41,7 +41,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		playerObjects.add(new testObject(200,200,ID.Enemy));
+		playerObjects.add(new testObject(200,200,10,10,ID.Enemy));
 		//playerObjects.add(new Player(200,200,ID.Player));
 		
 	}
