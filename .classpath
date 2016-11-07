@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="Jars/lwjgl-debug.jar"/>
 	<classpathentry kind="lib" path="Jars/lwjgl.jar"/>
 	<classpathentry kind="lib" path="Jars/mysql-connector-java-5.1.38-bin.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

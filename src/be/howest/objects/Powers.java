@@ -1,5 +1,7 @@
 package be.howest.objects;
 
+import be.howest.difficulty.Difficulty;
+
 public abstract class Powers {
 
 	protected String name;
@@ -29,6 +31,14 @@ public abstract class Powers {
 
 	public void setSpawnrate(int spawnrate) {
 		this.spawnrate = spawnrate;
+	}
+	
+	public void usePower(Player target){
+		throw new IllegalStateException();
+	}
+	
+	public void usePower(Player target, Difficulty difficulty){
+		throw new IllegalStateException();
 	}
 	
 	

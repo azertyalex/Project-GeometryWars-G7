@@ -90,8 +90,8 @@ public abstract class GameObject implements GameLoop{
 		this.health = health;
 	}
 	
-	public boolean checkIfAlive(GameObject gameObject){
-		if(gameObject.getHealth() > 0){
+	public boolean checkIfAlive(){
+		if(this.getHealth() > 0){
 			return true;
 		} else {
 			return false;

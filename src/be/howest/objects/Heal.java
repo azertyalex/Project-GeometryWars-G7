@@ -6,9 +6,10 @@ public class Heal extends Powers {
 		super(name,spawnrate);
 	}
 	
-	public void usePower(GameObject target){
+	@Override
+	public void usePower(Player target){
 		int currentHealth = target.getHealth();
-		if(target.checkIfAlive(target)){
+		if(target.checkIfAlive()){
 			if(target.getHealth() < 3){
 				target.setHealth(currentHealth + 1);
 			}
