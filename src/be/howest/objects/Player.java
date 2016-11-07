@@ -16,6 +16,10 @@ public class Player extends GameObject{
 		
 		
 	}
+	
+	public Player(int x, int y, ID id, int lives){
+		super(x,y,id,lives);
+	}
 
 	@Override
 	public void tick() {

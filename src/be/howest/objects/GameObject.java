@@ -10,6 +10,7 @@ public abstract class GameObject implements GameLoop{
 	protected ID id;
 	protected int velX, velY;
 	protected Inputdevice input;
+	protected int health;
 	
 	
 	public GameObject(int x, int y, ID id){
@@ -18,11 +19,26 @@ public abstract class GameObject implements GameLoop{
 		this.id = id;
 	}
 	
+	public GameObject(int x, int y, ID id, int health){
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		this.health = health;
+	}
+	
 	public GameObject(int x, int y, ID id, Inputdevice input){
 		this.x = x;
 		this.y = y;
 		this.id = id;
 		this.input = input;
+	}
+	
+	public GameObject(int x, int y, ID id, Inputdevice input, int health){
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		this.input = input;
+		this.health = health;
 	}
 	
 	
@@ -65,6 +81,23 @@ public abstract class GameObject implements GameLoop{
 	public int getVelY(){
 		return velY;
 	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+	
+	public boolean checkIfAlive(GameObject gameObject){
+		if(gameObject.getHealth() > 0){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	
 }
