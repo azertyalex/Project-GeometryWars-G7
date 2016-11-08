@@ -86,7 +86,7 @@ public class PowerShop extends MouseAdapter{
 		if (mouseOver(mx, my, (Game.WIDTH / 2) -250, 800, 500, 75)){
 			System.out.println("PLAY GAME");
 			game.state = STATE.PLAY;
-			handler.addObject(new testObject(200,200,ID.Enemy));
+			handler.addObject(new testObject(200,200,ID.Player2));
 		}
 	}
 

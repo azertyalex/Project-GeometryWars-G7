@@ -62,7 +62,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	private void addAllObjects(){
 		//playerObjects.add(new Player(200,200,ID.Player2));
-		playerObjects.add(new testObject(200,200,10,10,ID.Player,handler,false));
+		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
 		
 		
 	}
@@ -74,10 +74,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		powerShop = new PowerShop(this, handler);
 		droneUpgrade = new DroneUpgrade(this, handler, powerShop);
 		
-		//this.addKeyListener(new KeyInput(handler));
+		this.addKeyListener(new KeyInput(handler));
 		this.addMouseListener(droneUpgrade);
 
-		
 		new Window(WIDTH,HEIGHT,"Geometry Wars Howest",this);
 		
 		
