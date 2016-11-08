@@ -9,7 +9,7 @@ import be.howest.util.GameLoop;
 
 public class Handler implements GameLoop{
 	
-	public List<GameObject> object = new LinkedList<GameObject>();
+	private List<GameObject> object = new LinkedList<GameObject>();
 
 	public void tick(){
 		for(int i = 0; i < object.size(); i++){
@@ -42,5 +42,9 @@ public class Handler implements GameLoop{
 	public void removeObject(List<GameObject> listOfObjects){
 		this.object.removeAll(listOfObjects);
 		
+	}
+	
+	public List<GameObject> getList(){
+		return object;
 	}
 }
