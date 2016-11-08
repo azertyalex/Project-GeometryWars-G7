@@ -155,6 +155,54 @@ public class Gamepad {
 		return GameUtils.clamp(selectedController.getComponent(Component.Identifier.Axis.Z).getPollData(), -1F, 1F, 0F);
 	}
 	
+	public float getRotationL(){
+		float x = deadZoneX(getX());
+		float y = deadZoneY(getY());
+		
+		return GameUtils.clamp((float)(Math.toDegrees(
+											-Math.atan2(
+													x,
+													y)
+											)
+										+180),
+				0F,360F);
+		
+	}
+	
+	public float getRotationR(){
+		float rx = deadZoneX(getRX());
+		float ry = deadZoneY(getRY());
+		
+		return GameUtils.clamp((float)(Math.toDegrees(
+											-Math.atan2(
+													rx,
+													ry)
+											)
+										+180),
+				0F,360F);
+		
+	}
+	
+	private float deadZoneXValue;
+	private float deadZoneX(float value){
+		if(-0.05F < value && value < 0.05F) return deadZoneXValue;
+		else {
+			deadZoneXValue = value;
+			return value;
+		}
+	}
+	
+	private float deadZoneYValue;
+	private float deadZoneY(float value){
+		if(-0.05F < value && value < 0.05F) return deadZoneYValue;
+		else {
+			deadZoneYValue = value;
+			return value;
+		}
+	}
+	
+	
+	
 	
 	
 	

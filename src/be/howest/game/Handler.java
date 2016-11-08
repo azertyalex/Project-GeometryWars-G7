@@ -43,4 +43,8 @@ public class Handler implements GameLoop{
 		this.object.removeAll(listOfObjects);
 		
 	}
+	
+	public List<GameObject> getList(){
+		return object;
+	}
 }

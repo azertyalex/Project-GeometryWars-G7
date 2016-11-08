@@ -14,6 +14,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 import be.howest.gfx.Window;
+import be.howest.input.KeyInput;
+import be.howest.input.Mouse;
 import be.howest.objects.*;
 import be.howest.util.GameLoop;
 import be.howest.util.GameUtils;
@@ -41,8 +43,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		playerObjects.add(new testObject(200,200,ID.Enemy));
-		//playerObjects.add(new Player(200,200,ID.Player));
+		//playerObjects.add(new Player(200,200,ID.Player2));
+		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
+		
 		
 	}
 	
@@ -52,14 +55,19 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		addAllObjects();
 		
 		
+		
 		handler.addObject(backgroundObjects);
 		handler.addObject(enemyObjects);
 		handler.addObject(playerObjects);
 		handler.addObject(hud);
+		
+		this.addKeyListener(new KeyInput(handler));
+		this.addMouseListener(new Mouse(handler));
 	}
 
 	public synchronized void start(){
 		thread = new Thread(this);
+		
 		thread.start();
 		isRunning = true;
 	}
@@ -106,7 +114,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	@Override
 	public void tick(){
+		
 		handler.tick();
+		
 		
 		
 	}
@@ -132,16 +142,19 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		handler.render(g);
 		
-		g.dispose();
+		//g.dispose();
 		bufferStrategy.show();
 		
 		
 	}
 	
 	public static void main(String args[]){
+		
+		
 		//GameUtils.test();
 		new Game();
 
+		
 		
 	}
 
