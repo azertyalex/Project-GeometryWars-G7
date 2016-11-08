@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
+import be.howest.objects.Lazer;
 import be.howest.util.GameUtils;
 
 public class Mouse extends MouseAdapter{
@@ -21,7 +22,7 @@ public class Mouse extends MouseAdapter{
 			gameObject = handler.getGameObject(ID.Player);
 		}
 		
-		System.out.println(gameObject.getCenterX());
+		
 	}
 
 	public Mouse(Handler handler, GameObject gameObject) {
@@ -31,12 +32,7 @@ public class Mouse extends MouseAdapter{
 
 	@Override
 	public void mouseMoved(MouseEvent e){
-		//System.out.println(e.getX());
 
-
-		
-		
-		System.out.println(gameObject.getCenterX());
 		x = gameObject.getCenterX() - e.getX();
 		y = gameObject.getCenterY() - e.getY();
 		
@@ -53,6 +49,11 @@ public class Mouse extends MouseAdapter{
 	
 	public static float getRotation(){
 		return rotation;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		handler.addObject(new Lazer(10,10,10,50,ID.Enemy,handler,50F));
 	}
 	
 

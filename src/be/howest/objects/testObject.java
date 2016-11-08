@@ -10,7 +10,7 @@ import be.howest.util.GameUtils;
 
 public class testObject extends GameObject{
 	private Gamepad gamepad;
-	private Mouse mouse;
+	//private Mouse mouse;
 	
 	
 	private Graphics2D g2d;
@@ -70,11 +70,11 @@ public class testObject extends GameObject{
 			rotation = Mouse.getRotation();
 		}
 		
-		
+		g2d.finalize();
 		
 		g2d.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
 		g2d.drawImage(GameUtils.loadImage("resources\\player\\player.png"), x, y, objectWidth, objectHeight,null);
-		//g2d.finalize();
+		
 		//g2d.dispose();
 		
 
