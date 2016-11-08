@@ -14,8 +14,8 @@ public abstract class GameObject implements GameLoop{
 	protected int objectHeight;
 	protected int objectWidth;
 	protected int health;
+	protected boolean controller;
 	
-
 
 	public GameObject(int x, int y, ID id){
 		this.x = x;
@@ -23,15 +23,26 @@ public abstract class GameObject implements GameLoop{
 		this.id = id;
 	}
 	
-	public GameObject(int x, int y, ID id, Handler handler){
+	
+	public GameObject(int x, int y,int height, int width, ID id){
 		this(x,y,id);
-		this.handler = handler;
+		this.objectHeight = height;
+		this.objectWidth = width;
+	}
+	
+	public GameObject(int x, int y,int height, int width, ID id,boolean controller){
+		this(x,y,height,width,id);
+		this.controller = controller;
 	}
 	
 	public GameObject(int x, int y,int height, int width, ID id, Handler handler){
-		this(x,y,id,handler);
-		this.objectHeight = height;
-		this.objectWidth = width;
+		this(x,y,height,width,id);
+		this.handler = handler;
+	}
+	
+	public GameObject(int x, int y,int height, int width, ID id, Handler handler, boolean controller){
+		this(x,y,height,width,id,handler);
+		this.controller = controller;
 	}
 	
 	public void setHeight(int height){
@@ -121,6 +132,16 @@ public abstract class GameObject implements GameLoop{
 
 	public void setHealth(int health) {
 		this.health = health;
+	}
+
+
+	public boolean isController() {
+		return controller;
+	}
+
+
+	public void setController(boolean controller) {
+		this.controller = controller;
 	}
 	
 	

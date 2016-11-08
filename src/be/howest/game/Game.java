@@ -43,8 +43,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		playerObjects.add(new testObject(200,200,10,10,ID.Player,handler));
-		//playerObjects.add(new Player(200,200,ID.Player));
+		//playerObjects.add(new Player(200,200,ID.Player2));
+		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
+		
 		
 	}
 	
@@ -141,7 +142,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		handler.render(g);
 		
-		g.dispose();
+		//g.dispose();
 		bufferStrategy.show();
 		
 		
