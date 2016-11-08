@@ -73,6 +73,13 @@ public class testObject extends GameObject{
 			if (tempObject.getId() == ID.Wanderer){
 				if(getBounds().intersects(tempObject.getBounds())){
 					System.out.println("Collision detected");
+					
+				}
+			}
+			if (tempObject.getId() == ID.Grunt){
+				if(getBounds().intersects(tempObject.getBounds())){
+					System.out.println("Collision detected");
+					
 				}
 			}
 		}
