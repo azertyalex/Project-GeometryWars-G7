@@ -8,7 +8,7 @@ import be.howest.input.*;
 import be.howest.util.GameUtils;
 
 public class testObject extends GameObject{
-	//private Gamepad gamePad = new Gamepad();
+	private Gamepad gamePad = new Gamepad();
 	private KeyboardAndMouse test = new KeyboardAndMouse();
 	private Graphics2D g2d;
 	int val = 1;
@@ -29,21 +29,21 @@ public class testObject extends GameObject{
 		x += velX;
 		y += velY;
 		
-		/*gamePad.turnOnController();
+		gamePad.turnOnController();
 		
 		if(gamePad.getDPad() == 0.25) val++;
 		if(gamePad.getDPad() == 0.75) val--;		
 		
 		velX = (int) (gamePad.getX() * val * 1.1);
 		velY = (int) (gamePad.getY() * val * 1.1);
-		*/
+		
 		
 		//Controller
 		//i = GameUtils.clamp((int)(-Math.toDegrees( Math.atan2(gamePad.getRX(),gamePad.getRY()))+180),0,360);
 		
 		test.turnOn();
 		
-		System.out.println(test.getMouseX());
+		//System.out.println(test.getMouseX());
 		
 		i = GameUtils.clamp((int)(-Math.toDegrees( (Math.atan2(test.getMouseX(),test.getMouseY())+180))),0,360);
 		

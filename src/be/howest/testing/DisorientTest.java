@@ -4,29 +4,25 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import be.howest.difficulty.Difficulty;
 import be.howest.game.Game;
 import be.howest.game.ID;
 import be.howest.objects.Player;
-import be.howest.objects.SlowTime;
+import be.howest.objects.Disorient;
 
-public class SlowTimeTest {
+public class DisorientTest {
 
 	@Test
 	public void test() {
 
-		//test difficulty
-		Difficulty difficulty = new Difficulty("Easy", 1, 1, 1, 1, 1);
 		//test Player
 		Player player = new Player(200,200,ID.Player,3);
 		//test PowerUp
-		SlowTime slowtime = new SlowTime("Slow Time",1);
+		Disorient disorient = new Disorient("Disorient",1);
 		//test Game
 		Game game = new Game();
-		
-		slowtime.usePower(player, difficulty);
-		System.out.print(difficulty.getSpeed());
-		
+				
+		disorient.usePower(player);
+		game.run();
 	}
 
 }
