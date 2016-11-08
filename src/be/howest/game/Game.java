@@ -6,12 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import be.howest.gfx.Window;
 import be.howest.input.KeyInput;
@@ -43,7 +39,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		//playerObjects.add(new Player(200,200,ID.Player2));
+		//playerObjects.add(new Player(100,100,ID.Player2));
 		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
 		
 		
@@ -61,8 +57,11 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		handler.addObject(playerObjects);
 		handler.addObject(hud);
 		
+		Mouse mouse = new Mouse(handler,handler.getGameObject(ID.Player2));
+		
 		this.addKeyListener(new KeyInput(handler));
-		this.addMouseListener(new Mouse(handler));
+		this.addMouseListener(mouse);
+		this.addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start(){

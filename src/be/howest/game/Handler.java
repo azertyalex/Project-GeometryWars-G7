@@ -47,4 +47,15 @@ public class Handler implements GameLoop{
 	public List<GameObject> getList(){
 		return object;
 	}
+	
+	public GameObject getGameObject(ID id){
+		for(int i = 0;i<object.size();i++){
+			GameObject tempObject = object.get(i);
+			
+			if(tempObject.getId() == id){
+				return tempObject;
+			}
+		}
+		return null;
+	}
 }

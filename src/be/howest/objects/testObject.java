@@ -10,7 +10,7 @@ import be.howest.util.GameUtils;
 
 public class testObject extends GameObject{
 	private Gamepad gamepad;
-	//private Mouse mouse;
+	private Mouse mouse;
 	
 	
 	private Graphics2D g2d;
@@ -31,6 +31,7 @@ public class testObject extends GameObject{
 	public testObject(int x,int y,int height, int width, ID id, Handler handler,boolean controller){
 		super(x,y,height,width,id,handler,controller);
 		if(controller) gamepad = new Gamepad();
+		
 	}
 
 	@Override
@@ -66,7 +67,7 @@ public class testObject extends GameObject{
 			
 			rotation = gamepad.getRotationR();
 		}else{
-			rotation = 0F;
+			rotation = Mouse.getRotation();
 		}
 		
 		
