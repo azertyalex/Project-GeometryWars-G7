@@ -1,6 +1,8 @@
 package be.howest.objects;
 
 
+import java.awt.Rectangle;
+
 import be.howest.game.ID;
 import be.howest.input.Inputdevice;
 import be.howest.util.GameLoop;
@@ -10,7 +12,7 @@ public abstract class GameObject implements GameLoop{
 	protected ID id;
 	protected int velX, velY;
 	protected Inputdevice input;
-	
+	public abstract Rectangle getBounds();
 	
 	public GameObject(int x, int y, ID id){
 		this.x = x;
@@ -24,6 +26,8 @@ public abstract class GameObject implements GameLoop{
 		this.id = id;
 		this.input = input;
 	}
+	
+	
 	
 	
 	public void setX(int x){
@@ -65,6 +69,7 @@ public abstract class GameObject implements GameLoop{
 	public int getVelY(){
 		return velY;
 	}
+
 	
 	
 }

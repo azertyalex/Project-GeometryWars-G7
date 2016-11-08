@@ -1,8 +1,11 @@
 package be.howest.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
+import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.input.*;
 import be.howest.util.GameUtils;
@@ -17,9 +20,15 @@ public class testObject extends GameObject{
 	private int objectHeight = 90;
 	private int objectWidth = 90;
 	
+	Handler handler;
 	
-	public testObject(int x,int y, ID id){
+	public testObject(int x,int y, ID id, Handler handler){
 		super(x,y,id);
+		this.handler = handler;
+	}
+	
+	public Rectangle getBounds(){
+		return new Rectangle(x,y,objectWidth, objectHeight);
 	}
 
 	@Override
@@ -48,13 +57,21 @@ public class testObject extends GameObject{
 		i = GameUtils.clamp((int)(-Math.toDegrees( (Math.atan2(test.getMouseX(),test.getMouseY())+180))),0,360);
 		
 		
+		Collision();
 		
 		
-		
-		
-		
-		
-		
+	}
+	
+	private void Collision(){
+		for(int i=0; i<handler.object.size();i++){
+			GameObject tempObject = handler.object.get(i);
+			
+			if (tempObject.getId() == ID.Wanderer){
+				if(getBounds().intersects(tempObject.getBounds())){
+					System.out.println("Collision detected");
+				}
+			}
+		}
 	}
 
 	@Override
@@ -64,8 +81,10 @@ public class testObject extends GameObject{
 		g2d.rotate(Math.toRadians(i),x+ objectWidth / 2, y+ objectHeight / 2);
 		g2d.drawImage(GameUtils.loadImage("resources\\player\\player.png"), x, y, objectWidth, objectHeight,null);
 		
+		Color c = new Color(1f,0f,0f,0f);
 		
-		
+		g2d.setColor(c);
+		g2d.draw(getBounds());
 		
 		
 		

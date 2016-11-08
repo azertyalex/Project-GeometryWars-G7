@@ -22,7 +22,7 @@ import be.howest.util.GameUtils;
 public class Game extends Canvas implements Runnable, GameLoop{
 
 	private static final long serialVersionUID = -7744672260366215689L;
-	public static final int WIDTH = 720, HEIGHT = WIDTH / 12 *9;
+	public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 *9;
 	
 	public int frames = 0;
 	
@@ -41,9 +41,10 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	private void addAllObjects(){
-		playerObjects.add(new testObject(200,200,ID.Enemy));
+		playerObjects.add(new testObject(200,200,ID.Player,handler));
 		//playerObjects.add(new Player(200,200,ID.Player));
-		
+		enemyObjects.add(new Dart(50, 50, ID.Dart));
+		enemyObjects.add(new Wanderer(256,152,ID.Wanderer));
 	}
 	
 	public Game(){
@@ -75,7 +76,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 
 
 
-	@Override
+	
 	public void run() {
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
@@ -104,14 +105,14 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	}
 	
 	
-	@Override
+	
 	public void tick(){
 		handler.tick();
 		
 		
 	}
 	
-	@Override
+
 	public void render(Graphics g){
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
 		if(bufferStrategy == null){
