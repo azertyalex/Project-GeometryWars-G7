@@ -5,5 +5,8 @@ public enum ID {
 	Player2(),
 	Enemy(),
 	Dart(),
-	Wanderer();
+	Wanderer(),
+	Grunt(),
+	Drone();
+	
 }
