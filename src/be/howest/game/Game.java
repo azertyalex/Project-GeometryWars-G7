@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import be.howest.gfx.Hud;
 import be.howest.gfx.Window;
 import be.howest.input.KeyInput;
 import be.howest.input.Mouse;
@@ -35,6 +36,8 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	private Handler handler = new Handler();
 	
+	private Hud HUD;
+	
 	private List<GameObject> backgroundObjects = new ArrayList<>();
 	private List<GameObject> enemyObjects = new ArrayList<>();
 	private List<GameObject> playerObjects = new ArrayList<>();
@@ -46,7 +49,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		//playerObjects.add(new Player(200,200,ID.Player));
 		
 		enemyObjects.add(new Wanderer(256,152,ID.Wanderer));
-		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
+		playerObjects.add(new testObject(540,380,10,10,ID.Player2,handler,false,3));
 		enemyObjects.add(new Dart(0, 0,50,50, ID.Dart, handler));
 		enemyObjects.add(new Grunt(25,42,50,50,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(562,85,50,50,ID.Grunt,handler));
@@ -60,6 +63,8 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	public Game(){
 		new Window(WIDTH,HEIGHT,"Geometry Wars Howest",this);
+		HUD = new Hud();
+		
 		
 		addAllObjects();
 		
@@ -126,7 +131,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		handler.tick();
 		
-		
+		HUD.tick();
+		//TODO moet nog veranderd worden
+		HUD.setHudHealth(playerObjects.get(0).getHealth());
 		
 	}
 	
@@ -147,6 +154,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		
 		handler.render(g);
+		HUD.render(g);
 		
 		//g.dispose();
 		bufferStrategy.show();

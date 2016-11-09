@@ -49,20 +49,20 @@ public class Dart extends GameObject{
 		int moveToX = player.getCenterX();
 		int moveToY = player.getCenterY();
 		
-		float diffX =moveToX - x;
-		float diffY =moveToY - y;
+		float diffX =moveToX- x;
+		float diffY =moveToY- y;
 		
 		
 		
 		double angle = Math.atan2(diffY,diffX);  
-		if (y<=0||y>=Game.HEIGHT){
+		if (y<=0||y>=Game.HEIGHT-64){
 		
 			velY = (int) (5 * Math.sin( angle ));
 			velX = (int) (5 * Math.cos( angle ));
 			
 			
 		}
-		if (x<=0||x>=Game.WIDTH){
+		if (x<=0||x>=Game.WIDTH-32){
 			velX = (int) (5 * Math.cos( angle ));
 			velY = (int) (5 * Math.sin( angle ));
 			

@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.gfx.Hud;
 import be.howest.input.*;
 import be.howest.util.GameUtils;
 
@@ -16,7 +17,6 @@ public class testObject extends GameObject{
 	
 	
 	private Graphics2D g2d;
-	
 	
 	
 	public testObject(int x,int y, ID id){
@@ -30,14 +30,17 @@ public class testObject extends GameObject{
 	
 	public testObject(int x,int y,int height, int width, ID id){
 		super(x,y,height,width,id,null);
+		
 	}
 	
-	public testObject(int x,int y,int height, int width, ID id, Handler handler){
+	public testObject(int x,int y,int height, int width, ID id, Handler handler, int health){
 		super(x,y,height,width,id,handler);
+		setHealth(health);
 	}
 	
-	public testObject(int x,int y,int height, int width, ID id, Handler handler,boolean controller){
+	public testObject(int x,int y,int height, int width, ID id, Handler handler,boolean controller, int health){
 		super(x,y,height,width,id,handler,controller);
+		setHealth(health);
 		if(controller) gamepad = new Gamepad();
 	}
 
@@ -74,33 +77,63 @@ public class testObject extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
+					if(this.health>0){
+						this.setHealth(health-1);
+					}
+					else{
+						System.out.println("Game Over");
+					}
 				}
 			}
 			if (tempObject.getId() == ID.Grunt){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
-					
+					if(this.health>0){
+						this.setHealth(health-1);
+					}
+					else{
+						System.out.println("Game Over");
+					}
 				}
 			}
 			if(tempObject.getId() == id.Mine){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
+					if(this.health>0){
+						this.setHealth(health-1);
+					}
+					else{
+						System.out.println("Game Over");
+					}
 				}
 			}
 			if(tempObject.getId()==id.Dart){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
+					if(this.health>0){
+						this.setHealth(health-1);
+					}
+					else{
+						System.out.println("Game Over");
+					}
 				}
 			}
 			if(tempObject.getId()==id.MineLayer){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
+					if(this.health>0){
+						this.setHealth(health-1);
+					}
+					else{
+						System.out.println("Game Over");
+					}
 				}
 			}
+			
 		}
 	}
 
@@ -131,5 +164,7 @@ public class testObject extends GameObject{
 
 		
 	}
+
+	
 
 }
