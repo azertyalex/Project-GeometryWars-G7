@@ -7,8 +7,8 @@ public class Disorient extends Powers{
 	}
 	
 	public void usePower(Player target){
-		float normalSpeed = target.getSpeed();
-		float reversedSpeed = -1;
+		int normalSpeed = target.getSpeed();
+		int reversedSpeed = -1;
 		if(target.checkIfAlive()){
 			target.setSpeed(reversedSpeed);
 			System.out.println(target.getSpeed());

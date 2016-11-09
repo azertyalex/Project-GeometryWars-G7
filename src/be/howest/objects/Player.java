@@ -10,7 +10,7 @@ import be.howest.util.GameUtils;
 import net.java.games.input.Rumbler;
 
 public class Player extends GameObject{
-	private float speed = 1;
+
 	//private Gamepad gamePad =  new Gamepad();
 	private boolean barrier = false;
 	private boolean usePower = false;
@@ -20,6 +20,7 @@ public class Player extends GameObject{
 	
 	private int objectHeight = 90;
 	private int objectWidth = 90;
+
 	
 	public Player(int x, int y, ID id){
 		super(x,y,id);
@@ -28,23 +29,14 @@ public class Player extends GameObject{
 	}
 	
 	public Player(int x, int y, ID id, int health){
-		super(x,y,id,health);
+		super(x,y,id);
+		setHealth(health);
 	}
 
 	@Override
 	public void tick() {
 		x += velX;
 		y += velY;
-	
-	
-		/* gamePad.turnOnController();
-		
-		if(gamePad.getDPad() == 0.25) speed++;
-		if(gamePad.getDPad() == 0.75) speed--;		
-		
-		velX = (int) (gamePad.getX() * speed * 1.1);
-		velY = (int) (gamePad.getY() * speed * 1.1);
-		*/
 
 	}
 
@@ -94,11 +86,11 @@ public class Player extends GameObject{
 		this.cannonAmount = cannonAmount;
 	}
 
-	public float getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(float speed) {
+	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
 	

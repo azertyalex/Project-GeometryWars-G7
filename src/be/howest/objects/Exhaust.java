@@ -7,10 +7,10 @@ public class Exhaust extends Powers{
 		
 	}
 	
-	public void usePower(Player target){
+	public void usePower(GameObject target){
 		if(target.checkIfAlive()){
-			float normalPlayerSpeed = target.getSpeed();
-			float newPlayerSpeed = normalPlayerSpeed - 0.25F;
+			int normalPlayerSpeed = target.getSpeed();
+			int newPlayerSpeed = normalPlayerSpeed + 1; //nog veranderen
 			target.setSpeed(newPlayerSpeed);
 			
 			
