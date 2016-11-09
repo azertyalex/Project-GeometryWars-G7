@@ -22,7 +22,7 @@ import be.howest.util.GameUtils;
 public class Game extends Canvas implements Runnable, GameLoop{
 
 	private static final long serialVersionUID = -7744672260366215689L;
-	public static final int WIDTH = 720, HEIGHT = WIDTH / 12 *9;
+	public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 *9;
 	
 	public int frames = 0;
 	
@@ -40,7 +40,7 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	
 	
-	private void addAllObjects(){
+	public void addAllObjects(){
 		playerObjects.add(new testObject(200,200,ID.Enemy));
 		//playerObjects.add(new Player(200,200,ID.Player));
 		

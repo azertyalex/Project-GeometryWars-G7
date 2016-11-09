@@ -21,8 +21,7 @@ public class SlowTimeTest {
 		Player player = new Player(200,200,ID.Player,3);
 		//test PowerUp
 		SlowTime slowtime = new SlowTime("Slow Time",1);
-		//test Game
-		Game game = new Game();
+
 		
 		slowtime.usePower(player, difficulty);
 		System.out.print(difficulty.getSpeed());
