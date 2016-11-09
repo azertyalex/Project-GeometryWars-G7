@@ -72,14 +72,33 @@ public class testObject extends GameObject{
 			
 			if (tempObject.getId() == ID.Wanderer){
 				if(getBounds().intersects(tempObject.getBounds())){
-					System.out.println("Collision detected");
-					
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
 				}
 			}
 			if (tempObject.getId() == ID.Grunt){
 				if(getBounds().intersects(tempObject.getBounds())){
-					System.out.println("Collision detected");
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
 					
+				}
+			}
+			if(tempObject.getId() == id.Mine){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
+				}
+			}
+			if(tempObject.getId()==id.Dart){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
+				}
+			}
+			if(tempObject.getId()==id.MineLayer){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
 				}
 			}
 		}

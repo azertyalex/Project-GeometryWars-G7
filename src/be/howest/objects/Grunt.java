@@ -61,7 +61,7 @@ public class Grunt extends GameObject{
 		
 		
 		
-		System.out.println(velX + " , " + velY);
+		//System.out.println(velX + " , " + velY);
 			
 		
 		if(y<=0||y>=Game.HEIGHT -32){

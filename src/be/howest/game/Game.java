@@ -47,14 +47,15 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		enemyObjects.add(new Wanderer(256,152,ID.Wanderer));
 		playerObjects.add(new testObject(200,200,10,10,ID.Player2,handler,false));
-		//enemyObjects.add(new Dart(0, 0,50,50, ID.Dart, handler));
+		enemyObjects.add(new Dart(0, 0,50,50, ID.Dart, handler));
 		enemyObjects.add(new Grunt(25,42,50,50,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(562,85,50,50,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(785,185,50,50,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(125,485,50,50,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(365,253,50,50,ID.Grunt,handler));
 		handler.addObject(new Drone(0,0,50,50,ID.Drone,handler));
-
+		enemyObjects.add(new MineLayer(20,30,50,50,ID.MineLayer,handler));
+		//handler.addObject(new Mine(20,20,ID.Mine,handler));
 	}
 	
 	public Game(){

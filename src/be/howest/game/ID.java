@@ -7,6 +7,8 @@ public enum ID {
 	Dart(),
 	Wanderer(),
 	Grunt(),
+	MineLayer(),
+	Mine(),
 	Drone();
 	
 }
