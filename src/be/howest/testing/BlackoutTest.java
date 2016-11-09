@@ -9,12 +9,28 @@ import be.howest.game.ID;
 import be.howest.objects.Player;
 import be.howest.objects.testObject;
 import be.howest.objects.Blackout;
+import be.howest.objects.GameObject;
 
-public class BlackoutTest {
+public class BlackoutTest  {
 
 	@Test
 	public void test() {
-//todo
+
+		//test handler
+		//test Player
+
+		//test PowerUp
+		Blackout bo = new Blackout("Blackout",1);
+		//test game
+		Game game = new Game();
+		GameObject player =  game.handler.getGameObject(ID.Player2);
+		player.setHealth(3);
+		
+
+		
+		bo.usePower(player);
+		game.run();
+		
 	}
 
 }

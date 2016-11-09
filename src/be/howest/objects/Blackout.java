@@ -13,11 +13,24 @@ public class Blackout extends Powers{
 		super(name, spawnrate);
 	}
 	
-	public void usePower(testObject target){
+	public void usePower(GameObject target){
 		if(target.checkIfAlive()){
 			target.setUsePower(true);
 		} else {
 			target.setUsePower(false);
+		}
+		
+		boolean loop = true;
+		long startTime = System.nanoTime();
+	
+		while(loop){
+			long now = System.nanoTime();
+			long decreasedTime = now - startTime;
+			if(decreasedTime >= 10000000000L){
+				target.setUsePower(false);
+				loop = false;
+			}
+		
 		}
 	}
 

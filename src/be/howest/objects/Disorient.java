@@ -6,8 +6,8 @@ public class Disorient extends Powers{
 		super(name, spawnrate);
 	}
 	
-	public void usePower(Player target){
-		int normalSpeed = target.getSpeed();
+	public void usePower(GameObject target){
+		int normalSpeed = 1;
 		int reversedSpeed = -1;
 		if(target.checkIfAlive()){
 			target.setSpeed(reversedSpeed);
