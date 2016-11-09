@@ -50,7 +50,7 @@ public class GameUtils {
 		return image;
 	}
 
-	public static void test(){
+	public static void zipTest(){
 		ZipFile zipFile = null;
 		try {
 			zipFile = new ZipFile("resources\\resourcepack.zip");
