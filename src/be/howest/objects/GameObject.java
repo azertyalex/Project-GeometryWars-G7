@@ -8,7 +8,7 @@ import be.howest.util.GameLoop;
 public abstract class GameObject implements GameLoop{
 	protected ID id;
 	protected int x, y;
-	protected int velX, velY;
+	protected float velX, velY;
 	protected Handler handler;
 	protected int speed;
 	protected int objectHeight;
@@ -86,19 +86,19 @@ public abstract class GameObject implements GameLoop{
 		return id;
 	}
 	
-	public void setVelX(int velX){
+	public void setVelX(float velX){
 		this.velX = velX;
 	}
 	
-	public void setVelY(int velY){
+	public void setVelY(float velY){
 		this.velY = velY;
 	}
 	
-	public int getVelX(){
+	public float getVelX(){
 		return velX;
 	}
 	
-	public int getVelY(){
+	public float getVelY(){
 		return velY;
 	}
 

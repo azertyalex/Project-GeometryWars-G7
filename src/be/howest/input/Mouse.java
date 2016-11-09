@@ -11,6 +11,8 @@ import be.howest.util.GameUtils;
 
 public class Mouse extends MouseAdapter{
 	private int x,y;
+	public int mouseX;
+	public int mouseY;
 	private Handler handler;
 	private GameObject gameObject;
 	private static float rotation;
@@ -32,28 +34,58 @@ public class Mouse extends MouseAdapter{
 
 	@Override
 	public void mouseMoved(MouseEvent e){
+		rotation = getRotation(e);
+		
+	}
+	private float getRotation(MouseEvent e){
+		mouseX = e.getX();
+		mouseY = e.getY();
 
 		x = gameObject.getCenterX() - e.getX();
 		y = gameObject.getCenterY() - e.getY();
 		
 		
 		
-		rotation =  (float)(-Math.toDegrees(
+		return  (float)(-Math.toDegrees(
 											Math.atan2(
 													x,
 													y)
 											)
 										+0);
-		
 	}
 	
 	public static float getRotation(){
+		
 		return rotation;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		handler.addObject(new Lazer(10,10,10,50,ID.Enemy,handler,50F));
+		handler.addObject(new Lazer(gameObject.getCenterX(),gameObject.getY() + gameObject.getObjectHeight()/2,10,10,ID.Enemy,gameObject,handler,rotation,this));
+		System.out.println(rotation);
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		rotation = getRotation(e);
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		rotation = getRotation(e);
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		rotation = getRotation(e);
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		rotation = getRotation(e);
 	}
 	
 

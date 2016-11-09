@@ -3,7 +3,6 @@ package be.howest.game;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -124,33 +123,25 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	public void render(Graphics g){
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
 		if(bufferStrategy == null){
-			this.createBufferStrategy(3);
+			this.createBufferStrategy(5);
 			return;
 		}
 		g = bufferStrategy.getDrawGraphics();
 		
-		
+
 		//g.setColor(Color.black);
 		//g.fillRect(0, 0, WIDTH, HEIGHT);
 		
 		g.drawImage(GameUtils.loadImage("resources\\background\\background.jpg"), 0,0, WIDTH, HEIGHT, null);
-		
-		
-		
-		
-		
+
 		handler.render(g);
-		
-		//g.dispose();
+
 		bufferStrategy.show();
 		
 		
 	}
 	
 	public static void main(String args[]){
-		
-		
-		//GameUtils.test();
 		new Game();
 
 		
