@@ -2,12 +2,20 @@ package be.howest.input;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
 import be.howest.objects.Lazer;
 import be.howest.util.GameUtils;
+import be.howest.util.MyException;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
 
 public class Mouse extends MouseAdapter{
 	private int x,y;
@@ -62,6 +70,16 @@ public class Mouse extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		handler.addObject(new Lazer(gameObject.getCenterX(),gameObject.getY() + gameObject.getObjectHeight()/2,10,10,ID.Enemy,gameObject,handler,rotation,this));
+		
+		
+		try {
+			InputStream test = new FileInputStream("resources\\sound\\laser.wav");
+			//AudioPlayer.player.start(test);
+			
+		} catch (FileNotFoundException ex) {
+			throw new MyException("Failed to load sound",ex);
+		}   
+		
 		System.out.println(rotation);
 	}
 
