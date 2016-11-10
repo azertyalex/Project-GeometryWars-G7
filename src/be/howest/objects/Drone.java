@@ -22,11 +22,12 @@ public class Drone extends GameObject{
 		
 	}
 	
-
+	@Override
 	public Rectangle getBounds(){
 		return new Rectangle(x,y,objectWidth,objectHeight);
 	}
 	
+	@Override
 	public void tick() {
 		x+= velX;
 		y+= velY;
@@ -56,7 +57,7 @@ public class Drone extends GameObject{
 		
 	}
 
-	
+	@Override
 	public void render(Graphics g) {
 		g.drawImage(GameUtils.loadImage("resources\\Drone\\SentryDroneWithTurret.png"), x, y, objectWidth, objectHeight,null);
 

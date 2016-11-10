@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class DataConnection {
     private static DataConnection instance;
-    private static final String USER = "geometrywars";
-    private static final String PASS = "";
-    private static final String URL = "jdbc:mysql://localhost:3306/geomentrywars";
+    private static final String USER = "geometry";
+    private static final String PASS = "warsG7";
+    private static final String URL = "jdbc:mysql://178.117.108.9:3306/geometry";
     
     private static final String DRIVER = "com.mysql.jdbc.Driver";
     

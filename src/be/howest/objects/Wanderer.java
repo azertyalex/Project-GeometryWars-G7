@@ -2,6 +2,7 @@ package be.howest.objects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import be.howest.game.Game;
@@ -10,6 +11,7 @@ import be.howest.game.ID;
 import be.howest.util.GameUtils;
 
 public class Wanderer extends GameObject{
+	private int spinner;
 	
 	public Wanderer(int x, int y, ID id) {
 		super(x, y, id);
@@ -39,11 +41,19 @@ public class Wanderer extends GameObject{
 		if(x<=0||x>=Game.WIDTH - objectWidth){
 			velX *= -1;
 		}
+		
+		spinner++;
+		
+		if(spinner == 360){
+			spinner = 0;
+		}
 	}
 
 	
 	public void render(Graphics g) {
-		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Wanderer4.png"), x, y, objectWidth, objectHeight,null);
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.rotate(spinner,getCenterX(),getCenterY());
+		g2d.drawImage(GameUtils.loadImage("resources\\Enemy\\Wanderer4.png"), x, y, objectWidth, objectHeight,null);
 	}
 
 }

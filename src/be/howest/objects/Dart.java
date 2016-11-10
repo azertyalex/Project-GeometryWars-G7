@@ -16,6 +16,7 @@ public class Dart extends GameObject{
 
 	public Dart(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
+		setSpeed(10);
 		
 
 	}
@@ -29,14 +30,15 @@ public class Dart extends GameObject{
 		//velY = 5;
 	}
 	
-
+	@Override
 	public Rectangle getBounds(){
 		return new Rectangle(x,y,objectWidth-4,objectHeight-4);
 	}
 	
+	@Override
 	public void tick() {
-		y=y+velY;
-		x=x+velX;
+		y += velY;
+		x += velX;
 		
 		
 		for(int i=0; i<handler.getList().size();i++){
@@ -47,6 +49,7 @@ public class Dart extends GameObject{
 			}
 		}
         
+		
 		
 		int moveToX = player.getCenterX();
 		int moveToY = player.getCenterY();
@@ -59,14 +62,14 @@ public class Dart extends GameObject{
 		double angle = Math.atan2(diffY,diffX);  
 		if (y<=0||y>=Game.HEIGHT-(objectHeight+32)){
 		
-			velY = (int) (5 * Math.sin( angle ));
-			velX = (int) (5 * Math.cos( angle ));
+			velY = (int) (speed * Math.sin( angle ));
+			velX = (int) (speed * Math.cos( angle ));
 			
 			
 		}
 		if (x<=0||x>=Game.WIDTH-objectWidth){
-			velX = (int) (5 * Math.cos( angle ));
-			velY = (int) (5 * Math.sin( angle ));
+			velX = (int) (speed * Math.cos( angle ));
+			velY = (int) (speed * Math.sin( angle ));
 			
 		}
 		//System.out.println(norm);
@@ -87,7 +90,7 @@ public class Dart extends GameObject{
 		
 	}
 
-	
+	@Override
 	public void render(Graphics g) {
 				//g.setColor(Color.RED);
 				//g.fillRect(x, y, 32, 32);
