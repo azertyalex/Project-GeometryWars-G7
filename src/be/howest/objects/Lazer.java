@@ -81,6 +81,17 @@ public class Lazer extends GameObject{
 		}
 		timer--;
 		
+		for(int i=0; i < handler.getList().size();i++){
+			GameObject tempObject = handler.getList().get(i);
+			if (tempObject.getId() == ID.Wanderer){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
+					handler.removeObject(this);
+				}
+			}
+		}
+		
 
 
 		
@@ -104,9 +115,8 @@ public class Lazer extends GameObject{
 	}
 
 	@Override
-	public Rectangle getBounds() {
-		// TODO Auto-generated method stub
-		return null;
+	public Rectangle getBounds(){
+		return new Rectangle(x,y,objectWidth,objectHeight);
 	}
 
 }

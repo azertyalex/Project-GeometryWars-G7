@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.util.Random;
 
 import be.howest.game.Game;
 import be.howest.game.Handler;
@@ -16,6 +17,7 @@ public class testObject extends GameObject{
 	private Gamepad gamepad;
 	//private Mouse mouse;
 	private int timer = 20;
+	private Random random = new Random();
 	
 	private int score;
 	private Graphics2D g2d;
@@ -66,6 +68,12 @@ public class testObject extends GameObject{
 			gamepad.turnOnController();
 			if(gamepad.getDPad() == 0.25) speed++;
 			if(gamepad.getDPad() == 0.75) speed--;	
+			if(gamepad.getButton(0)){
+				int w = random.nextInt(Game.WIDTH - 50);
+				int h = random.nextInt(Game.HEIGHT - 50);
+				
+				handler.addObject(new Wanderer(w,h,50,50,ID.Wanderer));
+			}
 			if( timer == 0){
 				if(gamepad.getButton(5)){
 					handler.addObject(new Lazer(50,10,ID.Enemy,(GameObject) this,handler,gamepad.getRotationR()));

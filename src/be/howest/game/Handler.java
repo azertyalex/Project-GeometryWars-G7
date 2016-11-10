@@ -30,7 +30,7 @@ public class Handler implements GameLoop{
 			((Graphics2D) g).setTransform(tempGraph);;
 			
 			
-			//tempG.dispose();
+			g.finalize();
 			
 			
 		}
