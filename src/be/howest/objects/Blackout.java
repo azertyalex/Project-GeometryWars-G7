@@ -14,7 +14,7 @@ public class Blackout extends Powers{
 	}
 	
 	public void usePower(GameObject target){
-		if(target.checkIfAlive()){
+		/*if(target.checkIfAlive()){
 			target.setUsePower(true);
 		} else {
 			target.setUsePower(false);
@@ -32,6 +32,7 @@ public class Blackout extends Powers{
 			}
 		
 		}
+		*/
 	}
 
 }

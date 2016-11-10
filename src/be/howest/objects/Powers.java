@@ -42,5 +42,9 @@ public abstract class Powers {
 	}
 	
 	
+    public String toString(){
+        return String.format("Name: %s, Spawn Rate: %d ", getName(), getSpawnrate());
+    }
+	
 	
 }

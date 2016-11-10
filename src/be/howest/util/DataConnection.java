@@ -1,6 +1,8 @@
 package be.howest.util;
 
 import be.howest.difficulty.Difficulty;
+import be.howest.objects.*;
+import be.howest.objects.Powers;
 import be.howest.util.MyException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -83,6 +85,71 @@ public class DataConnection {
                Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
            }
 		return null;
+    }
+    
+    public void getPowers()
+    {
+    	List<Powers> powerList = new ArrayList<>();
+         try {
+            
+            String sql = "select name, spawnRate from Power";
+               
+            Statement stmt = connection.createStatement();
+               
+            ResultSet rs = stmt.executeQuery(sql);
+               
+            while (rs.next())
+            {
+             String name = rs.getString("name");
+             int spawnRate = rs.getInt("spawnRate");
+             
+             if(name.equals("Barrier")){
+            	 Powers power = new Barrier(name, spawnRate);
+            	 powerList.add(power);
+             } else if(name.equals("Blackout")) {
+            	 Powers power = new Blackout(name, spawnRate);
+            	 powerList.add(power);
+             } else if(name.equals("Disorient")) {
+            	 Powers power = new Disorient(name, spawnRate);
+            	 powerList.add(power);
+             } else if(name.equals("Exhaust")) {
+            	 Powers power = new Exhaust(name, spawnRate);
+            	 powerList.add(power);
+             } else if(name.equals("Heal")) {
+            	 Powers power = new Heal(name, spawnRate);
+            	 powerList.add(power);
+             } else if(name.equals("MultipleCannons")) {
+            	 Powers power = new MultipleCannons(name, spawnRate);
+            	 powerList.add(power);
+             } else if (name.equals("Revive")) {
+            	 Powers power = new Revive(name, spawnRate);
+            	 powerList.add(power);
+             } else if (name.equals("SlowTime")) {
+            	 Powers power = new SlowTime(name, spawnRate);
+            	 powerList.add(power);
+             } else if (name.equals("Clone")) {
+            	 Powers power = new Clone(name, spawnRate);
+            	 powerList.add(power);
+             } else if (name.equals("EMP")) {
+            	 Powers power = new EMP(name, spawnRate);
+            	 powerList.add(power);
+             }
+             
+             
+             
+            }
+               
+               rs.close();
+               stmt.close();
+               
+               for(Powers p : powerList){
+               	System.out.println(p);
+               }
+               
+           } catch (SQLException ex) {
+               Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
+           }
+		
     }
     
 }

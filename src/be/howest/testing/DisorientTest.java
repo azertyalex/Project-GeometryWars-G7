@@ -14,7 +14,7 @@ public class DisorientTest {
 
 	@Test
 	public void test() {
-
+/*
 		//test Player
 		//Player player = new Player(200,200,ID.Player,3);
 		//test PowerUp
@@ -26,6 +26,8 @@ public class DisorientTest {
 				
 		disorient.usePower(player);
 		game.run();
+		*/
 	}
-
+	
+		
 }
