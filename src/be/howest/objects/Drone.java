@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.util.GameUtils;
 
 public class Drone extends GameObject{
 
@@ -19,17 +20,11 @@ public class Drone extends GameObject{
 	public Drone(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		
-
-		
-		
-		
-		//velX = 5;
-		//velY = 5;
 	}
 	
 
 	public Rectangle getBounds(){
-		return new Rectangle(x,y,16,16);
+		return new Rectangle(x,y,objectWidth,objectHeight);
 	}
 	
 	public void tick() {
@@ -63,8 +58,8 @@ public class Drone extends GameObject{
 
 	
 	public void render(Graphics g) {
-				g.setColor(Color.GREEN);
-				g.fillOval(x, y, 16, 16);
+		g.drawImage(GameUtils.loadImage("resources\\Drone\\SentryDroneWithTurret.png"), x, y, objectWidth, objectHeight,null);
+
 	}
 
 

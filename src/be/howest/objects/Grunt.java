@@ -8,6 +8,7 @@ import java.util.Random;
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.util.GameUtils;
 
 public class Grunt extends GameObject{
 
@@ -28,7 +29,7 @@ public class Grunt extends GameObject{
 	
 
 	public Rectangle getBounds(){
-		return new Rectangle(x,y,16,16);
+		return new Rectangle(x,y,objectWidth-4,objectHeight-4);
 	}
 	
 	public void tick() {
@@ -64,10 +65,10 @@ public class Grunt extends GameObject{
 		//System.out.println(velX + " , " + velY);
 			
 		
-		if(y<=0||y>=Game.HEIGHT -32){
+		if(y<=0||y>=Game.HEIGHT -objectHeight){
 			velY *= (int) (5 * Math.cos( angle ));
 		}
-		if(x<=0||x>=Game.WIDTH - 32){
+		if(x<=0||x>=Game.WIDTH - objectWidth){
 			velX *= (int) (5 * Math.sin( angle ));
 		}
 		
@@ -78,8 +79,7 @@ public class Grunt extends GameObject{
 
 	
 	public void render(Graphics g) {
-				g.setColor(Color.cyan);
-				g.fillRect(x, y, 16, 16);
+		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Grunt.png"), x, y, objectWidth, objectHeight,null);
 	}
 
 	

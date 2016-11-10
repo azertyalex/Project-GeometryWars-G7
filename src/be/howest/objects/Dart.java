@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.util.GameUtils;
 
 public class Dart extends GameObject{
 	
@@ -30,12 +31,13 @@ public class Dart extends GameObject{
 	
 
 	public Rectangle getBounds(){
-		return new Rectangle(x,y,32,32);
+		return new Rectangle(x,y,objectWidth-4,objectHeight-4);
 	}
 	
 	public void tick() {
 		y=y+velY;
 		x=x+velX;
+		
 		
 		for(int i=0; i<handler.getList().size();i++){
 			
@@ -55,14 +57,14 @@ public class Dart extends GameObject{
 		
 		
 		double angle = Math.atan2(diffY,diffX);  
-		if (y<=0||y>=Game.HEIGHT-64){
+		if (y<=0||y>=Game.HEIGHT-(objectHeight+32)){
 		
 			velY = (int) (5 * Math.sin( angle ));
 			velX = (int) (5 * Math.cos( angle ));
 			
 			
 		}
-		if (x<=0||x>=Game.WIDTH-32){
+		if (x<=0||x>=Game.WIDTH-objectWidth){
 			velX = (int) (5 * Math.cos( angle ));
 			velY = (int) (5 * Math.sin( angle ));
 			
@@ -87,8 +89,12 @@ public class Dart extends GameObject{
 
 	
 	public void render(Graphics g) {
-				g.setColor(Color.RED);
-				g.fillRect(x, y, 32, 32);
+				//g.setColor(Color.RED);
+				//g.fillRect(x, y, 32, 32);
+		//g.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
+		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Spinner.png"), x, y, objectWidth, objectHeight,null);
+		
+		
 	}
 
 }

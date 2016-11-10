@@ -152,7 +152,7 @@ public class testObject extends GameObject{
 
 		
 		g2d.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
-		g2d.drawImage(GameUtils.loadImage("resources\\player\\player.png"), x, y, objectWidth, objectHeight,null);
+		g2d.drawImage(GameUtils.loadImage("resources\\Players\\Player.png"), x, y, objectWidth, objectHeight,null);
 		//g2d.finalize();
 		//g2d.dispose();
 		

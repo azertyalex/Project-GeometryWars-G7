@@ -8,6 +8,7 @@ import java.util.List;
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.util.GameUtils;
 
 public class MineLayer extends GameObject{
 	
@@ -23,7 +24,7 @@ public class MineLayer extends GameObject{
 	}
 
 	public Rectangle getBounds(){
-		return new Rectangle(x,y,32,32);
+		return new Rectangle(x,y,objectWidth-4,objectHeight-4);
 	}
 	
 	public void tick() {
@@ -34,10 +35,10 @@ public class MineLayer extends GameObject{
 		
 		
 		
-		if(y<=0||y>=Game.HEIGHT -64){
+		if(y<=0||y>=Game.HEIGHT -objectHeight-32){
 			velY *= -1;
 		}
-		if(x<=0||x>=Game.WIDTH - 32){
+		if(x<=0||x>=Game.WIDTH - objectWidth){
 			velX *= -1;
 		}
 		
@@ -54,8 +55,7 @@ public class MineLayer extends GameObject{
 
 	
 	public void render(Graphics g) {
-				g.setColor(Color.ORANGE);
-				g.fillRect(x, y, 32, 32);
+		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Weaver.png"), x, y, objectWidth, objectHeight,null);
 	}
 	
 }
