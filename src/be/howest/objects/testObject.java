@@ -15,7 +15,7 @@ public class testObject extends GameObject{
 	private Gamepad gamepad;
 	//private Mouse mouse;
 	
-	
+	private int score;
 	private Graphics2D g2d;
 	
 	
@@ -79,6 +79,7 @@ public class testObject extends GameObject{
 					handler.removeObject(tempObject);
 					if(this.health>0){
 						this.setHealth(health-1);
+						this.setScore(score + 10);
 					}
 					else{
 						System.out.println("Game Over");
@@ -163,6 +164,14 @@ public class testObject extends GameObject{
 		
 
 		
+	}
+
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 	

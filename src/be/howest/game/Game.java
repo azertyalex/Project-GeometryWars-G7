@@ -7,7 +7,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,8 @@ import be.howest.input.Mouse;
 import be.howest.objects.*;
 import be.howest.util.GameLoop;
 import be.howest.util.GameUtils;
+import be.howest.util.MyException;
+import sun.audio.AudioPlayer;
 
 
 public class Game extends Canvas implements Runnable, GameLoop{
@@ -48,8 +53,9 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	private void addAllObjects(){
 		//playerObjects.add(new Player(200,200,ID.Player));
 		
-		enemyObjects.add(new Wanderer(256,152,50,50,ID.Wanderer));
-		playerObjects.add(new testObject(540,380,10,10,ID.Player2,handler,false,3));
+		enemyObjects.add(new Wanderer(500,152,50,50,ID.Wanderer));
+		testObject player = new testObject(540,380,10,10,ID.Player2,handler,false,3);
+		playerObjects.add(player);
 		enemyObjects.add(new Dart(0, 0,50,50, ID.Dart, handler));
 		enemyObjects.add(new Grunt(25,42,24,24,ID.Grunt,handler));
 		enemyObjects.add(new Grunt(562,85,24,24,ID.Grunt,handler));
@@ -131,9 +137,10 @@ public class Game extends Canvas implements Runnable, GameLoop{
 		
 		handler.tick();
 		
-		HUD.tick();
+		//HUD.tick();
 		//TODO moet nog veranderd worden
 		HUD.setHudHealth(playerObjects.get(0).getHealth());
+		//HUD.setHudScore();
 		
 	}
 	
@@ -164,6 +171,13 @@ public class Game extends Canvas implements Runnable, GameLoop{
 	
 	public static void main(String args[]){
 		new Game();
+		try{
+			InputStream music = new FileInputStream("resources\\8-bit_ducky.wav");
+			AudioPlayer.player.start(music);
+		}
+		catch(FileNotFoundException ex){
+			throw new MyException("failed",ex);
+		}
 	}
 
 
