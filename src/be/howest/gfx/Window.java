@@ -25,8 +25,9 @@ public class Window extends Canvas{
 		frame.setVisible(true);
 		frame.toFront();
 		frame.requestFocus();
-		game.start();
 		
+		game.start();
+		game.requestFocus();
 	}
 
 

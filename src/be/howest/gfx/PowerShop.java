@@ -97,8 +97,8 @@ public class PowerShop extends InputHandler implements UserInterface {
 			System.out.println("PLAY GAME");
 			game.state = STATE.PLAY;
 			//(x,y,height,width,id,handler,controller)
-			handler.addObject(new testObject(100,100,50,50,ID.Player,handler,false));
-			handler.addObject(new testObject(200,200,50,50,ID.Player2,handler,false));
+			//handler.addObject(new testObject(100,100,50,50,ID.Player,handler,false,3));
+			//handler.addObject(new testObject(200,200,50,50,ID.Player,handler,true,3));
 			//handler.addObject(new testObject(200,200,ID.Player2));
 		}else if (mouseOver(mx, my, 70, 150, 250, 300)){
 			System.out.println("POWER1");

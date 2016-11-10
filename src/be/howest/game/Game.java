@@ -6,6 +6,11 @@ import java.awt.image.BufferStrategy;
 
 import java.awt.image.BufferedImage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,12 +20,16 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+
+import be.howest.gfx.Hud;
+
 import java.util.Map;
 
 
 import be.howest.gfx.DroneUpgrade;
 import be.howest.gfx.Menu;
 import be.howest.gfx.PowerShop;
+
 
 import be.howest.gfx.Window;
 import be.howest.input.InputHandler;
@@ -29,13 +38,17 @@ import be.howest.input.Mouse;
 import be.howest.objects.*;
 import be.howest.util.GameLoop;
 import be.howest.util.GameUtils;
+import be.howest.util.MyException;
+import sun.audio.AudioPlayer;
 
 public class Game extends Canvas implements Runnable, GameLoop {
 
 	private static final long serialVersionUID = -7744672260366215689L;
 
+
 	// Resolution 720p
 	public static final int WIDTH = 1280, HEIGHT = WIDTH / 12 * 9;
+
 	private Graphics g;
 
 	// Test - Frame
@@ -49,6 +62,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	private Handler handler = new Handler();
 	private boolean isAdded = false;
 	
+
 	public enum STATE {
 		MENU, PLAY, DRONE_UPGRADE, POWER_SHOP, PAUSE, GAME_OVER, CUSTOMIZATION, OPTIONS, ADMIN_PANEL, EXIT
 	}
@@ -63,6 +77,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	
 	public static Map<STATE, Object> stateMap = new HashMap<STATE, Object>();
 
+	private Hud HUD;
 
 	// Used for z-index
 	public static List<GameObject> backgroundObjects = new ArrayList<>();
@@ -70,19 +85,38 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static List<GameObject> playerObjects = new ArrayList<>();
 	public static List<GameObject> hud = new ArrayList<>();
 
-	
+
 
 	
 	
 	private void addAllObjects(){
-		//playerObjects.add(new Player(100,100,ID.Player2));
-		playerObjects.add(new testObject(200,200,10,10,ID.Player,handler,false));
-		
-		
 
+		//playerObjects.add(new Player(200,200,ID.Player));
+		
+		enemyObjects.add(new Wanderer(500,152,50,50,ID.Wanderer));
+		testObject player = new testObject(540,380,10,10,ID.Player2,handler,false,3);
+		//playerObjects.add(player);
+		enemyObjects.add(new Dart(WIDTH, 500,50,50, ID.Dart, handler));
+		enemyObjects.add(new Grunt(25,42,24,24,ID.Grunt,handler));
+		enemyObjects.add(new Grunt(562,85,24,24,ID.Grunt,handler));
+		enemyObjects.add(new Grunt(785,185,24,24,ID.Grunt,handler));
+		enemyObjects.add(new Grunt(125,485,24,24,ID.Grunt,handler));
+		enemyObjects.add(new Grunt(365,253,24,24,ID.Grunt,handler));
+		for(int i = 0; i<10; i++){
+			enemyObjects.add(new Grunt(125,485,24,24,ID.Grunt,handler));
+			enemyObjects.add(new Grunt(365,253,24,24,ID.Grunt,handler));
+		}
+		playerObjects.add(new Drone(0,0,40,40,ID.Drone,handler));
+		enemyObjects.add(new MineLayer(20,30,50,50,ID.MineLayer,handler));
+		//handler.addObject(new Mine(20,20,ID.Mine,handler));
 	}
+	
+	public Game(){
+		new Window(WIDTH,HEIGHT,"Geometry Wars Howest",this);
+		HUD = new Hud();
+		
+		
 
-	public Game() {
 		addAllObjects();
 
 		menu = new Menu(this, handler);
@@ -97,7 +131,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		//Works for all input somehow
 		this.addMouseListener(menu);				
 
-		new Window(WIDTH, HEIGHT, "Geometry Wars Howest", this);
 
 		if (state == STATE.PLAY) {
 			// handler.addObject(backgroundObjects);
@@ -127,6 +160,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			e.printStackTrace();
 		}
 	}
+
 
 	@Override
 	public void run() {
@@ -172,6 +206,9 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	}
 
 	
+
+	
+
 	@Override
 	public void tick() {
 		InputHandler.setCurrentState(state);
@@ -180,10 +217,15 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 		if (state == STATE.PLAY) {
 			if(!isAdded){
-				Mouse mouse = new Mouse(handler,handler.getGameObject(ID.Player));
+				handler.addObject(new testObject(200,200,50,50,ID.Player2,handler,true,3));
+				handler.addObject(enemyObjects);
+				handler.addObject(playerObjects);
+				handler.addObject(hud);
+				Mouse mouse = new Mouse(handler,handler.getGameObject(ID.Player2));
 				this.addKeyListener(new KeyInput(handler));
 				this.addMouseListener(mouse);
 				this.addMouseMotionListener(mouse);
+				HUD.setHudHealth(playerObjects.get(0).getHealth());
 				isAdded = true;
 			}
 
@@ -198,15 +240,17 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	@Override
 	public void render(Graphics g) {
+
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
 
 		if(bufferStrategy == null){
-			this.createBufferStrategy(5);
-
+			this.createBufferStrategy(3);
 			return;
 		}
 
 		g = bufferStrategy.getDrawGraphics();
+
+
 
 
 		g.drawImage(GameUtils.loadImage("resources\\background\\background.jpg"), 0, 0, WIDTH, HEIGHT, null);
@@ -228,5 +272,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static void main(String args[]) {
 		// GameUtils.test();
 		new Game();
+
 	}
 }

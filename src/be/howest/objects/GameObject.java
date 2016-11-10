@@ -1,7 +1,10 @@
 package be.howest.objects;
 
+import java.awt.Rectangle;
+
 
 import be.howest.game.Handler;
+
 import be.howest.game.ID;
 import be.howest.util.GameLoop;
 
@@ -15,6 +18,9 @@ public abstract class GameObject implements GameLoop{
 	protected int objectWidth;
 	protected int health;
 	protected boolean controller;
+	
+	public abstract Rectangle getBounds();
+
 	
 
 	public GameObject(int x, int y, ID id){
@@ -60,7 +66,6 @@ public abstract class GameObject implements GameLoop{
 	public int getCenterY(){
 		return (y + objectHeight / 2);
 	}
-	
 	
 	public void setX(int x){
 		this.x = x;
@@ -143,6 +148,5 @@ public abstract class GameObject implements GameLoop{
 	public void setController(boolean controller) {
 		this.controller = controller;
 	}
-	
 	
 }

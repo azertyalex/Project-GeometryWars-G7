@@ -11,7 +11,7 @@ import be.howest.util.GameLoop;
 
 public class Handler implements GameLoop{
 	
-	List<GameObject> object = new LinkedList<GameObject>();
+	private List<GameObject> object = new LinkedList<GameObject>();
 
 	public void tick(){
 		for(int i = 0; i < object.size(); i++){
