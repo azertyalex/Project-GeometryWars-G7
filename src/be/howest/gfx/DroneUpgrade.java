@@ -90,7 +90,7 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 		g.drawString("Next", Game.WIDTH / 2 - 30, 850);
 
 		
-		BufferedImage img = GameUtils.loadImage("C:\\Users\\Quinten\\Documents\\GitHub\\Project-GeometryWars-G7\\resources\\player\\" + droneName + ".png");
+		BufferedImage img = GameUtils.loadImage("resources\\player\\" + droneName + ".png");
 
 		g.drawImage(img,Game.WIDTH / 2 - 30, 235,90,60, null);
 		
