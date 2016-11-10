@@ -3,11 +3,16 @@ package be.howest.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.input.Mouse;
 import be.howest.util.GameUtils;
+import be.howest.util.MyException;
+import sun.audio.AudioPlayer;
 
 public class Lazer extends GameObject{
 	private Graphics2D g2d;
@@ -39,6 +44,14 @@ public class Lazer extends GameObject{
 		if (temp < 0 ) temp = -temp;
 		velX = (mouse.mouseX -player.getCenterX())/temp;
 		velY = (mouse.mouseY -player.getCenterY())/temp;
+		
+		try {
+			InputStream lazerSound = new FileInputStream("resources\\sound\\laser.wav");
+			AudioPlayer.player.start(lazerSound);
+			
+		} catch (FileNotFoundException ex) {
+			throw new MyException("Failed to load sound",ex);
+		}  
 		
 	}
 

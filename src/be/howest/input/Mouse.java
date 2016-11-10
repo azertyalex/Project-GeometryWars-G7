@@ -70,17 +70,6 @@ public class Mouse extends MouseAdapter{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		handler.addObject(new Lazer(gameObject.getCenterX(),gameObject.getY() + gameObject.getObjectHeight()/2,10,10,ID.Enemy,gameObject,handler,rotation,this));
-		
-		
-		try {
-			InputStream test = new FileInputStream("resources\\sound\\laser.wav");
-			//AudioPlayer.player.start(test);
-			
-		} catch (FileNotFoundException ex) {
-			throw new MyException("Failed to load sound",ex);
-		}   
-		
-		System.out.println(rotation);
 	}
 
 	@Override
