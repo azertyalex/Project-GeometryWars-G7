@@ -1,6 +1,8 @@
 package be.howest.game;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,9 +22,19 @@ public class Handler implements GameLoop{
 	
 	public void render(Graphics g){
 		for(int i = 0; i < object.size(); i++){
+			AffineTransform tempGraph = ((Graphics2D) g).getTransform();
+			
 			GameObject tempObject = object.get(i);
 			tempObject.render(g);
+			
+			((Graphics2D) g).setTransform(tempGraph);;
+			
+			
+			//tempG.dispose();
+			
+			
 		}
+		g.dispose();
 	}
 	
 	public void addObject(GameObject object){
@@ -46,5 +58,16 @@ public class Handler implements GameLoop{
 	
 	public List<GameObject> getList(){
 		return object;
+	}
+	
+	public GameObject getGameObject(ID id){
+		for(int i = 0;i<object.size();i++){
+			GameObject tempObject = object.get(i);
+			
+			if(tempObject.getId() == id){
+				return tempObject;
+			}
+		}
+		return null;
 	}
 }

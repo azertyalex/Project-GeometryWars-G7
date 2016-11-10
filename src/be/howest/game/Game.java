@@ -3,14 +3,25 @@ package be.howest.game;
 import java.awt.Canvas;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+import java.awt.image.BufferedImage;
+
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+
+
+import javax.imageio.ImageIO;
+
 import java.util.Map;
+
 
 import be.howest.gfx.DroneUpgrade;
 import be.howest.gfx.Menu;
 import be.howest.gfx.PowerShop;
+
 import be.howest.gfx.Window;
 import be.howest.input.InputHandler;
 import be.howest.input.KeyInput;
@@ -59,9 +70,15 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static List<GameObject> hud = new ArrayList<>();
 
 	
-	// Needed?
-	private void addAllObjects() {
-		playerObjects.add(new testObject(200, 200, 10, 10, ID.Player2, handler, false));
+
+	
+	
+	private void addAllObjects(){
+		//playerObjects.add(new Player(100,100,ID.Player2));
+		playerObjects.add(new testObject(200,200,10,10,ID.Player,handler,false));
+		
+		
+
 	}
 
 	public Game() {
@@ -70,6 +87,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		menu = new Menu(this, handler);
 		powerShop = new PowerShop(this, handler);
 		droneUpgrade = new DroneUpgrade(this, handler, powerShop);
+
 
 		stateMap.put(STATE.MENU, menu);
 		stateMap.put(STATE.DRONE_UPGRADE, droneUpgrade);
@@ -82,15 +100,17 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 		if (state == STATE.PLAY) {
 			// handler.addObject(backgroundObjects);
+
 			handler.addObject(enemyObjects);
 			handler.addObject(playerObjects);
 			handler.addObject(hud);
 			
-			//??
-			this.addKeyListener(new KeyInput(handler));
-			this.addMouseListener(new Mouse(handler));
+
 		}
-		}
+
+
+	}
+
 
 	public synchronized void start() {
 		thread = new Thread(this);
@@ -171,16 +191,20 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	@Override
 	public void render(Graphics g) {
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
-		if (bufferStrategy == null) {
-			this.createBufferStrategy(3);
+
+		if(bufferStrategy == null){
+			this.createBufferStrategy(5);
+
 			return;
 		}
 
 		g = bufferStrategy.getDrawGraphics();
 
+
 		g.drawImage(GameUtils.loadImage("resources\\background\\background.jpg"), 0, 0, WIDTH, HEIGHT, null);
 
 		if (state == STATE.PLAY) {
+
 			handler.render(g);
 		} else if (state == STATE.MENU) {
 			menu.render(g);
@@ -190,7 +214,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			powerShop.render(g);
 		}
 
-		// g.dispose();
 		bufferStrategy.show();
 	}
 

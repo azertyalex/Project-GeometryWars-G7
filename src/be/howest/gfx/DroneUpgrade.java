@@ -45,7 +45,7 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 		g.drawString("DRONE UPGRADE", 49, 125);
 
 		//UI - Drone upgrade
-		g.drawImage(GameUtils.loadImage("C:\\Users\\Quinten\\Documents\\GitHub\\Project-GeometryWars-G7\\resources\\UI\\UI_Drone.png"), Game.WIDTH / 2 - 250, 175, null);
+		g.drawImage(GameUtils.loadImage("resources\\UI\\UI_Drone.png"), Game.WIDTH / 2 - 250, 175, null);
 		
 		//UI - Title
 		Font smaller_title = new Font("Arial", Font.BOLD, 30);

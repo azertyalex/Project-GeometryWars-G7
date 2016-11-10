@@ -9,6 +9,8 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
+import be.howest.input.KeyInput;
+import be.howest.input.Mouse;
 import be.howest.objects.testObject;
 import be.howest.util.GameUtils;
 import be.howest.game.Handler;
@@ -39,8 +41,8 @@ public class PowerShop extends InputHandler implements UserInterface{
 		g.setColor(Color.red);
 		g.drawString("POWER SHOP", 49, 125);
 
-		g.drawImage(GameUtils.loadImage("C:\\Users\\Quinten\\Documents\\GitHub\\Project-GeometryWars-G7\\resources\\UI\\PowerShop.png"), 50, 135, null);
-		g.drawImage(GameUtils.loadImage("C:\\Users\\Quinten\\Documents\\GitHub\\Project-GeometryWars-G7\\resources\\Power\\Heal.png"), 120, 150, 150, 120, null);
+		g.drawImage(GameUtils.loadImage("resources\\UI\\PowerShop.png"), 50, 135, null);
+		g.drawImage(GameUtils.loadImage("resources\\Power\\Heal.png"), 120, 150, 150, 120, null);
 
 		
 		//UI - button
@@ -82,6 +84,13 @@ public class PowerShop extends InputHandler implements UserInterface{
 		if (mouseOver(mx, my, (Game.WIDTH / 2) -250, 800, 500, 75)){
 			System.out.println("PLAY GAME");
 			game.state = STATE.PLAY;
+
+			handler.addObject(new testObject(200,200,ID.Player));
+			Mouse mouse = new Mouse(handler,handler.getGameObject(ID.Player));
+			game.addKeyListener(new KeyInput(handler));
+			game.addMouseListener(mouse);
+			game.addMouseMotionListener(mouse);
+
 			//handler.addObject(new testObject(200,200,ID.Player2));
 		}else if (mouseOver(mx, my, 70, 150, 250, 300)){
 			System.out.println("POWER1");
@@ -98,7 +107,8 @@ public class PowerShop extends InputHandler implements UserInterface{
 		}else if (mouseOver(mx, my, 70, 150, 250, 300)){
 			System.out.println("POWER5");
 			//buyPower(Game.getPower("barrier"));
-		}		
+		}		}
+
 	}
 	/*
 	private void buyPower(Power power){
@@ -108,4 +118,4 @@ public class PowerShop extends InputHandler implements UserInterface{
 			System.out.println("Player already has power");
 		}
 	}*/
-}
+

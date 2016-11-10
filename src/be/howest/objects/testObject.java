@@ -31,6 +31,7 @@ public class testObject extends GameObject{
 	public testObject(int x,int y,int height, int width, ID id, Handler handler,boolean controller){
 		super(x,y,height,width,id,handler,controller);
 		if(controller) gamepad = new Gamepad();
+		
 	}
 
 	@Override
@@ -66,14 +67,14 @@ public class testObject extends GameObject{
 			
 			rotation = gamepad.getRotationR();
 		}else{
-			rotation = 0F;
+			rotation = Mouse.getRotation();
 		}
 		
-		
+		g2d.finalize();
 		
 		g2d.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
 		g2d.drawImage(GameUtils.loadImage("resources\\player\\player.png"), x, y, objectWidth, objectHeight,null);
-		//g2d.finalize();
+		
 		//g2d.dispose();
 		
 
