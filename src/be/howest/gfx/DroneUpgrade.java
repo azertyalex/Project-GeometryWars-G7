@@ -4,26 +4,17 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.JComboBox;
-
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
-import be.howest.objects.testObject;
 import be.howest.util.GameUtils;
 import be.howest.game.Handler;
-import be.howest.game.ID;
+import be.howest.input.InputHandler;
 
-public class DroneUpgrade extends MouseAdapter{
+public class DroneUpgrade extends InputHandler implements UserInterface{
 	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 800, 500, 75);
 
 	private Game game;
@@ -35,7 +26,7 @@ public class DroneUpgrade extends MouseAdapter{
 		this.game = game;
 		this.handler = handler;
 		this.powerShop = powerShop;
-	}
+		}
 	
 	
 	public void render(Graphics g){
@@ -118,25 +109,17 @@ public class DroneUpgrade extends MouseAdapter{
 		} else return  false;
 	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mouseAction(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int mx = e.getX();
 		int my = e.getY();
 		
-		System.out.println(mx);
-		System.out.println(my);
+		System.out.println("DRONE: " + mx);
+		System.out.println("DRONE: " + my);
 
 		if (mouseOver(mx, my, (Game.WIDTH / 2) -250, 800, 500, 75)){
 			System.out.println("GA NAAR POWER SHOP");
-			game.addMouseListener(powerShop);
-			game.removeMouseListener(this);
 			game.state = STATE.POWER_SHOP;
 		}
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 }
