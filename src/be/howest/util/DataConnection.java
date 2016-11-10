@@ -150,7 +150,7 @@ public class DataConnection {
     
     public List<GameObject> getEnemies()
     {
-    	List<GameObject> enemyList = new ArrayList<>();
+    	/*List<GameObject> enemyList = new ArrayList<>();
          try {
             
             String sql = "select name, health, damage, fireRate from Enemy";
@@ -188,7 +188,8 @@ public class DataConnection {
            } catch (SQLException ex) {
                Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
            }
-		return enemyList;
+		return enemyList;*/
+        	 return null;
     }
     
     public List<GameObject> getDrones()
