@@ -47,6 +47,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	// Object Handler
 	private Handler handler = new Handler();
+	private boolean isAdded = false;
 	
 	public enum STATE {
 		MENU, PLAY, DRONE_UPGRADE, POWER_SHOP, PAUSE, GAME_OVER, CUSTOMIZATION, OPTIONS, ADMIN_PANEL, EXIT
@@ -178,6 +179,13 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		handler.tick();
 
 		if (state == STATE.PLAY) {
+			if(!isAdded){
+				Mouse mouse = new Mouse(handler,handler.getGameObject(ID.Player));
+				this.addKeyListener(new KeyInput(handler));
+				this.addMouseListener(mouse);
+				this.addMouseMotionListener(mouse);
+				isAdded = true;
+			}
 
 		} else if (state == STATE.MENU) {
 			menu.tick();

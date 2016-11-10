@@ -2,9 +2,6 @@ package be.howest.input;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
@@ -12,10 +9,7 @@ import be.howest.objects.GameObject;
 import be.howest.objects.Lazer;
 import be.howest.util.GameUtils;
 import be.howest.util.MyException;
-import sun.audio.AudioData;
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
-import sun.audio.ContinuousAudioDataStream;
+
 
 public class Mouse extends MouseAdapter{
 	private int x,y;
@@ -24,6 +18,7 @@ public class Mouse extends MouseAdapter{
 	private Handler handler;
 	private GameObject gameObject;
 	private static float rotation;
+	private boolean isPressed;
 
 	
 	public Mouse(Handler handler){
@@ -34,6 +29,7 @@ public class Mouse extends MouseAdapter{
 		
 		
 	}
+	
 
 	public Mouse(Handler handler, GameObject gameObject) {
 		this.handler = handler;
@@ -52,14 +48,20 @@ public class Mouse extends MouseAdapter{
 		x = gameObject.getCenterX() - e.getX();
 		y = gameObject.getCenterY() - e.getY();
 		
+		float rotation = (float)(-Math.toDegrees(
+				Math.atan2(
+						x,
+						y)
+				)
+			+0);
 		
 		
-		return  (float)(-Math.toDegrees(
-											Math.atan2(
-													x,
-													y)
-											)
-										+0);
+		
+		return rotation;
+	}
+	
+	private void test(boolean pressed){
+		if(pressed) handler.addObject(new Lazer(10,10,ID.Enemy,gameObject,handler,rotation));
 	}
 	
 	public static float getRotation(){
@@ -69,7 +71,7 @@ public class Mouse extends MouseAdapter{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		handler.addObject(new Lazer(gameObject.getCenterX(),gameObject.getY() + gameObject.getObjectHeight()/2,10,10,ID.Enemy,gameObject,handler,rotation,this));
+		
 	}
 
 	@Override
@@ -92,7 +94,23 @@ public class Mouse extends MouseAdapter{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		
+		isPressed = true;
 		rotation = getRotation(e);
+		
+			handler.addObject(new Lazer(10,10,ID.Enemy,gameObject,handler,rotation));
+		
+		
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		isPressed= false;
+		rotation = getRotation(e);
+		test(isPressed);
+		
+		
 	}
 	
 

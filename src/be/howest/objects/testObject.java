@@ -3,6 +3,7 @@ package be.howest.objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.input.*;
@@ -11,6 +12,7 @@ import be.howest.util.GameUtils;
 public class testObject extends GameObject{
 	private Gamepad gamepad;
 	//private Mouse mouse;
+	private int timer = 20;
 	
 	
 	private Graphics2D g2d;
@@ -38,8 +40,8 @@ public class testObject extends GameObject{
 	public void tick() {
 		
 		
-		x += velX;
-		y += velY;
+		x = (int) (GameUtils.clamp(x, 0, Game.WIDTH - objectWidth) + velX);
+		y = (int) (GameUtils.clamp(y, 0, Game.HEIGHT - objectHeight) + velY);
 		
 		
 		setHeight(50);
@@ -49,11 +51,20 @@ public class testObject extends GameObject{
 			
 			gamepad.turnOnController();
 			if(gamepad.getDPad() == 0.25) speed++;
-			if(gamepad.getDPad() == 0.75) speed--;		
+			if(gamepad.getDPad() == 0.75) speed--;	
+			if( timer == 0){
+				if(gamepad.getButton(5)){
+					handler.addObject(new Lazer(50,10,ID.Enemy,(GameObject) this,handler,gamepad.getRotationR()));
+					
+				}
+				timer = 10;
+			}
 			
 			velX = (int) (gamepad.getX() * speed * 1.1);
 			velY = (int) (gamepad.getY() * speed * 1.1);
 		}
+		
+		timer--;
 		
 	}
 

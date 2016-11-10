@@ -42,8 +42,11 @@ public class InputHandler implements KeyListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		UserInterface UI = (UserInterface) Game.stateMap.get(getCurrentState());
-		UI.mouseAction(e);
+		if(getCurrentState() != STATE.PLAY){
+			UserInterface UI = (UserInterface) Game.stateMap.get(getCurrentState());
+			
+			UI.mouseAction(e);
+		}
 
 	}
 

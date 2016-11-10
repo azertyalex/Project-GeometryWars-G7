@@ -29,11 +29,30 @@ public class Lazer extends GameObject{
 		
 	}
 	
-	public Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation,Mouse mouse){
+	public Lazer(int height, int width, ID id,GameObject player, Handler handler,float rotation){
+		this(player.getCenterX() - width ,player.getCenterY() - height/2,height,width,id,player,handler,rotation);
+	}
+	private Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation){
 		super(x,y,height,width,id,handler);
-		this.rotation = rotation;
-		this.mouse= mouse;
+		this.rotation = (float) Math.toRadians(rotation);
 		this.player = player;
+		int r = 90;
+		velY = (int) ( 15*Math.sin(Math.toRadians(rotation-r)));
+        velX = (int) (15*Math.cos( Math.toRadians(rotation-r)));
+		try {
+			InputStream lazerSound = new FileInputStream("resources\\sound\\laser2.wav");
+			AudioPlayer.player.start(lazerSound);
+			
+		} catch (FileNotFoundException ex) {
+			throw new MyException("Failed to load sound",ex);
+		} 
+		
+	}
+	
+	public Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation,Mouse mouse){
+		this(x,y,height,width,id,player,handler,rotation);
+		this.mouse= mouse;
+		
 		float tempX = mouse.mouseX -player.getCenterX();
 		if(tempX < 0 ) tempX = -tempX;
 		float tempY = mouse.mouseY - player.getCenterY();
@@ -45,13 +64,7 @@ public class Lazer extends GameObject{
 		velX = (mouse.mouseX -player.getCenterX())/temp;
 		velY = (mouse.mouseY -player.getCenterY())/temp;
 		
-		try {
-			InputStream lazerSound = new FileInputStream("resources\\sound\\laser.wav");
-			AudioPlayer.player.start(lazerSound);
-			
-		} catch (FileNotFoundException ex) {
-			throw new MyException("Failed to load sound",ex);
-		}  
+ 
 		
 	}
 
@@ -83,6 +96,7 @@ public class Lazer extends GameObject{
 		g2d.setColor(Color.red);
 		
 		g2d.rotate(rotation, getCenterX(),getCenterY());
+		//g2d.drawImage(GameUtils.loadImage("resources\\player\\trump.png"), x, y, objectWidth, objectHeight,null);
 		g2d.fillRect(x, y,objectWidth,objectHeight);
 		
 		
