@@ -15,11 +15,11 @@ public class getPowersTest {
 	public void test() {
 		DataConnection database = DataConnection.getInstance();
         
-		database.getPowers();
+		List<Powers> powerList = database.getPowers();
 		
-		/*for(int i = 0; i < list.size(); i++){
-			System.out.println(list.get(i));
-		}*/
+		for(int i = 0; i < powerList.size(); i++){
+			System.out.println(powerList.get(i));
+		}
 	}
 }
 

@@ -21,7 +21,7 @@ import be.howest.objects.SlowTime;
 
 public class PowersFileAccess {
 
-    public void load(String fileName) {
+    public List<Powers> load(String fileName) {
     	List<Powers> powerList = new ArrayList<>();
     	
         try {
@@ -69,14 +69,10 @@ public class PowersFileAccess {
             s.close();
             
             
-            
-            for(Powers p : powerList){
-            	System.out.println(p);
-            }
-            
         } catch (FileNotFoundException ex) {
             throw new RuntimeException("Cannot load file",ex);
         }
+        return powerList;
     }
 
     public void save(List<Powers> powers, String fileName) {

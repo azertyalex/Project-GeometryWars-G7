@@ -87,7 +87,7 @@ public class DataConnection {
 		return null;
     }
     
-    public void getPowers()
+    public List<Powers> getPowers()
     {
     	List<Powers> powerList = new ArrayList<>();
          try {
@@ -142,14 +142,73 @@ public class DataConnection {
                rs.close();
                stmt.close();
                
-               for(Powers p : powerList){
-               	System.out.println(p);
-               }
+           } catch (SQLException ex) {
+               Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
+           }
+		return powerList;
+    }
+    
+    public List<GameObject> getEnemies()
+    {
+    	List<GameObject> enemyList = new ArrayList<>();
+         try {
+            
+            String sql = "select name, health, damage, fireRate from Enemy";
+               
+            Statement stmt = connection.createStatement();
+               
+            ResultSet rs = stmt.executeQuery(sql);
+               
+            while (rs.next())
+            {
+             String name = rs.getString("name");
+             int health = rs.getInt("health");
+             int damage = rs.getInt("damage");
+             int fireRate = rs.getInt("fireRate");
+             
+             if(name.equals("Grunt")){
+            	 GameObject enemy = new Grunt(name,health, damage, fireRate);
+            	 enemyList.add(enemy);
+             } else if(name.equals("Dart")) {
+            	 GameObject enemy = new Dart(name,health, damage, fireRate);
+            	 enemyList.add(enemy);
+             } else if(name.equals("Wanderer")){
+            	 GameObject enemy = new Wanderer(name,health, damage, fireRate);
+            	 enemyList.add(enemy);
+             } else if(name.equals("MineLayer")){
+            	 GameObject enemy = new MineLayer(name,health, damage, fireRate);
+            	 enemyList.add(enemy);
+             }
+             
+            }
+               
+               rs.close();
+               stmt.close();
                
            } catch (SQLException ex) {
                Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
            }
-		
+		return enemyList;
+    }
+    
+    public List<GameObject> getDrones()
+    {
+    	/*List<GameObject> droneList = new ArrayList<>();
+         try {
+            
+            String sql = "select name from Drone JOIN Drone_Info";
+            
+               //TODO
+
+         
+               
+             
+               
+           } catch (SQLException ex) {
+               Logger.getLogger(DataConnection.class.getName()).log(Level.SEVERE, null, ex);
+           }
+		return droneList;*/
+    	return null;
     }
     
 }

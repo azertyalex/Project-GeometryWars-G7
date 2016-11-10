@@ -36,7 +36,9 @@ public class PowersFileAccessTest {
 		PowersFileAccess pfa = new PowersFileAccess();
 		pfa.save(powerList, fileName);
 		
-		pfa.load(fileName);
+		System.out.print(pfa.load(fileName));
+		
+		
 	}
 
 }
