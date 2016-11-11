@@ -25,12 +25,16 @@ public class PowerShop extends InputHandler implements UserInterface {
 	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 800, 500, 75);
 	private Game game;
 	private Handler handler;
-	private List<String> powerList = new ArrayList<>(Arrays.asList("Heal", "Barrier", "SlowTime"));
+	private List<String> powerList = new ArrayList<>(Arrays.asList("Heal", "Barrier", "SlowTime", "MultipleCannon", "Clone", "Card"));
 	private String selectedPower;
+	private String buttonText;
+	
+	private boolean purchaseValid = false;
 
 	public PowerShop(Game game, Handler handler) {
 		this.game = game;
 		this.handler = handler;
+		this.buttonText = "Buy";
 	}
 
 	public void render(Graphics g) {
@@ -54,20 +58,32 @@ public class PowerShop extends InputHandler implements UserInterface {
 		g.setColor(Color.red);
 		g2d.fill(next);
 		g.setColor(Color.black);
-		g.drawString("Buy (" + selectedPower + ")", Game.WIDTH / 2 - 30, 850);
+		g.drawString(buttonText, Game.WIDTH / 2 - 30, 850);
 	}
 
 	private void drawPowerCards(Graphics g) {
+		int powIndex = powerList.indexOf(selectedPower);
+		String tempPower = selectedPower;
+		int MAX = 4;
+
+		//The SHORT IF is used when it needs to calculate what row the card is in.
+		//A row contains 4 Cards
 		for (int i = 0; i < powerList.size(); i++) {
-			g.drawImage(GameUtils.loadImage("resources\\UI\\" + powerList.get(i) + ".png"), (i * 300) + 50, 150, null);
+			g.drawImage(
+					GameUtils.loadImage("resources\\UI\\Card\\" + powerList.get(i) + ".png"), //Image
+					(((i < MAX)? i : i - MAX) * 300) + 50, //XPos
+					((i < MAX)? 1 : 3) * 160, //YPos
+					null //ImageObserver
+					);
 		}
-		if (selectedPower != null) {
-			System.out.println("SELECTED: " + selectedPower);
-			g.drawImage(GameUtils.loadImage("resources\\UI\\" + selectedPower + "_Selected.png"),
-					(powerList.indexOf(selectedPower) * 300) + 50, 150, null);
-		} else {
-			System.out.println("NO POWER");
-		}
+		if (selectedPower != null && selectedPower.equals(tempPower)) {
+			g.drawImage(
+					GameUtils.loadImage("resources\\UI\\Card\\" + selectedPower + "_Selected.png"), //Image
+					(((powIndex < MAX)? powIndex : powIndex-MAX) * 300) + 50, //XPos
+					((powIndex < MAX)? 1 : 2) * 160, //YPos
+					null //ImageObserver
+					);
+			}
 	}
 
 	public void tick() {
@@ -86,7 +102,6 @@ public class PowerShop extends InputHandler implements UserInterface {
 
 	@Override
 	public void mouseAction(MouseEvent e) {
-		// TODO Auto-generated method stub
 		int mx = e.getX();
 		int my = e.getY();
 
@@ -94,12 +109,13 @@ public class PowerShop extends InputHandler implements UserInterface {
 		System.out.println("POWER SHOP: " + my);
 
 		if (mouseOver(mx, my, (Game.WIDTH / 2) - 250, 800, 500, 75)) {
-			System.out.println("PLAY GAME");
-			game.state = STATE.PLAY;
-			//(x,y,height,width,id,handler,controller)
-			//handler.addObject(new testObject(100,100,50,50,ID.Player,handler,false,3));
-			//handler.addObject(new testObject(200,200,50,50,ID.Player,handler,true,3));
-			//handler.addObject(new testObject(200,200,ID.Player2));
+			if(purchaseValid){
+				System.out.println("PLAY GAME");
+				game.state = STATE.PLAY;
+				purchaseValid = false;
+			} else {
+				PurchasePower(selectedPower);
+			}
 		}else if (mouseOver(mx, my, 70, 150, 250, 300)){
 			System.out.println("POWER1");
 			selectedPower = powerList.get(0);
@@ -112,15 +128,38 @@ public class PowerShop extends InputHandler implements UserInterface {
 		} else if (mouseOver(mx, my, 950, 150, 250, 300)) {
 			System.out.println("POWER4");
 			selectedPower = powerList.get(3);
-		} else if (mouseOver(mx, my, 70, 150, 250, 300)) {
-			System.out.println("POWER5");
-			selectedPower = powerList.get(4);
+		}else if (mouseOver(mx, my, 70, 150, 250, 300)){
+			System.out.println("POWER1");
+			selectedPower = powerList.get(0);
+		} else if (mouseOver(mx, my, 360, 150, 250, 300)) {
+			System.out.println("POWER2");
+			selectedPower = powerList.get(1);
+		} else if (mouseOver(mx, my, 650, 150, 250, 300)) {
+			System.out.println("POWER3");
+			selectedPower = powerList.get(2);
+		} else if (mouseOver(mx, my, 950, 150, 250, 300)) {
+			System.out.println("POWER4");
+			selectedPower = powerList.get(3);
+		}
+		
+	}
+	
+	private void PurchasePower(String selectedPower) {
+		//int price = Game.getPower(selectedPower);
+		//int XP = Game.getPlayer().getXP();
+		
+		//TEMP
+		int price = 1500;
+		int XP = 8888;
+		//
+		
+		if (XP - price >= 0){
+			purchaseValid = true;
+			buttonText = "Continue";
+			//Game.getPlayer().addPower(selectedPower);
+		} else {
+			System.out.println("You Broke, Play some more games");
 		}
 	}
-
 }
-/*
- * private void buyPower(Power power){ if (player.getBoughtPower == null){
- * player.setBoughtPower(power); } else { System.out.println(
- * "Player already has power"); } }
- */
+

@@ -9,7 +9,7 @@ import be.howest.input.Gamepad;
 
 public class Player extends GameObject{
 	private int val = 1;
-	//private Gamepad gamePad =  new Gamepad();
+	private Gamepad gamePad =  new Gamepad();
 	
 	
 	public Player(int x, int y, ID id){

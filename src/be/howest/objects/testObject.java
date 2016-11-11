@@ -175,7 +175,7 @@ public class testObject extends GameObject{
 
 		
 		g2d.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
-		g2d.drawImage(GameUtils.loadImage("resources\\Players\\Player.png"), x, y, objectWidth, objectHeight,null);
+		g2d.drawImage(GameUtils.loadImage("resources\\Player_Standard\\Player.png"), x, y, objectWidth, objectHeight,null);
 
 		
 		Color c = new Color(1f,0f,0f,0f);

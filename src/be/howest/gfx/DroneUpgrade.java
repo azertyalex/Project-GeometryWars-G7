@@ -15,7 +15,7 @@ import be.howest.game.Handler;
 import be.howest.input.InputHandler;
 
 public class DroneUpgrade extends InputHandler implements UserInterface{
-	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 800, 500, 75);
+	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 825, 500, 75);
 
 	private Game game;
 	private Handler handler;
@@ -45,41 +45,50 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 		g.drawString("DRONE UPGRADE", 49, 125);
 
 		//UI - Drone upgrade
-		g.drawImage(GameUtils.loadImage("resources\\UI\\UI_Drone.png"), Game.WIDTH / 2 - 250, 175, null);
+		g.drawImage(GameUtils.loadImage("resources\\UI\\Other\\Drone_Information.png"), Game.WIDTH / 2 - 250, 145, null);
 		
 		//UI - Title
 		Font smaller_title = new Font("Arial", Font.BOLD, 30);
 		g.setFont(smaller_title);
 		g.setColor(Color.white);
-		g.drawString("Level 1", 400, 360);
-		g.drawString("Level 2", 400, 510);
-		g.drawString("Level 3", 400, 660);
+		g.drawString("Level 1", 425, 395);
+		g.drawString("Level 2", 425, 545);
+		g.drawString("Level 3", 425, 690);
 		
 		////String droneName = (Handler.getFromList(ID.Drone).getName() == null) ? "null" : Handler.getFromList(ID.Drone).getName();
 		String droneName = (null == null) ? "Drone_Not_Found" : "Handler.getFromList(ID.Drone).getName()";
 
-		g.drawString(droneName, 500, 210);
+		g.drawString(droneName, 500, 220);
+
 
 		//UI - Unlocked
-		Font unlockedText = new Font("Arial", Font.LAYOUT_RIGHT_TO_LEFT, 30);
-		g.setFont(smaller_title);
-		g.setColor(Color.white);
-		g.drawString("drone.levelUnlocked(1)", 550, 460);
-		g.drawString("drone.levelUnlocked(2)", 550, 610);
-		g.drawString("drone.levelUnlocked(3)", 550, 760);
+		Font XPText = new Font("Arial", Font.LAYOUT_RIGHT_TO_LEFT, 16);
+		g.setFont(XPText);
+		g.drawString("Unlocked", 425, 460);
+		g.drawString("2 550 XP", 425, 610);
+		g.drawString("10 000 XP", 425, 755);
+		//UI - BAR
+		g2d.setColor(Color.GRAY);
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 467, 440, 10));
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 614, 440, 10));
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 761, 440, 10));
+		//UI - XP
+		g2d.setColor(Color.RED);
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 467, 440, 10));
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 614, 300, 10));
+		g2d.fill(new Rectangle(Game.WIDTH / 2 - 219, 761, 0, 10));
 
-		
 		
 		//UI - Text
 		Font text = new Font("Arial",Font.PLAIN, 20);
 		g.setFont(text);
 		g.setColor(Color.white);
 		//UI - Text - Level 1
-		g.drawString("drone.getDescription(1)", 400, 380);
+		g.drawString("drone.getDescription(1)", 425, 415);
 		//UI - Text - Level 2
-		g.drawString("drone.getDescription(2)", 400, 530);
+		g.drawString("drone.getDescription(2)", 425, 565);
 		//UI - Text - Level 3
-		g.drawString("drone.getDescription(3)", 400, 680);
+		g.drawString("drone.getDescription(3)", 425, 710);
 
 		
 		
@@ -87,14 +96,12 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 		g2d.fill(next);
 		g.setColor(Color.black);
 		g.setFont(smaller_title);
-		g.drawString("Next", Game.WIDTH / 2 - 30, 850);
+		g.drawString("Next", Game.WIDTH / 2 - 30, 875);
 
 		
-		BufferedImage img = GameUtils.loadImage("resources\\player\\" + droneName + ".png");
+		//BufferedImage img = GameUtils.loadImage("resources\\Player_Custom\\" + droneName + ".png");
 
-		g.drawImage(img,Game.WIDTH / 2 - 30, 235,90,60, null);
-		
-		
+		//g.drawImage(img,Game.WIDTH / 2 - 30, 245,90,60, null);
 		}
 	
 	public void tick(){
