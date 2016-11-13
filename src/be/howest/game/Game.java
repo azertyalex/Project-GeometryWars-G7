@@ -179,44 +179,41 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	@Override
 	public void run() {
-		// Tick calc
-
-		System.out.println("RUN");
 		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
-		double nanoSeconds = 1000000000 / amountOfTicks;
+		final double ns = 1000000000.0 / 60.0;
 		double delta = 0;
 		long timer = System.currentTimeMillis();
+		int frames = 0;
+		int updates = 0;
 		while (isRunning) {
-			capFrameRate(60);
-
 			long now = System.nanoTime();
-			delta += (now - lastTime) / nanoSeconds;
+			delta += (now - lastTime) / ns;
 			lastTime = now;
-			
-			System.out.println("Delta: " + delta);
 			while (delta >= 1) {
-				System.out.println("TICK");
 				tick();
 				delta--;
-
+				updates++; 
+							
 			}
-			
-			if (isRunning) {
-				System.out.println("RUN");
-				render(g);
-			}
-			
-			//Thread.sleep(arg0);
-			 
-			  frames++;
-			  if(System.currentTimeMillis() - timer > 1000){
-			  timer += 1000; 
-			  System.out.println("FPS: " + frames);
-			  frames = 0;
-			  }}
+			render(g); 
+						
+			frames++;
 
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer += 1000;
+				System.out.println("RUN: " + " | " + updates + " ups, " + frames + " fps");
+				updates = 0;
+				frames = 0;
+			}
+			try {
+				Thread.sleep(10); 
+									
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+
+	}
 
 	@Override
 	public void tick() {
