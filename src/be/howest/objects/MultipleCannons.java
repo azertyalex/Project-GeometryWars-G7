@@ -8,9 +8,11 @@ public class MultipleCannons extends Powers{
 	
 	@Override
 	public void usePower(Player target){
+		/*
 		int currentCannons = target.getCannonAmount();
 		if(target.checkIfAlive()){
 			target.setCannonAmount(currentCannons + 1);
 		}
+		*/
 	}
 }

@@ -8,10 +8,12 @@ public class Barrier extends Powers {
 	
 	@Override
 	public void usePower(Player target){
+		/*
 		if(target.checkIfAlive()){
 			if(target.checkForExistingBarrier() == false){
 				target.setBarrier(true);
 			}
 		}
+		*/
 	}
 }

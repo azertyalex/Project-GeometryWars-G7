@@ -9,6 +9,7 @@ public class Disorient extends Powers{
 	public void usePower(GameObject target){
 		int normalSpeed = 1;
 		int reversedSpeed = -1;
+		/*
 		if(target.checkIfAlive()){
 			target.setSpeed(reversedSpeed);
 			System.out.println(target.getSpeed());
@@ -27,5 +28,6 @@ public class Disorient extends Powers{
 			
 			}
 		}
+		*/
 	}
 }

@@ -1,6 +1,6 @@
 package be.howest.objects;
 
-import be.howest.difficulty.Difficulty;
+//import be.howest.difficulty.Difficulty;
 
 public abstract class Powers {
 
@@ -37,9 +37,9 @@ public abstract class Powers {
 		throw new IllegalStateException();
 	}
 	
-	public void usePower(Player target, Difficulty difficulty){
+	/*public void usePower(Player target, Difficulty difficulty){
 		throw new IllegalStateException();
-	}
+	}*/
 	
 	
     public String toString(){

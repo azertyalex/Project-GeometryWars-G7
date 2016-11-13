@@ -62,9 +62,9 @@ public class Menu extends InputHandler implements UserInterface{
 
 		g.setFont(text);
 		g.setColor(Color.white);
-		drawCenteredString(g, 300, "\"PLAY\" bevat de core gameplay van het spel.");
-		drawCenteredString(g, 450, "Met \"GAMEPAD ON/OFF\" kan je de input naar controller of keyboard/mouse zetten. ");
-		drawCenteredString(g, 600, "\"EXTRA\" bevat de clickable droneUpgrade en PowerShop.\n Deze is nog niet geïmplimenteerd samen met de core game.");
+		drawCenteredString(g, 300, "\"PLAY\" bevat de core gameplay van het spel.\n Je kunt het schip besturen en er mee schieten. De drone kan alleen de speler volgen.\n Er zullen een paar vijanden komen die je kan dood schieten.");
+		drawCenteredString(g, 450, "Met \"GAMEPAD ON/OFF\" kan je de input naar controller of keyboard/mouse zetten. \n Om te navigeren in de UI moet je de muis gebruiken.");
+		drawCenteredString(g, 600, "\"EXTRA\" bevat de clickable droneUpgrade en PowerShop.\n Deze is nog niet gekoppeld aan de core gameplay.");
 		drawCenteredString(g, 750, "EXIT");
 
 		g.setColor(Color.red);
@@ -131,6 +131,7 @@ public class Menu extends InputHandler implements UserInterface{
 			System.out.println("EXTRA");
 		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 650, 300, 75)){
 			game.state = STATE.EXIT;
+			System.exit(0);
 			System.out.println("EXIT");
 		}
 	}

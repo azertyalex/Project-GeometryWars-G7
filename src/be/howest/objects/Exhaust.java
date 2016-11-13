@@ -8,6 +8,7 @@ public class Exhaust extends Powers{
 	}
 	
 	public void usePower(GameObject target){
+		/*
 		if(target.checkIfAlive()){
 			int normalPlayerSpeed = target.getSpeed();
 			int newPlayerSpeed = normalPlayerSpeed + 1; //nog veranderen
@@ -28,6 +29,7 @@ public class Exhaust extends Powers{
 			}
 			
 		}
+		*/
 	}
 
 }

@@ -9,9 +9,9 @@ public class Revive extends Powers {
 	@Override
 	public void usePower(Player target){
 		int currentHealth = target.getHealth();
-		if(target.checkIfAlive() == false){
+		/*if(target.checkIfAlive() == false){
 			target.setHealth(currentHealth + 1);
 			
-		}
+		}*/
 	}
 }

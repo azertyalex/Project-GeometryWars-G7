@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static boolean CONTROLLER = false;
 
 	public enum STATE {
-		MENU, PLAY, DRONE_UPGRADE, POWER_SHOP, PAUSE, GAME_OVER, CUSTOMIZATION, OPTIONS, ADMIN_PANEL, EXIT
+		MENU, PLAY, DRONE_UPGRADE, POWER_SHOP, PAUSE, GAME_OVER, VICTORY, CUSTOMIZATION, OPTIONS, ADMIN_PANEL, EXIT
 	}
 
 	// United States
@@ -73,9 +73,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static List<GameObject> hud = new ArrayList<>();
 
 	private BufferedImage bg = GameUtils.loadImage("resources\\background\\NightSky_Pixel.png");
-
-	private boolean isInit = false;
-
 	private Mouse mouse;
 
 
@@ -132,6 +129,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		addAllObjects();
 
 		// UI
+		System.out.println("CREATE");
 		menu = new Menu(this, handler);
 		powerShop = new PowerShop(this, handler);
 		droneUpgrade = new DroneUpgrade(this, handler, powerShop);
@@ -143,6 +141,8 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		stateMap.put(STATE.DRONE_UPGRADE, droneUpgrade);
 		stateMap.put(STATE.POWER_SHOP, powerShop);
 		stateMap.put(STATE.GAME_OVER, endScreen);
+		stateMap.put(STATE.VICTORY, endScreen);
+
 
 		stateMap.put(STATE.PLAY, this);
 
@@ -180,9 +180,14 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			delta += (now - lastTime) / ns;
 			lastTime = now;
 			while (delta >= 1) {
-				tick();
-				delta--;
-				updates++; 
+				try {
+					tick();
+					delta--;
+					updates++; 
+				}catch (NullPointerException e) {
+					//TEMP
+				}
+
 							
 			}
 			render(g); 
@@ -195,12 +200,14 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				updates = 0;
 				frames = 0;
 			}
+			
 			try {
-				Thread.sleep(10); 
-									
+				Thread.sleep(10); 					
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			
 		}
 
 	}
@@ -210,7 +217,8 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		InputHandler.setCurrentState(state);
 
 		handler.tick();
-
+		
+		//CLEAN UP LATER
 		if (state == STATE.PLAY) {
 			if (!isAdded) {
 				// Player
@@ -241,23 +249,12 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				//state = (playerObjects.get(0).getHealth() > 0)? STATE.PLAY : STATE.GAME_OVER;
 				if ((playerObjects.get(0).getHealth() <= 0)){
 					state = STATE.GAME_OVER;
-					isAdded = false;
-					System.out.println(handler.getList());
-					
-					//TEMP -- DEMO PURPOSE -- REMOVE THIS LATER
-					handler.clearObject();
-					playerObjects.clear();
-					enemyObjects.clear();
-					hud.clear();
-					
-					this.removeMouseListener(mouse);
-					this.removeMouseMotionListener(mouse);
-					
-					addAllObjects();
-					//TEMP
-				} else {
+					resetGame();
+				} else if (!handler.hasEnemies()) {
+					state = STATE.VICTORY;
+					resetGame();
+				}else {
 					state = STATE.PLAY;
-
 				}
 			}
 
@@ -269,9 +266,28 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			powerShop.tick();
 		} else if (state == STATE.GAME_OVER) {
 			endScreen.tick("GAME OVER");
+		} else if (state == STATE.VICTORY) {
+			endScreen.tick("VICTORY");
 		}
 	}
 
+	private void resetGame(){
+		isAdded = false;
+		System.out.println(handler.getList());
+		
+		//TEMP -- DEMO PURPOSE -- REMOVE THIS LATER
+		handler.clearObject();
+		playerObjects.clear();
+		enemyObjects.clear();
+		hud.clear();
+		
+		this.removeMouseListener(mouse);
+		this.removeMouseMotionListener(mouse);
+		
+		addAllObjects();
+		//TEMP -- ...
+	}
+	
 	@Override
 	public void render(Graphics g) {
 		BufferStrategy bufferStrategy = this.getBufferStrategy();
@@ -304,7 +320,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			droneUpgrade.render(g);
 		} else if (state == STATE.POWER_SHOP) {
 			powerShop.render(g);
-		} else if (state == STATE.GAME_OVER) {
+		} else if (state == STATE.GAME_OVER ||state == STATE.VICTORY) {
 			endScreen.render(g);
 		}
 		bufferStrategy.show();

@@ -37,7 +37,7 @@ public class Handler implements GameLoop{
 		g.dispose();
 	}
 	
-	/*
+	
 	public boolean hasEnemies(){
 		for(int i = 0;i<object.size();i++){
 			GameObject tempObject = object.get(i);
@@ -47,7 +47,7 @@ public class Handler implements GameLoop{
 			}
 		}
 		return false;
-	}*/
+	}
 	
 	public void addObject(GameObject object){
 		this.object.add(object);
