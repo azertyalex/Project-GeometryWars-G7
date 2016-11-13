@@ -1,8 +1,11 @@
 package be.howest.game;
 
 import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +15,7 @@ import be.howest.gfx.DroneUpgrade;
 import be.howest.gfx.Menu;
 import be.howest.gfx.PowerShop;
 import be.howest.gfx.Window;
+import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
 import be.howest.input.KeyInput;
 import be.howest.input.Mouse;
@@ -39,21 +43,26 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	private Handler handler = new Handler();
 	private boolean isAdded = false;
 
+	public static boolean CONTROLLER = false;
+
 	public enum STATE {
 		MENU, PLAY, DRONE_UPGRADE, POWER_SHOP, PAUSE, GAME_OVER, CUSTOMIZATION, OPTIONS, ADMIN_PANEL, EXIT
 	}
 
-	// United states of Trump
+	// United States
+	private Hud HUD;
 	private DroneUpgrade droneUpgrade;
 	private PowerShop powerShop;
 	private Menu menu;
 
-	// Starting state
-	public STATE state = STATE.DRONE_UPGRADE;
+	// Starting State
+	public STATE state = STATE.MENU;
 
 	public static Map<STATE, Object> stateMap = new HashMap<STATE, Object>();
 
-	private Hud HUD;
+	private Gamepad gamepad;
+	private boolean controllerConnected = false;
+	public static boolean EscapedPressed = false;
 
 	// Used for z-index
 	public static List<GameObject> backgroundObjects = new ArrayList<>();
@@ -61,8 +70,32 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static List<GameObject> playerObjects = new ArrayList<>();
 	public static List<GameObject> hud = new ArrayList<>();
 
+	private BufferedImage bg = GameUtils.loadImage("resources\\background\\NightSky_Pixel.png");
+
+	private boolean firstTime = true;
+
+	public Gamepad getGamepad() {
+		return gamepad;
+	}
+
+	public void setGamepad(Gamepad gamepad) {
+		this.gamepad = gamepad;
+		Thread t = new Thread(gamepad);
+		t.start();
+	}
+
+	public boolean isControllerConnected() {
+		return controllerConnected;
+	}
+
+	public void setControllerConnected(boolean controllerConnected) {
+		this.controllerConnected = controllerConnected;
+
+	}
+
 	private void addAllObjects() {
 		// Enemy
+
 		enemyObjects.add(new Wanderer(500, 152, 50, 50, ID.Wanderer));
 		enemyObjects.add(new Dart(WIDTH, 500, 50, 50, ID.Dart, handler));
 		enemyObjects.add(new Grunt(25, 42, 24, 24, ID.Grunt, handler));
@@ -76,6 +109,15 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt, handler));
 			enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt, handler));
 		}
+
+	}
+
+	public boolean isControllerFound() {
+		if (gamepad == null) {
+			return false;
+		} else {
+			return gamepad.ControllerActive();
+		}
 	}
 
 	public Game() {
@@ -85,6 +127,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		addAllObjects();
 
 		// UI
+
 		menu = new Menu(this, handler);
 		powerShop = new PowerShop(this, handler);
 		droneUpgrade = new DroneUpgrade(this, handler, powerShop);
@@ -96,8 +139,9 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		stateMap.put(STATE.POWER_SHOP, powerShop);
 		stateMap.put(STATE.PLAY, this);
 
-		// Works for all input somehow
+		// Works for all input
 		this.addMouseListener(menu);
+		this.addKeyListener(menu);
 	}
 
 	public synchronized void start() {
@@ -115,37 +159,64 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		}
 	}
 
+	private void capFrameRate(double fps) {
+		double start = 0;
+		double diff;
+		double wait;
+
+		wait = 1 / fps;
+		diff = System.currentTimeMillis() - start;
+		if (diff < wait) {
+			try {
+				Thread.sleep((long) (wait - diff));
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		start = System.currentTimeMillis();
+	}
+
 	@Override
 	public void run() {
-		// FPS -- Test closed
+		// Tick calc
+
+		System.out.println("RUN");
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double nanoSeconds = 1000000000 / amountOfTicks;
 		double delta = 0;
-		// long timer = System.currentTimeMillis();
+		long timer = System.currentTimeMillis();
 		while (isRunning) {
+			capFrameRate(60);
+
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nanoSeconds;
 			lastTime = now;
+			
+			System.out.println("Delta: " + delta);
 			while (delta >= 1) {
+				System.out.println("TICK");
 				tick();
 				delta--;
-			}
 
+			}
+			
 			if (isRunning) {
+				System.out.println("RUN");
 				render(g);
 			}
-			// frames++;
+			
+			//Thread.sleep(arg0);
+			 
+			  frames++;
+			  if(System.currentTimeMillis() - timer > 1000){
+			  timer += 1000; 
+			  System.out.println("FPS: " + frames);
+			  frames = 0;
+			  }}
 
-			// if(System.currentTimeMillis() - timer > 1000){
-			// timer += 1000;
-			// System.out.println("FPS: " + frames);
-			// frames = 0;
-			// }
 		}
-		//
-
-	}
 
 	@Override
 	public void tick() {
@@ -155,10 +226,16 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 		if (state == STATE.PLAY) {
 			if (!isAdded) {
+				// Player
+				if (CONTROLLER) {
+					playerObjects.add(
+							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2, handler, gamepad, 3));
+				} else {
+					playerObjects.add(
+							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2, handler, false, 3));
+				}
 				// Drone
 				playerObjects.add(new Drone(0, 0, 40, 40, ID.Drone, handler));
-				// Player
-				handler.addObject(new testObject(200, 200, 50, 50, ID.Player2, handler, false, 3));
 
 				handler.addObject(enemyObjects);
 				handler.addObject(playerObjects);
@@ -169,8 +246,9 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				this.addMouseListener(mouse);
 				this.addMouseMotionListener(mouse);
 
-				HUD.setHudHealth(playerObjects.get(0).getHealth());
 				isAdded = true;
+			} else {
+				HUD.setHudHealth(playerObjects.get(0).getHealth());
 			}
 
 		} else if (state == STATE.MENU) {
@@ -192,18 +270,30 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		}
 
 		g = bufferStrategy.getDrawGraphics();
-		g.drawImage(GameUtils.loadImage("resources\\background\\NightSky_Pixel.png"), 0, 0, WIDTH, HEIGHT, null);
+
+		g.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);
+
+		// g.setColor(Color.black);
+		// g.fillRect(0, 0, WIDTH, HEIGHT);
+
+		Font text = new Font("Arial", Font.PLAIN, 18);
+		g.setFont(text);
+		g.setColor(Color.white);
+		g.drawString("PROTOTYPE (13 NOV.)", 5, 20);
 
 		if (state == STATE.PLAY) {
+			HUD.render(g);
 			handler.render(g);
 		} else if (state == STATE.MENU) {
 			menu.render(g);
+
 		} else if (state == STATE.DRONE_UPGRADE) {
 			droneUpgrade.render(g);
 		} else if (state == STATE.POWER_SHOP) {
 			powerShop.render(g);
 		}
 		bufferStrategy.show();
+		g.dispose();
 	}
 
 	public static void main(String args[]) {

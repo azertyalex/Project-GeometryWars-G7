@@ -68,6 +68,8 @@ public class PowerShop extends InputHandler implements UserInterface {
 
 		//The SHORT IF is used when it needs to calculate what row the card is in.
 		//A row contains 4 Cards
+		
+		/*
 		for (int i = 0; i < powerList.size(); i++) {
 			g.drawImage(
 					GameUtils.loadImage("resources\\UI\\Card\\" + powerList.get(i) + ".png"), //Image
@@ -84,6 +86,8 @@ public class PowerShop extends InputHandler implements UserInterface {
 					null //ImageObserver
 					);
 			}
+			*/
+			
 	}
 
 	public void tick() {

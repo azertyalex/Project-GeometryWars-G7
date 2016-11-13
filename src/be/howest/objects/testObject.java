@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import be.howest.game.Game;
@@ -22,6 +23,7 @@ public class testObject extends GameObject{
 	private int score;
 	private Graphics2D g2d;
 	
+	private BufferedImage imgPlayer = GameUtils.loadImage("resources\\Player_Standard\\Player.png");
 	
 	public testObject(int x,int y, ID id){
 		super(x,y,id);
@@ -40,6 +42,7 @@ public class testObject extends GameObject{
 	public testObject(int x,int y,int height, int width, ID id, Handler handler, int health){
 		super(x,y,height,width,id,handler);
 		setHealth(health);
+		setSpeed(10);
 	}
 	
 	public testObject(int x,int y,int height, int width, ID id, Handler handler,boolean controller, int health){
@@ -49,22 +52,30 @@ public class testObject extends GameObject{
 		setSpeed(10);
 		
 	}
+	
+	public testObject(int x,int y,int height, int width, ID id, Handler handler,Gamepad gamepad, int health){
+		super(x,y,height,width,id,handler,true);
+		setHealth(health);
+		this.gamepad = gamepad;
+		setSpeed(10);
+		
+	}
+	
+	public boolean isControllerActive(){
+		return gamepad.ControllerActive();
+	}
 
 	@Override
 	public void tick() {
-		
-		
 		x = (int) (GameUtils.clamp(x, 0, Game.WIDTH - objectWidth) + velX);
 		y = (int) (GameUtils.clamp(y, 0, Game.HEIGHT - objectHeight) + velY);
 		
 		Collision();
-
 		
 		setHeight(50);
 		setWidth(50);
 		
 		if(controller){
-			
 			gamepad.turnOnController();
 			if(gamepad.getDPad() == 0.25) speed++;
 			if(gamepad.getDPad() == 0.75) speed--;	
@@ -175,7 +186,7 @@ public class testObject extends GameObject{
 
 		
 		g2d.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
-		g2d.drawImage(GameUtils.loadImage("resources\\Player_Standard\\Player.png"), x, y, objectWidth, objectHeight,null);
+		g2d.drawImage(imgPlayer, x, y, objectWidth, objectHeight,null);
 
 		
 		Color c = new Color(1f,0f,0f,0f);
@@ -194,7 +205,5 @@ public class testObject extends GameObject{
 	public void setScore(int score) {
 		this.score = score;
 	}
-
-	
 
 }

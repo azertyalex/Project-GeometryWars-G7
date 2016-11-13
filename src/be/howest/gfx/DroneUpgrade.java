@@ -21,6 +21,7 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 	private Handler handler;
 	private PowerShop powerShop;
 	
+	private BufferedImage imgDroneInfo = GameUtils.loadImage("resources\\UI\\Other\\Drone_Information.png");
 	
 	public DroneUpgrade(Game game, Handler handler, PowerShop powerShop){
 		this.game = game;
@@ -45,7 +46,7 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 		g.drawString("DRONE UPGRADE", 49, 125);
 
 		//UI - Drone upgrade
-		g.drawImage(GameUtils.loadImage("resources\\UI\\Other\\Drone_Information.png"), Game.WIDTH / 2 - 250, 145, null);
+		g.drawImage(imgDroneInfo, Game.WIDTH / 2 - 250, 145, null);
 		
 		//UI - Title
 		Font smaller_title = new Font("Arial", Font.BOLD, 30);

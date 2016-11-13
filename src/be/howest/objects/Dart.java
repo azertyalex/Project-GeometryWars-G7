@@ -3,6 +3,7 @@ package be.howest.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import be.howest.game.Game;
 import be.howest.game.Handler;
@@ -10,10 +11,9 @@ import be.howest.game.ID;
 import be.howest.util.GameUtils;
 
 public class Dart extends GameObject{
-	
-
 	private GameObject player;
-
+	private BufferedImage imgDart = GameUtils.loadImage("resources\\Enemy\\Spinner.png");
+	
 	public Dart(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
 		setSpeed(10);
@@ -95,7 +95,7 @@ public class Dart extends GameObject{
 				//g.setColor(Color.RED);
 				//g.fillRect(x, y, 32, 32);
 		//g.rotate(Math.toRadians(rotation), getCenterX(), getCenterY());
-		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Spinner.png"), x, y, objectWidth, objectHeight,null);
+		g.drawImage(imgDart, x, y, objectWidth, objectHeight,null);
 		
 		
 	}

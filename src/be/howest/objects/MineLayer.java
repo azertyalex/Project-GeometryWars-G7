@@ -3,6 +3,7 @@ package be.howest.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import be.howest.game.Game;
@@ -14,7 +15,8 @@ public class MineLayer extends GameObject{
 	
 	
 	private int timer = 150;
-
+	private BufferedImage imgMineLayer = GameUtils.loadImage("resources\\Enemy\\Weaver.png");
+	
 	public MineLayer(int x, int y,int height, int width ,ID id, Handler handler) {
 		super(x,y,height,width,id,handler);
 		velX = 4;
@@ -55,7 +57,7 @@ public class MineLayer extends GameObject{
 
 	
 	public void render(Graphics g) {
-		g.drawImage(GameUtils.loadImage("resources\\Enemy\\Weaver.png"), x, y, objectWidth, objectHeight,null);
+		g.drawImage(imgMineLayer, x, y, objectWidth, objectHeight,null);
 	}
 	
 }

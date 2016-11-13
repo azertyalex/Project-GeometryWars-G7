@@ -3,6 +3,7 @@ package be.howest.objects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
@@ -11,7 +12,8 @@ import be.howest.util.GameUtils;
 public class Drone extends GameObject{
 
 	private GameObject player;
-
+	private BufferedImage imgDrone = GameUtils.loadImage("resources\\Drone\\SentryDroneWithTurret.png");
+	
 	public Drone(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
 	}
@@ -59,7 +61,7 @@ public class Drone extends GameObject{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(GameUtils.loadImage("resources\\Drone\\SentryDroneWithTurret.png"), x, y, objectWidth, objectHeight,null);
+		g.drawImage(imgDrone, x, y, objectWidth, objectHeight,null);
 
 	}
 

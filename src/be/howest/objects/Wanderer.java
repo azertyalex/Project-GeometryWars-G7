@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import be.howest.game.Game;
 import be.howest.game.Handler;
@@ -12,6 +13,7 @@ import be.howest.util.GameUtils;
 
 public class Wanderer extends GameObject{
 	private int spinner;
+	private BufferedImage imgWanderer = GameUtils.loadImage("resources\\Enemy\\Wanderer4.png");
 	
 	public Wanderer(int x, int y, ID id) {
 		super(x, y, id);
@@ -53,7 +55,7 @@ public class Wanderer extends GameObject{
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.rotate(spinner,getCenterX(),getCenterY());
-		g2d.drawImage(GameUtils.loadImage("resources\\Enemy\\Wanderer4.png"), x, y, objectWidth, objectHeight,null);
+		g2d.drawImage(imgWanderer, x, y, objectWidth, objectHeight,null);
 	}
 
 }

@@ -2,6 +2,7 @@ package be.howest.gfx;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -12,13 +13,14 @@ import be.howest.game.Game.STATE;
 import be.howest.objects.testObject;
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
 
 public class Menu extends InputHandler implements UserInterface{
-	public Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 150, 150, 300, 75);
-	public Rectangle CustomizationButton = new Rectangle(Game.WIDTH / 2- 150, 300, 300, 75);
-	public Rectangle OptionButton = new Rectangle(Game.WIDTH / 2- 150, 450, 300, 75);
-	public Rectangle ExitButton = new Rectangle(Game.WIDTH / 2- 150, 600, 300, 75);
+	public Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 150, 200, 300, 75);
+	public Rectangle CustomizationButton = new Rectangle(Game.WIDTH / 2- 150, 350, 300, 75);
+	public Rectangle OptionButton = new Rectangle(Game.WIDTH / 2- 150, 500, 300, 75);
+	public Rectangle ExitButton = new Rectangle(Game.WIDTH / 2- 150, 650, 300, 75);
 
 	private Game game;
 	private Handler handler;
@@ -35,27 +37,61 @@ public class Menu extends InputHandler implements UserInterface{
 		        RenderingHints.KEY_TEXT_ANTIALIASING,
 		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		Font fnt0 = new Font("Arial", Font.BOLD,50);
-		g.setFont(fnt0);
+		Font title = new Font("Arial", Font.BOLD,50);
+		Font small_title = new Font("Arial", Font.BOLD, 30);
+		Font text = new Font("Arial", Font.PLAIN, 18);
+
+
+		g.setFont(title);
 		g.setColor(Color.white);
-		g.drawString("GEOMETRY WARS", Game.WIDTH / 2 - 250, 100);
+		drawCenteredString(g, 100, "GEOMETRY WARS");
 		
-		Font fnt1 = new Font("Arial", Font.BOLD, 30);
-		g.setFont(fnt1);
-		
+		g.setFont(small_title);
+		drawCenteredString(g, 135, "PROTOTYPE (13 NOV.)");
+
 		g2d.fill(playButton);
 		g2d.fill(CustomizationButton);
 		g2d.fill(OptionButton);
 		g2d.fill(ExitButton);
 
 		g.setColor(Color.black);
-		
-		g.drawString("PLAY", Game.WIDTH / 2, 200);
-		g.drawString("CUSTOMIZE", Game.WIDTH / 2, 350);
-		g.drawString("OPTIONS", Game.WIDTH / 2, 500);
-		g.drawString("EXIT", Game.WIDTH / 2, 650);
+		drawCenteredString(g, 250, "PLAY");
+		drawCenteredString(g, 400, "GAMEPAD ON/OFF");
+		drawCenteredString(g, 550, "EXTRA");
+		drawCenteredString(g, 700, "EXIT");
 
+		g.setFont(text);
+		g.setColor(Color.white);
+		drawCenteredString(g, 300, "\"PLAY\" bevat de core gameplay van het spel.");
+		drawCenteredString(g, 450, "Met \"GAMEPAD ON/OFF\" kan je de input naar controller of keyboard/mouse zetten. ");
+		drawCenteredString(g, 600, "\"EXTRA\" bevat de clickable droneUpgrade en PowerShop.\n Deze is nog niet geïmplimenteerd samen met de core game.");
+		drawCenteredString(g, 750, "EXIT");
+
+		g.setColor(Color.red);
+		String input = (Game.CONTROLLER) ? (game.isControllerFound())? "Controller (CONNECTED)" :"Controller (NOT CONNECTED)" : "Keyboard/Mouse";
+		g.drawString("INPUT: " + input, Game.WIDTH / 2 + 160 , 395);
+		
+		//System.out.println("Check controller state: " + game.isControllerFound());
+		
+			
+		if (Game.CONTROLLER && !game.isControllerFound()){
+			g2d.fill(new Rectangle(0, 30, Game.WIDTH, 150));
+			g.setColor(Color.white);
+			g.setFont(title);
+			drawCenteredString(g, 100, "Press \"Start\" to connect the controller.");
 		}
+
+		
+		}
+	
+	private void drawCenteredString(Graphics g, int height, String text){
+	    for (String line : text.split("\n")){
+	    	int textWidth = g.getFontMetrics().stringWidth(line) / 2;
+	    	int textHeight = g.getFontMetrics().getHeight();
+			g.drawString(line, Game.WIDTH / 2 - textWidth, height);
+			height += textHeight;
+	    }
+	    }
 	
 	public void tick(){
 		
@@ -78,15 +114,23 @@ public class Menu extends InputHandler implements UserInterface{
 		System.out.println("MENU: " +mx);
 		System.out.println("MENU: " +my);
 		
-		if (mouseOver(mx, my, Game.WIDTH / 2 - 150, 150, 300, 75)){
+		if (mouseOver(mx, my, Game.WIDTH / 2 - 150, 200, 300, 75)){
 			game.state = STATE.PLAY;
 			System.out.println("PLAY");
-			//handler.addObject(new testObject(200,200,ID.Enemy));
-		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 300, 300, 75)){
-			System.out.println("CUSTOMIZE");
-		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 450, 300, 75)){
-			System.out.println("OPTIONS");
-		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 600, 300, 75)){
+		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 350, 300, 75)){
+			Game.CONTROLLER = !Game.CONTROLLER;
+			System.out.println("GAMEPAD " + Game.CONTROLLER);
+
+			if (Game.CONTROLLER && !game.isControllerConnected()){
+				System.out.println("new controller");
+				game.setGamepad(new Gamepad());
+				game.setControllerConnected(true);
+			}
+		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 500, 300, 75)){
+			game.state = STATE.DRONE_UPGRADE;
+			System.out.println("EXTRA");
+		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 650, 300, 75)){
+			game.state = STATE.EXIT;
 			System.out.println("EXIT");
 		}
 	}

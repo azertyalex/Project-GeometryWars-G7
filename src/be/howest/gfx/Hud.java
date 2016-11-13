@@ -3,6 +3,7 @@ package be.howest.gfx;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
@@ -11,9 +12,8 @@ import be.howest.util.GameUtils;
 
 
 public class Hud {
-
-	
-	
+	private BufferedImage imgHeart = GameUtils.loadImage("resources\\UI\\HUD\\Health.png");
+		
 	private int health;
 	private int score;
 	
@@ -28,7 +28,7 @@ public class Hud {
 	}
 	
 	public void render(Graphics g){
-		g.drawImage(GameUtils.loadImage("resources\\Other\\Health.png"), 28, 20,65,50,null);
+		g.drawImage(imgHeart , 28, 20,65,50,null);
 		g.setColor(Color.WHITE);
 		Font myFont = new Font ("STARWARS", 1, 50);
 		g.setFont (myFont);
