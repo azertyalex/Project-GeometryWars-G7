@@ -12,6 +12,7 @@ import java.util.List;
 import be.howest.gfx.Hud;
 import java.util.Map;
 import be.howest.gfx.DroneUpgrade;
+import be.howest.gfx.EndScreen;
 import be.howest.gfx.Menu;
 import be.howest.gfx.PowerShop;
 import be.howest.gfx.Window;
@@ -54,6 +55,8 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	private DroneUpgrade droneUpgrade;
 	private PowerShop powerShop;
 	private Menu menu;
+	private EndScreen endScreen;
+
 
 	// Starting State
 	public STATE state = STATE.MENU;
@@ -62,7 +65,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	private Gamepad gamepad;
 	private boolean controllerConnected = false;
-	public static boolean EscapedPressed = false;
 
 	// Used for z-index
 	public static List<GameObject> backgroundObjects = new ArrayList<>();
@@ -72,7 +74,10 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	private BufferedImage bg = GameUtils.loadImage("resources\\background\\NightSky_Pixel.png");
 
-	private boolean firstTime = true;
+	private boolean isInit = false;
+
+	private Mouse mouse;
+
 
 	public Gamepad getGamepad() {
 		return gamepad;
@@ -127,16 +132,18 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		addAllObjects();
 
 		// UI
-
 		menu = new Menu(this, handler);
 		powerShop = new PowerShop(this, handler);
 		droneUpgrade = new DroneUpgrade(this, handler, powerShop);
+		endScreen = new EndScreen(this,handler);
 		HUD = new Hud();
 
 		// stateMap
 		stateMap.put(STATE.MENU, menu);
 		stateMap.put(STATE.DRONE_UPGRADE, droneUpgrade);
 		stateMap.put(STATE.POWER_SHOP, powerShop);
+		stateMap.put(STATE.GAME_OVER, endScreen);
+
 		stateMap.put(STATE.PLAY, this);
 
 		// Works for all input
@@ -159,23 +166,6 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		}
 	}
 
-	private void capFrameRate(double fps) {
-		double start = 0;
-		double diff;
-		double wait;
-
-		wait = 1 / fps;
-		diff = System.currentTimeMillis() - start;
-		if (diff < wait) {
-			try {
-				Thread.sleep((long) (wait - diff));
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		start = System.currentTimeMillis();
-	}
 
 	@Override
 	public void run() {
@@ -237,15 +227,38 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				handler.addObject(enemyObjects);
 				handler.addObject(playerObjects);
 				handler.addObject(hud);
-
-				Mouse mouse = new Mouse(handler, handler.getGameObject(ID.Player2));
-				this.addKeyListener(new KeyInput(handler));
-				this.addMouseListener(mouse);
-				this.addMouseMotionListener(mouse);
+				
+					mouse = new Mouse(handler, handler.getGameObject(ID.Player2));
+					this.addKeyListener(new KeyInput(handler));
+					this.addMouseListener(mouse);
+					this.addMouseMotionListener(mouse);
 
 				isAdded = true;
+				
 			} else {
+				System.out.println(state);
 				HUD.setHudHealth(playerObjects.get(0).getHealth());
+				//state = (playerObjects.get(0).getHealth() > 0)? STATE.PLAY : STATE.GAME_OVER;
+				if ((playerObjects.get(0).getHealth() <= 0)){
+					state = STATE.GAME_OVER;
+					isAdded = false;
+					System.out.println(handler.getList());
+					
+					//TEMP -- DEMO PURPOSE -- REMOVE THIS LATER
+					handler.clearObject();
+					playerObjects.clear();
+					enemyObjects.clear();
+					hud.clear();
+					
+					this.removeMouseListener(mouse);
+					this.removeMouseMotionListener(mouse);
+					
+					addAllObjects();
+					//TEMP
+				} else {
+					state = STATE.PLAY;
+
+				}
 			}
 
 		} else if (state == STATE.MENU) {
@@ -254,6 +267,8 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			droneUpgrade.tick();
 		} else if (state == STATE.POWER_SHOP) {
 			powerShop.tick();
+		} else if (state == STATE.GAME_OVER) {
+			endScreen.tick("GAME OVER");
 		}
 	}
 
@@ -285,11 +300,12 @@ public class Game extends Canvas implements Runnable, GameLoop {
 			handler.render(g);
 		} else if (state == STATE.MENU) {
 			menu.render(g);
-
 		} else if (state == STATE.DRONE_UPGRADE) {
 			droneUpgrade.render(g);
 		} else if (state == STATE.POWER_SHOP) {
 			powerShop.render(g);
+		} else if (state == STATE.GAME_OVER) {
+			endScreen.render(g);
 		}
 		bufferStrategy.show();
 		g.dispose();

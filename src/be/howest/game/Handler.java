@@ -37,6 +37,18 @@ public class Handler implements GameLoop{
 		g.dispose();
 	}
 	
+	/*
+	public boolean hasEnemies(){
+		for(int i = 0;i<object.size();i++){
+			GameObject tempObject = object.get(i);
+			
+			if(tempObject.getParentId() == ID.Enemy){
+				return true;
+			}
+		}
+		return false;
+	}*/
+	
 	public void addObject(GameObject object){
 		this.object.add(object);
 		
@@ -49,6 +61,10 @@ public class Handler implements GameLoop{
 	
 	public void removeObject(GameObject object){
 		this.object.remove(object);
+	}
+	
+	public void clearObject(){
+		this.object.clear();
 	}
 	
 	public void removeObject(List<GameObject> listOfObjects){
