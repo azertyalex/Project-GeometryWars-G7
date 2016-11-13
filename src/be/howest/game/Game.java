@@ -96,18 +96,18 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	private void addAllObjects() {
 		// Enemy
 
-		enemyObjects.add(new Wanderer(500, 152, 50, 50, ID.Wanderer));
-		enemyObjects.add(new Dart(WIDTH, 500, 50, 50, ID.Dart, handler));
-		enemyObjects.add(new Grunt(25, 42, 24, 24, ID.Grunt, handler));
-		enemyObjects.add(new Grunt(562, 85, 24, 24, ID.Grunt, handler));
-		enemyObjects.add(new Grunt(785, 185, 24, 24, ID.Grunt, handler));
-		enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt, handler));
-		enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt, handler));
-		enemyObjects.add(new MineLayer(20, 30, 50, 50, ID.MineLayer, handler));
+		enemyObjects.add(new Wanderer(500, 152, 50, 50, ID.Wanderer,ID.Enemy,handler));
+		enemyObjects.add(new Dart(WIDTH, 500, 50, 50, ID.Dart,ID.Enemy, handler));
+		enemyObjects.add(new Grunt(25, 42, 24, 24, ID.Grunt,ID.Enemy, handler));
+		enemyObjects.add(new Grunt(562, 85, 24, 24, ID.Grunt,ID.Enemy, handler));
+		enemyObjects.add(new Grunt(785, 185, 24, 24, ID.Grunt,ID.Enemy, handler));
+		enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt,ID.Enemy, handler));
+		enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt,ID.Enemy, handler));
+		enemyObjects.add(new MineLayer(20, 30, 50, 50, ID.MineLayer,ID.Enemy, handler));
 
 		for (int i = 0; i < 1; i++) {
-			enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt, handler));
-			enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt, handler));
+			enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt,ID.Enemy, handler));
+			enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt,ID.Enemy, handler));
 		}
 
 	}
@@ -226,10 +226,10 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				// Player
 				if (CONTROLLER) {
 					playerObjects.add(
-							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2, handler, gamepad, 3));
+							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2, ID.Player, handler, gamepad, 3));
 				} else {
 					playerObjects.add(
-							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2, handler, false, 3));
+							new testObject(Game.WIDTH / 2, Game.HEIGHT / 2, 50, 50, ID.Player2,ID.Player, handler, 3));
 				}
 				// Drone
 				playerObjects.add(new Drone(0, 0, 40, 40, ID.Drone, handler));
@@ -267,8 +267,10 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		}
 
 		g = bufferStrategy.getDrawGraphics();
+		
 
 		g.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);
+		//g.drawRect(0, 0, 0, 0);
 
 		// g.setColor(Color.black);
 		// g.fillRect(0, 0, WIDTH, HEIGHT);

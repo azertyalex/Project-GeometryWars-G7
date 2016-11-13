@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import be.howest.game.Game;
 import be.howest.game.Handler;
@@ -11,24 +14,24 @@ import be.howest.game.ID;
 import be.howest.util.GameUtils;
 
 public class Dart extends GameObject{
+	private List<GameObject> players = new ArrayList<>();
 	private GameObject player;
+	
+	private Random random = new Random();
+	
 	private BufferedImage imgDart = GameUtils.loadImage("resources\\Enemy\\Spinner.png");
 	
 	public Dart(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
 		setSpeed(10);
-		
 
 	}
 	
-	
-	public Dart(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-
-		//velX = 5;
-		//velY = 5;
+	public Dart(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
+		super(x,y,height,width,id,parentId,handler);
+		setSpeed(10);
 	}
+
 	
 	@Override
 	public Rectangle getBounds(){
@@ -43,11 +46,12 @@ public class Dart extends GameObject{
 		
 		for(int i=0; i<handler.getList().size();i++){
 			
-			if(handler.getList().get(i).getId()== ID.Player2){
-				player = handler.getList().get(i);
-				//System.out.println(player);
+			if(handler.getList().get(i).getParentId() == ID.Player)	{
+				players.add((GameObject)handler.getList().get(i));	
 			}
 		}
+		
+		player = players.get(random.nextInt(players.size()));
         
 		
 		

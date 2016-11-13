@@ -20,9 +20,12 @@ public class MineLayer extends GameObject{
 	public MineLayer(int x, int y,int height, int width ,ID id, Handler handler) {
 		super(x,y,height,width,id,handler);
 		velX = 4;
-		velY = 1;
-		
-        
+		velY = 1;  
+	}
+	
+	public MineLayer(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
+		this(x,y,height,width,id,handler);
+		this.parentId = parentId;
 	}
 
 	public Rectangle getBounds(){

@@ -15,19 +15,21 @@ public class Grunt extends GameObject{
 
 	private GameObject player;
 	private BufferedImage imgGrunt = GameUtils.loadImage("resources\\Enemy\\Grunt.png");
+
+	public Grunt(int x, int y, ID id, Handler handler) {
+		super(x, y, id);
+	}
 	
 	public Grunt(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
 	}
 	
-	
-	public Grunt(int x, int y, ID id, Handler handler) {
-		super(x, y, id);
-		
-		
-		//velX = 5;
-		//velY = 5;
+	public Grunt(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
+		super(x,y,height,width,id,parentId,handler);
 	}
+	
+	
+
 	
 
 	public Rectangle getBounds(){

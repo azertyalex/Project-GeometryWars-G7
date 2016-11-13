@@ -10,6 +10,7 @@ import be.howest.util.GameLoop;
 
 public abstract class GameObject implements GameLoop{
 	protected ID id;
+	protected ID parentId;
 	protected int x, y;
 	protected float velX, velY;
 	protected Handler handler;
@@ -29,6 +30,13 @@ public abstract class GameObject implements GameLoop{
 		this.id = id;
 	}
 	
+	public GameObject(int x, int y, ID id, ID parentId){
+		this.x = x;
+		this.y = y;
+		this.id = id;
+		this.parentId = parentId;
+	}
+	
 	
 	public GameObject(int x, int y,int height, int width, ID id){
 		this(x,y,id);
@@ -46,10 +54,24 @@ public abstract class GameObject implements GameLoop{
 		this.handler = handler;
 	}
 	
+	public GameObject(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
+		this(x,y,height,width,id,handler);
+		this.parentId = parentId;
+	}
+	
 	public GameObject(int x, int y,int height, int width, ID id, Handler handler, boolean controller){
 		this(x,y,height,width,id,handler);
 		this.controller = controller;
 	}
+	
+	public GameObject(int x, int y,int height, int width, ID id, ID parentId, Handler handler, boolean controller){
+		this(x,y,height,width,id,handler);
+		this.controller = controller;
+		this.parentId = parentId;
+	}
+	
+	
+	
 	
 	public void setHeight(int height){
 		this.objectHeight = height;
@@ -147,6 +169,19 @@ public abstract class GameObject implements GameLoop{
 
 	public void setController(boolean controller) {
 		this.controller = controller;
+	}
+
+
+
+	public ID getParentId() {
+		if(parentId == null) return id;
+		return parentId;
+	}
+
+
+
+	public void setParentId(ID parentId) {
+		this.parentId = parentId;
 	}
 	
 }

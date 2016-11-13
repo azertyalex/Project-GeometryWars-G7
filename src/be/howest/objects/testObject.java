@@ -58,9 +58,21 @@ public class testObject extends GameObject{
 		setHealth(health);
 		this.gamepad = gamepad;
 		setSpeed(10);
-		
 	}
 	
+	public testObject(int x, int y,int height, int width, ID id, ID parentId, Handler handler,Gamepad gamepad, int health){
+		super(x,y,height,width,id,parentId,handler,true);
+		this.gamepad = gamepad;
+		setHealth(health);
+		setSpeed(10);
+	}
+	
+	public testObject(int x, int y,int height, int width, ID id, ID parentId, Handler handler, int health) {
+		super(x,y,height,width,id,parentId,handler,false);
+		setHealth(health);
+		setSpeed(10);
+	}
+
 	public boolean isControllerActive(){
 		return gamepad.ControllerActive();
 	}
@@ -72,8 +84,6 @@ public class testObject extends GameObject{
 		
 		Collision();
 		
-		setHeight(50);
-		setWidth(50);
 		
 		if(controller){
 			gamepad.turnOnController();
@@ -83,11 +93,11 @@ public class testObject extends GameObject{
 				int w = random.nextInt(Game.WIDTH - 50);
 				int h = random.nextInt(Game.HEIGHT - 50);
 				
-				handler.addObject(new Wanderer(w,h,50,50,ID.Wanderer));
+				handler.addObject(new Wanderer(w,h,50,50,ID.Wanderer,ID.Enemy,handler));
 			}
 			if( timer == 0){
 				if(gamepad.getButton(5)){
-					handler.addObject(new Lazer(50,10,ID.Enemy,(GameObject) this,handler,gamepad.getRotationR()));
+					handler.addObject(new Lazer(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
 					
 				}
 				timer = 10;
@@ -105,6 +115,21 @@ public class testObject extends GameObject{
 		for(int i=0; i < handler.getList().size();i++){
 			GameObject tempObject = handler.getList().get(i);
 			
+			if (tempObject.getParentId() == ID.Enemy){
+				if(getBounds().intersects(tempObject.getBounds())){
+					//System.out.println("Collision detected");
+					handler.removeObject(tempObject);
+					if(this.health>0){
+						this.setHealth(health-1);
+						this.setScore(score + 100);
+					}
+					else{
+						System.out.println("Game Over");
+					}
+				}
+			}
+			
+			/*
 			if (tempObject.getId() == ID.Wanderer){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
@@ -166,6 +191,7 @@ public class testObject extends GameObject{
 					}
 				}
 			}
+			*/
 			
 		}
 	}

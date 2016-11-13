@@ -7,6 +7,8 @@ import java.util.zip.*;
 
 import javax.imageio.ImageIO;
 
+import sun.audio.AudioPlayer;
+
 public class GameUtils {
 	
 	public static <T extends Comparable<T>> T clamp(T val, T min, T max) {
@@ -48,6 +50,18 @@ public class GameUtils {
 		}
 		
 		return image;
+	}
+	
+	public static InputStream loadSound(String path){
+		InputStream sound = null;
+		try {
+			sound = new FileInputStream(path);
+			
+			
+		} catch (FileNotFoundException ex) {
+			throw new MyException("Failed to load sound",ex);
+		} 
+		return sound;
 	}
 
 	public static void zipTest(){

@@ -14,6 +14,7 @@ import be.howest.util.GameUtils;
 public class Wanderer extends GameObject{
 	private int spinner;
 	private BufferedImage imgWanderer = GameUtils.loadImage("resources\\Enemy\\Wanderer4.png");
+	private int timer;
 	
 	public Wanderer(int x, int y, ID id) {
 		super(x, y, id);
@@ -26,6 +27,12 @@ public class Wanderer extends GameObject{
 		
 		velX = 5;
 		velY = 5;
+	}
+
+	public Wanderer(int x, int y, int height, int width, ID id, ID parentID, Handler handler) {
+		this(x,y,height,width,id);
+		this.parentId = parentID;
+		this.handler = handler;
 	}
 
 	public Rectangle getBounds(){
@@ -44,7 +51,12 @@ public class Wanderer extends GameObject{
 			velX *= -1;
 		}
 		
-		spinner++;
+		if(timer == 0){
+			spinner++;
+			timer = 3;
+		}
+		
+		timer--;
 		
 		if(spinner == 360){
 			spinner = 0;

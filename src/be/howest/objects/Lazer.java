@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 import be.howest.game.Handler;
 import be.howest.game.ID;
+import be.howest.gfx.Hud;
 import be.howest.input.Mouse;
 import be.howest.util.GameUtils;
 import be.howest.util.MyException;
@@ -21,6 +22,9 @@ public class Lazer extends GameObject{
 	private Mouse mouse;
 	private GameObject player;
 	private int timer = 100;
+	private Hud hud;
+	
+	
 	
 
 	public Lazer(int x, int y, ID id,float rotation,Mouse mouse) {
@@ -40,13 +44,8 @@ public class Lazer extends GameObject{
 		int r = 90;
 		velY = (int) ( 15*Math.sin(Math.toRadians(rotation-r)));
         velX = (int) (15*Math.cos( Math.toRadians(rotation-r)));
-		try {
-			InputStream lazerSound = new FileInputStream("resources\\sound\\laser2.wav");
-			AudioPlayer.player.start(lazerSound);
-			
-		} catch (FileNotFoundException ex) {
-			throw new MyException("Failed to load sound",ex);
-		} 
+        
+        AudioPlayer.player.start(GameUtils.loadSound("resources\\sound\\laser2.wav"));
 		
 	}
 	
@@ -83,7 +82,7 @@ public class Lazer extends GameObject{
 		
 		for(int i=0; i < handler.getList().size();i++){
 			GameObject tempObject = handler.getList().get(i);
-			if (tempObject.getId() == ID.Wanderer){
+			if (tempObject.getParentId() == ID.Enemy){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);

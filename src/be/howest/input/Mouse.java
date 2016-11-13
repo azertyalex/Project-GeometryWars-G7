@@ -61,7 +61,8 @@ public class Mouse extends MouseAdapter{
 	}
 	
 	private void test(boolean pressed){
-		if(pressed) handler.addObject(new Lazer(10,10,ID.Enemy,gameObject,handler,rotation));
+		//handler.addObject(new Lazer(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
+		if(pressed) handler.addObject(new Lazer(50,10,ID.Player,gameObject,handler,rotation));
 	}
 	
 	public static float getRotation(){
@@ -98,7 +99,7 @@ public class Mouse extends MouseAdapter{
 		isPressed = true;
 		rotation = getRotation(e);
 		
-			handler.addObject(new Lazer(10,10,ID.Enemy,gameObject,handler,rotation));
+	    handler.addObject(new Lazer(50,10,ID.Player,gameObject,handler,rotation));
 		
 		
 		
