@@ -86,6 +86,7 @@ public class Lazer extends GameObject{
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
 					handler.removeObject(tempObject);
+					handler.addObject(new Particle(tempObject.getCenterX(),tempObject.getCenterY(),Color.red,this.rotation));
 					handler.removeObject(this);
 				}
 			}

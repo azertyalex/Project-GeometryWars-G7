@@ -4,6 +4,7 @@ public enum ID {
 	Player(),
 	Player2(),
 	Lazer(),
+	Particle(),
 	Enemy(),
 	Dart(),
 	Wanderer(),

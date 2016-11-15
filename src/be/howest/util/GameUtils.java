@@ -7,6 +7,7 @@ import java.util.zip.*;
 
 import javax.imageio.ImageIO;
 
+import be.howest.objects.GameObject;
 import sun.audio.AudioPlayer;
 
 public class GameUtils {
@@ -39,6 +40,13 @@ public class GameUtils {
             return t1;
         }
     }
+	
+	public static float distance(GameObject g1, GameObject g2){
+		int x = g1.getCenterX() - g2.getCenterX();
+		int y = g1.getCenterY() - g2.getCenterY();
+		
+		return (float) Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2));
+	}
 	
 	public static BufferedImage loadImage(String path){
 		BufferedImage image = null;

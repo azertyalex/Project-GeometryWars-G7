@@ -247,7 +247,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				System.out.println(state);
 				HUD.setHudHealth(playerObjects.get(0).getHealth());
 				//state = (playerObjects.get(0).getHealth() > 0)? STATE.PLAY : STATE.GAME_OVER;
-				if ((playerObjects.get(0).getHealth() <= 0)){
+				/*if ((playerObjects.get(0).getHealth() <= 0)){
 					state = STATE.GAME_OVER;
 					resetGame();
 				} else if (!handler.hasEnemies()) {
@@ -255,7 +255,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 					resetGame();
 				}else {
 					state = STATE.PLAY;
-				}
+				}*/
 			}
 
 		} else if (state == STATE.MENU) {
