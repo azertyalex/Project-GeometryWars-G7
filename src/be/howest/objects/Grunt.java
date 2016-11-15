@@ -26,6 +26,7 @@ public class Grunt extends GameObject{
 	
 	public Grunt(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
 		super(x,y,height,width,id,parentId,handler);
+		setColor(Color.cyan);
 	}
 	
 	

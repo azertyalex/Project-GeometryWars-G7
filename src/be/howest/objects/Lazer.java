@@ -12,6 +12,7 @@ import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.gfx.Hud;
 import be.howest.input.Mouse;
+import be.howest.objects.particles.Particle;
 import be.howest.util.GameUtils;
 import be.howest.util.MyException;
 import sun.audio.AudioPlayer;
@@ -40,6 +41,7 @@ public class Lazer extends GameObject{
 	private Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation){
 		super(x,y,height,width,id,handler);
 		this.rotation = (float) Math.toRadians(rotation);
+		System.out.println(this.rotation + "||" + rotation);
 		this.player = player;
 		int r = 90;
 		velY = (int) ( 15*Math.sin(Math.toRadians(rotation-r)));
@@ -85,8 +87,8 @@ public class Lazer extends GameObject{
 			if (tempObject.getParentId() == ID.Enemy){
 				if(getBounds().intersects(tempObject.getBounds())){
 					//System.out.println("Collision detected");
+					handler.addObject(new Particle(tempObject.getCenterX(),tempObject.getCenterY(),tempObject.getColor(),this.rotation,handler));
 					handler.removeObject(tempObject);
-					handler.addObject(new Particle(tempObject.getCenterX(),tempObject.getCenterY(),Color.red,this.rotation));
 					handler.removeObject(this);
 				}
 			}

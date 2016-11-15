@@ -26,6 +26,7 @@ public class MineLayer extends GameObject{
 	public MineLayer(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
 		this(x,y,height,width,id,handler);
 		this.parentId = parentId;
+		setColor(Color.green);
 	}
 
 	public Rectangle getBounds(){

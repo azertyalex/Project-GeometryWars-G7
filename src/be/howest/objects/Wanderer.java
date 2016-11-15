@@ -27,12 +27,14 @@ public class Wanderer extends GameObject{
 		
 		velX = 5;
 		velY = 5;
+		setColor(new Color(135,0,255));
 	}
 
 	public Wanderer(int x, int y, int height, int width, ID id, ID parentID, Handler handler) {
 		this(x,y,height,width,id);
 		this.parentId = parentID;
 		this.handler = handler;
+		
 	}
 
 	public Rectangle getBounds(){

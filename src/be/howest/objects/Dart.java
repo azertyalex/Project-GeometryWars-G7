@@ -30,6 +30,7 @@ public class Dart extends GameObject{
 	public Dart(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
 		super(x,y,height,width,id,parentId,handler);
 		setSpeed(10);
+		setColor(Color.pink);
 	}
 
 	
