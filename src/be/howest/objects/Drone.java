@@ -62,9 +62,9 @@ public class Drone extends GameObject{
 			}
 		}
         
-        if(timer == 0){
+        if(timer <= 0 && handler.hasEnemies()){
         	timer = 100;
-        	handler.addObject(new Lazer(50,10,ID.Lazer,this,handler,getRotation()));
+        	handler.addObject(new Lazer(25,5,ID.Lazer,this,handler,getRotation()));
         }
         
         timer--;
@@ -100,8 +100,15 @@ public class Drone extends GameObject{
 	}
 	
 	private float getRotation(){
-		int enemyX = tempObject.getCenterX();
-		int enemyY = tempObject.getCenterY();
+		int enemyX;
+		int enemyY;
+		if(handler.hasEnemies()){
+			enemyX = tempObject.getCenterX();
+			enemyY = tempObject.getCenterY();
+		}else{
+			enemyX = player.getCenterX();
+			enemyY = player.getCenterY();
+		}
 
 		int tempx = this.getCenterX() - enemyX;
 		int tempy = this.getCenterY() - enemyY;
