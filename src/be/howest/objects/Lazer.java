@@ -21,7 +21,7 @@ public class Lazer extends GameObject{
 	private Graphics2D g2d;
 	private float rotation;
 	private Mouse mouse;
-	private GameObject player;
+	
 	private int timer = 100;
 	private Hud hud;
 	
@@ -36,13 +36,13 @@ public class Lazer extends GameObject{
 	}
 	
 	public Lazer(int height, int width, ID id,GameObject player, Handler handler,float rotation){
-		this(player.getCenterX() - width ,player.getCenterY() - height/2,height,width,id,player,handler,rotation);
+		this(player.getCenterX() - width ,player.getCenterY() - height/2,height,width,id,handler,rotation);
 	}
-	private Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation){
+	private Lazer(int x, int y,int height, int width, ID id, Handler handler,float rotation){
 		super(x,y,height,width,id,handler);
 		this.rotation = (float) Math.toRadians(rotation);
 		System.out.println(this.rotation + "||" + rotation);
-		this.player = player;
+		
 		int r = 90;
 		velY = (int) ( 15*Math.sin(Math.toRadians(rotation-r)));
         velX = (int) (15*Math.cos( Math.toRadians(rotation-r)));
@@ -52,7 +52,7 @@ public class Lazer extends GameObject{
 	}
 	
 	public Lazer(int x, int y,int height, int width, ID id,GameObject player, Handler handler,float rotation,Mouse mouse){
-		this(x,y,height,width,id,player,handler,rotation);
+		this(x,y,height,width,id,handler,rotation);
 		this.mouse= mouse;
 		
 		float tempX = mouse.mouseX -player.getCenterX();

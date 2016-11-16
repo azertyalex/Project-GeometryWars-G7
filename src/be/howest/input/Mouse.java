@@ -62,7 +62,7 @@ public class Mouse extends MouseAdapter{
 	
 	private void test(boolean pressed){
 		//handler.addObject(new Lazer(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
-		if(pressed) handler.addObject(new Lazer(50,10,ID.Player,gameObject,handler,rotation));
+		if(pressed) handler.addObject(new Lazer(50,10,ID.Lazer,gameObject,handler,rotation));
 	}
 	
 	public static float getRotation(){
