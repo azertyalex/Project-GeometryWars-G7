@@ -99,7 +99,7 @@ public class Mouse extends MouseAdapter{
 		isPressed = true;
 		rotation = getRotation(e);
 		
-	    handler.addObject(new Lazer(50,10,ID.Player,gameObject,handler,rotation));
+	    handler.addObject(new Lazer(50,10,ID.Lazer,gameObject,handler,rotation));
 		
 		
 		

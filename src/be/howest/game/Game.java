@@ -106,6 +106,8 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt,ID.Enemy, handler));
 		enemyObjects.add(new Grunt(365, 253, 24, 24, ID.Grunt,ID.Enemy, handler));
 		enemyObjects.add(new MineLayer(20, 30, 50, 50, ID.MineLayer,ID.Enemy, handler));
+		
+		
 
 		for (int i = 0; i < 1; i++) {
 			enemyObjects.add(new Grunt(125, 485, 24, 24, ID.Grunt,ID.Enemy, handler));
@@ -231,6 +233,9 @@ public class Game extends Canvas implements Runnable, GameLoop {
 				}
 				// Drone
 				playerObjects.add(new Drone(0, 0, 40, 40, ID.Drone, handler));
+				
+				//Shield
+				//playerObjects.add(new testShield(0, 0, 50 , 50 , ID.Shield, handler));
 
 				handler.addObject(enemyObjects);
 				handler.addObject(playerObjects);

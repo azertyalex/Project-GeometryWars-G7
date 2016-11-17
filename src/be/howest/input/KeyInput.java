@@ -7,6 +7,7 @@ import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
 import be.howest.objects.Wanderer;
+import be.howest.objects.testShield;
 
 public class KeyInput extends KeyAdapter{
 
