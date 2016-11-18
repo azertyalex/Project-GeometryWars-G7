@@ -1,6 +1,5 @@
 package be.howest.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -15,9 +14,10 @@ public class Drone extends GameObject{
 
 	private GameObject player;
 	private GameObject tempObject;
-	private BufferedImage imgDrone = GameUtils.loadImage("resources\\Drone\\SentryDroneWithTurret.png");
+	private BufferedImage imgDrone = GameUtils.loadImage("/Drone/SentryDroneWithTurret.png");
 	private float rotation;
 	private int timer;
+
 	
 	public Drone(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);

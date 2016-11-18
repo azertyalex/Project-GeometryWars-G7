@@ -1,6 +1,5 @@
 package be.howest.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,7 +12,7 @@ import be.howest.util.GameUtils;
 
 public class Wanderer extends GameObject{
 	private int spinner;
-	private BufferedImage imgWanderer = GameUtils.loadImage("resources\\Enemy\\Wanderer4.png");
+	private BufferedImage imgWanderer = GameUtils.loadImage("/Enemy/Wanderer4.png");
 	private int timer;
 	
 	public Wanderer(int x, int y, ID id) {

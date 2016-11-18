@@ -10,7 +10,6 @@ import java.util.Random;
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
-import be.howest.gfx.Hud;
 import be.howest.input.*;
 import be.howest.util.GameUtils;
 
@@ -23,7 +22,7 @@ public class testObject extends GameObject{
 	private int score;
 	private Graphics2D g2d;
 	
-	private BufferedImage imgPlayer = GameUtils.loadImage("resources\\Player_Standard\\Player.png");
+	private BufferedImage imgPlayer = GameUtils.loadImage("/Player_Standard/Player.png");
 	
 	public testObject(int x,int y, ID id){
 		super(x,y,id);

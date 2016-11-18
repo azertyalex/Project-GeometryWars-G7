@@ -7,7 +7,6 @@ import java.awt.event.MouseListener;
 
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
-import be.howest.gfx.UserInterface;
 
 public class InputHandler implements KeyListener, MouseListener {
 
@@ -15,10 +14,6 @@ public class InputHandler implements KeyListener, MouseListener {
 
 	public InputHandler(){
 		
-	}
-	
-	public STATE getCurrentState() {
-		return currentState;
 	}
 
 	public static void setCurrentState(STATE parCurrentState) {
@@ -42,10 +37,8 @@ public class InputHandler implements KeyListener, MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(getCurrentState() != STATE.PLAY){
-			UserInterface UI = (UserInterface) Game.stateMap.get(getCurrentState());
-			
-			UI.mouseAction(e);
+		if(currentState != STATE.PLAY){
+			Game.getStateFromMap(currentState).mouseAction(e);;
 		}
 
 	}

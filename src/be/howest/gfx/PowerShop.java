@@ -13,18 +13,13 @@ import java.util.List;
 
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
-import be.howest.input.KeyInput;
-import be.howest.input.Mouse;
-import be.howest.objects.testObject;
 import be.howest.util.GameUtils;
 import be.howest.game.Handler;
-import be.howest.game.ID;
 import be.howest.input.InputHandler;
 
 public class PowerShop extends InputHandler implements UserInterface {
 	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 800, 500, 75);
 	private Game game;
-	private Handler handler;
 	private List<String> powerList = new ArrayList<>(Arrays.asList("Heal", "Barrier", "SlowTime", "MultipleCannon", "Clone", "Card"));
 	private String selectedPower;
 	private String buttonText;
@@ -33,7 +28,6 @@ public class PowerShop extends InputHandler implements UserInterface {
 
 	public PowerShop(Game game, Handler handler) {
 		this.game = game;
-		this.handler = handler;
 		this.buttonText = "Buy";
 	}
 
@@ -72,7 +66,7 @@ public class PowerShop extends InputHandler implements UserInterface {
 		
 		for (int i = 0; i < powerList.size(); i++) {
 			g.drawImage(
-					GameUtils.loadImage("resources\\UI\\Card\\" + powerList.get(i) + ".png"), //Image
+					GameUtils.loadImage("/UI/Card/" + powerList.get(i) + ".png"), //Image
 					(((i < MAX)? i : i - MAX) * 300) + 50, //XPos
 					((i < MAX)? 1 : 3) * 160, //YPos
 					null //ImageObserver
@@ -80,7 +74,7 @@ public class PowerShop extends InputHandler implements UserInterface {
 		}
 		if (selectedPower != null && selectedPower.equals(tempPower)) {
 			g.drawImage(
-					GameUtils.loadImage("resources\\UI\\Card\\" + selectedPower + "_Selected.png"), //Image
+					GameUtils.loadImage("/UI/Card/" + selectedPower + "_Selected.png"), //Image
 					(((powIndex < MAX)? powIndex : powIndex-MAX) * 300) + 50, //XPos
 					((powIndex < MAX)? 1 : 2) * 160, //YPos
 					null //ImageObserver
@@ -115,7 +109,7 @@ public class PowerShop extends InputHandler implements UserInterface {
 		if (mouseOver(mx, my, (Game.WIDTH / 2) - 250, 800, 500, 75)) {
 			if(purchaseValid){
 				System.out.println("PLAY GAME");
-				game.state = STATE.PLAY;
+				game.setState(STATE.PLAY);
 				purchaseValid = false;
 			} else {
 				PurchasePower(selectedPower);

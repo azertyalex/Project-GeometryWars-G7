@@ -5,14 +5,11 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import be.howest.game.Handler;
-import be.howest.game.ID;
-import be.howest.objects.GameObject;
 import be.howest.util.GameUtils;
 
 
 public class Hud {
-	private BufferedImage imgHeart = GameUtils.loadImage("resources\\UI\\HUD\\Health.png");
+	private BufferedImage imgHeart = GameUtils.loadImage("/UI/HUD/Health.png");
 		
 	private int health;
 	private int score;
