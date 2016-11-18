@@ -1,5 +1,6 @@
 package be.howest.objects;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ public class Grunt extends GameObject{
 	
 	public Grunt(int x, int y,int height, int width, ID id, ID parentId, Handler handler){
 		super(x,y,height,width,id,parentId,handler);
+		setColor(Color.cyan);
 	}
 	
 	

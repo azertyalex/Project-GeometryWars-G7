@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
+import be.howest.objects.Wanderer;
+import be.howest.objects.testShield;
 
 public class KeyInput extends KeyAdapter{
 
@@ -32,6 +34,8 @@ public class KeyInput extends KeyAdapter{
 				if(key == KeyEvent.VK_D) tempObject.setVelX(tempObject.getSpeed());
 			}
 		}
+		
+		if(key == KeyEvent.VK_ENTER) handler.addObject(new Wanderer(10,10,50,50,ID.Wanderer,ID.Enemy,handler));
 	}
 	
 	@Override

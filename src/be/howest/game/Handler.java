@@ -54,6 +54,10 @@ public class Handler implements GameLoop{
 		
 	}
 	
+	public void addObjectInFront(GameObject object){
+		this.object.add(0,object);
+	}
+	
 	public void addObject(List<GameObject> listOfObjects){
 		this.object.addAll(listOfObjects);
 		
