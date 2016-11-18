@@ -18,15 +18,10 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 	public Rectangle next = new Rectangle(Game.WIDTH / 2 - 250, 825, 500, 75);
 
 	private Game game;
-	private Handler handler;
-	private PowerShop powerShop;
-	
-	private BufferedImage imgDroneInfo = GameUtils.loadImage("resources\\UI\\Other\\Drone_Information.png");
+	private BufferedImage imgDroneInfo = GameUtils.loadImage("/UI/Other/Drone_Information.png");
 	
 	public DroneUpgrade(Game game, Handler handler, PowerShop powerShop){
 		this.game = game;
-		this.handler = handler;
-		this.powerShop = powerShop;
 		}
 	
 	
@@ -127,7 +122,7 @@ public class DroneUpgrade extends InputHandler implements UserInterface{
 
 		if (mouseOver(mx, my, (Game.WIDTH / 2) -250, 800, 500, 75)){
 			System.out.println("GA NAAR POWER SHOP");
-			game.state = STATE.POWER_SHOP;
+			game.setState(STATE.POWER_SHOP);
 		}
 	}
 }

@@ -1,11 +1,8 @@
 package be.howest.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.Random;
-
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
@@ -14,7 +11,7 @@ import be.howest.util.GameUtils;
 public class Grunt extends GameObject{
 
 	private GameObject player;
-	private BufferedImage imgGrunt = GameUtils.loadImage("resources\\Enemy\\Grunt.png");
+	private BufferedImage imgGrunt = GameUtils.loadImage("/Enemy/Grunt.png");
 
 	public Grunt(int x, int y, ID id, Handler handler) {
 		super(x, y, id);

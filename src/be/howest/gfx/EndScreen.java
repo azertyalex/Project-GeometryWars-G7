@@ -2,7 +2,6 @@ package be.howest.gfx;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,22 +9,17 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
-import be.howest.objects.testObject;
 import be.howest.game.Handler;
-import be.howest.game.ID;
-import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
 
 public class EndScreen extends InputHandler implements UserInterface{
 	public Rectangle ExitButton = new Rectangle(Game.WIDTH / 2- 150, 650, 300, 75);
 
 	private Game game;
-	private Handler handler;
 	private String endScreenText = new String();
 	
 	public EndScreen(Game game, Handler handler){
 		this.game = game;
-		this.handler = handler;
 	}
 	
 	
@@ -77,7 +71,18 @@ public class EndScreen extends InputHandler implements UserInterface{
 		int my = e.getY();
 		
 		if (mouseOver(mx, my,Game.WIDTH / 2- 150, 650, 300, 75)){
-			game.state = STATE.MENU;
+			game.setState(STATE.MENU);
+		}
+	}
+
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+		if (game.getState() == STATE.GAME_OVER){
+			this.endScreenText = "GAME OVER";
+		}else {
+			this.endScreenText = "VICTORY";
 		}
 	}
 }

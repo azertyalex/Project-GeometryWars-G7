@@ -2,7 +2,6 @@ package be.howest.gfx;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -10,9 +9,7 @@ import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
-import be.howest.objects.testObject;
 import be.howest.game.Handler;
-import be.howest.game.ID;
 import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
 
@@ -23,11 +20,8 @@ public class Menu extends InputHandler implements UserInterface{
 	public Rectangle ExitButton = new Rectangle(Game.WIDTH / 2- 150, 650, 300, 75);
 
 	private Game game;
-	private Handler handler;
-	
 	public Menu(Game game, Handler handler){
 		this.game = game;
-		this.handler = handler;
 	}
 	
 	
@@ -111,11 +105,11 @@ public class Menu extends InputHandler implements UserInterface{
 		int mx = e.getX();
 		int my = e.getY();
 		
-		System.out.println("MENU: " +mx);
-		System.out.println("MENU: " +my);
+		//System.out.println("MENU: " +mx);
+		//System.out.println("MENU: " +my);
 		
 		if (mouseOver(mx, my, Game.WIDTH / 2 - 150, 200, 300, 75)){
-			game.state = STATE.PLAY;
+			game.setState(STATE.PLAY);
 			System.out.println("PLAY");
 		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 350, 300, 75)){
 			Game.CONTROLLER = !Game.CONTROLLER;
@@ -127,10 +121,10 @@ public class Menu extends InputHandler implements UserInterface{
 				game.setControllerConnected(true);
 			}
 		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 500, 300, 75)){
-			game.state = STATE.DRONE_UPGRADE;
+			game.setState(STATE.DRONE_UPGRADE);
 			System.out.println("EXTRA");
 		} else if (mouseOver(mx, my,Game.WIDTH / 2- 150, 650, 300, 75)){
-			game.state = STATE.EXIT;
+			game.setState(STATE.EXIT);
 			System.exit(0);
 			System.out.println("EXIT");
 		}

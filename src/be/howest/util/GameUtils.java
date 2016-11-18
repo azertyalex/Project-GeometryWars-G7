@@ -7,8 +7,6 @@ import java.util.zip.*;
 
 import javax.imageio.ImageIO;
 
-import sun.audio.AudioPlayer;
-
 public class GameUtils {
 	
 	public static <T extends Comparable<T>> T clamp(T val, T min, T max) {
@@ -43,7 +41,7 @@ public class GameUtils {
 	public static BufferedImage loadImage(String path){
 		BufferedImage image = null;
 		try{
-			image = ImageIO.read(new File(path));
+			image = ImageIO.read(GameUtils.class.getResourceAsStream(path));
 			
 		}catch(IOException e){
 			e.printStackTrace();

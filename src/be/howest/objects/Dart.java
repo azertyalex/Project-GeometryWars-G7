@@ -1,6 +1,5 @@
 package be.howest.objects;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -19,7 +18,7 @@ public class Dart extends GameObject{
 	
 	private Random random = new Random();
 	
-	private BufferedImage imgDart = GameUtils.loadImage("resources\\Enemy\\Spinner.png");
+	private BufferedImage imgDart = GameUtils.loadImage("/Enemy/Spinner.png");
 	
 	public Dart(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);
