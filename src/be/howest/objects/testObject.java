@@ -97,7 +97,7 @@ public class testObject extends GameObject{
 			}
 			if( timer == 0){
 				if(gamepad.getButton(5)){
-					handler.addObject(new Laser(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
+					handler.addObject(new Laser(50,10,ID.Laser,(GameObject) this,handler,gamepad.getRotationR()));
 					
 				}
 				timer = 10;

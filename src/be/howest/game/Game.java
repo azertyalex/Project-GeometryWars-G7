@@ -79,9 +79,11 @@ public class Game extends Canvas implements Runnable, GameLoop {
 
 	private static Map<STATE, UserInterface> stateMap = new HashMap<STATE, UserInterface>();
 
+
 	/* GAME & LOOP */
 	public static void main(String args[]) {
 		new Game();
+
 	}
 
 	public Game() {
@@ -172,7 +174,9 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		InputHandler.setCurrentState(state);
 
 		handler.tick();
+
 		stateMap.get(state).tick();
+
 	}
 
 	@Override

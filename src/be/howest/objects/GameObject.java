@@ -1,5 +1,6 @@
 package be.howest.objects;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 
 
@@ -19,6 +20,7 @@ public abstract class GameObject implements GameLoop{
 	protected int objectWidth;
 	protected int health;
 	protected boolean controller;
+	protected Color color;
 	
 	public abstract Rectangle getBounds();
 
@@ -160,6 +162,11 @@ public abstract class GameObject implements GameLoop{
 	public void setHealth(int health) {
 		this.health = health;
 	}
+	
+	public boolean isDead(){
+		if(health == 0) return true;
+		return false;
+	}
 
 
 	public boolean isController() {
@@ -182,6 +189,19 @@ public abstract class GameObject implements GameLoop{
 
 	public void setParentId(ID parentId) {
 		this.parentId = parentId;
+	}
+
+
+
+	public Color getColor() {
+		if(color == null) return Color.red;
+		return color;
+	}
+
+
+
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 }

@@ -1,10 +1,9 @@
 package be.howest.objects.enemies;
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-
 import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
@@ -27,12 +26,14 @@ public class Wanderer extends GameObject{
 		
 		velX = 5;
 		velY = 5;
+		setColor(new Color(135,0,255));
 	}
 
 	public Wanderer(int x, int y, int height, int width, ID id, ID parentID, Handler handler) {
 		this(x,y,height,width,id);
 		this.parentId = parentID;
 		this.handler = handler;
+		
 	}
 
 	public Rectangle getBounds(){

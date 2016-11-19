@@ -61,8 +61,9 @@ public class PlayerShoot extends MouseAdapter{
 	}
 	
 	private void test(boolean pressed){
-		//handler.addObject(new Laser(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
-		if(pressed) handler.addObject(new Laser(50,10,ID.Player,gameObject,handler,rotation));
+
+		//handler.addObject(new Laser(50,10,ID.Laser,(GameObject) this,handler,gamepad.getRotationR()));
+		if(pressed) handler.addObject(new Laser(50,10,ID.Laser,gameObject,handler,rotation));
 	}
 	
 	public static float getRotation(){
@@ -99,7 +100,8 @@ public class PlayerShoot extends MouseAdapter{
 		isPressed = true;
 		rotation = getRotation(e);
 		
-	    handler.addObject(new Laser(50,10,ID.Player,gameObject,handler,rotation));
+	    handler.addObjectInFront(new Laser(50,10,ID.Laser,gameObject,handler,rotation));
+
 		
 		
 		
