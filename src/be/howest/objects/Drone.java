@@ -11,7 +11,7 @@ import be.howest.util.GameUtils;
 public class Drone extends GameObject{
 
 	private GameObject player;
-	private BufferedImage imgDrone = GameUtils.loadImage("/Drone/SentryDroneWithTurret.png");
+	private BufferedImage imgDrone = GameUtils.loadImage("/images/Drone/SentryDroneWithTurret.png");
 	
 	public Drone(int x, int y,int height, int width, ID id, Handler handler){
 		super(x,y,height,width,id,handler);

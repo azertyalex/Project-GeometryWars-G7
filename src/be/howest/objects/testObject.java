@@ -11,18 +11,19 @@ import be.howest.game.Game;
 import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.input.*;
+import be.howest.objects.enemies.Wanderer;
 import be.howest.util.GameUtils;
 
 public class testObject extends GameObject{
 	private Gamepad gamepad;
-	//private Mouse mouse;
+	//private PlayerShoot mouse;
 	private int timer = 20;
 	private Random random = new Random();
 	
 	private int score;
 	private Graphics2D g2d;
 	
-	private BufferedImage imgPlayer = GameUtils.loadImage("/Player_Standard/Player.png");
+	private BufferedImage imgPlayer = GameUtils.loadImage("/images/Player_Standard/Player.png");
 	
 	public testObject(int x,int y, ID id){
 		super(x,y,id);
@@ -96,7 +97,7 @@ public class testObject extends GameObject{
 			}
 			if( timer == 0){
 				if(gamepad.getButton(5)){
-					handler.addObject(new Lazer(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
+					handler.addObject(new Laser(50,10,ID.Lazer,(GameObject) this,handler,gamepad.getRotationR()));
 					
 				}
 				timer = 10;
@@ -204,7 +205,7 @@ public class testObject extends GameObject{
 
 			rotation = gamepad.getRotationR();
 		}else{
-			rotation = Mouse.getRotation();
+			rotation = PlayerShoot.getRotation();
 		}
 
 

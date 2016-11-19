@@ -9,18 +9,24 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import be.howest.gfx.Hud;
 import java.util.Map;
-import be.howest.gfx.DroneUpgrade;
-import be.howest.gfx.EndScreen;
-import be.howest.gfx.Menu;
-import be.howest.gfx.PowerShop;
-import be.howest.gfx.UserInterface;
-import be.howest.gfx.Window;
+
+import be.howest.gui.DroneUpgrade;
+import be.howest.gui.EndScreen;
+import be.howest.gui.Hud;
+import be.howest.gui.Menu;
+import be.howest.gui.Play;
+import be.howest.gui.PowerShop;
+import be.howest.gui.UserInterface;
+import be.howest.gui.Window;
 import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
-import be.howest.input.Mouse;
+import be.howest.input.PlayerShoot;
 import be.howest.objects.*;
+import be.howest.objects.enemies.Grunt;
+import be.howest.objects.enemies.MineLayer;
+import be.howest.objects.enemies.Wanderer;
+import be.howest.objects.powers.Dart;
 import be.howest.util.GameLoop;
 import be.howest.util.GameUtils;
 
@@ -32,7 +38,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	// General
 	public static final int WIDTH = 1280, HEIGHT = WIDTH / 12 * 9; // Resolution
 																	// 720p
-	private BufferedImage bg = GameUtils.loadImage("/Background/NightSky_Pixel.png");
+	private BufferedImage bg = GameUtils.loadImage("/images/Background/NightSky_Pixel.png");
 	private Graphics g;
 
 	// Game
@@ -49,7 +55,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 	public static List<GameObject> hud = new ArrayList<>();
 
 	// Input
-	private Mouse mouse;
+	private PlayerShoot playerShoot;
 	private Gamepad gamepad;
 	private boolean controllerConnected = false;
 	public static boolean CONTROLLER = false;
@@ -98,8 +104,11 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		stateMap.put(STATE.VICTORY, endScreen);
 		stateMap.put(STATE.PLAY, play);
 		// Works for all input
-		this.addMouseListener(menu);
-		this.addKeyListener(menu);
+		
+		InputHandler inputHandler = new InputHandler();
+		
+		this.addMouseListener(inputHandler);
+		this.addKeyListener(inputHandler);
 
 		new Window(WIDTH, HEIGHT, "Geometry Wars Howest", this);
 	}
@@ -228,12 +237,12 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		this.state = state;
 	}
 
-	public Mouse getMouse() {
-		return mouse;
+	public PlayerShoot getMouse() {
+		return playerShoot;
 	}
 
-	public void setMouse(Mouse mouse) {
-		this.mouse = mouse;
+	public void setMouse(PlayerShoot playerShoot) {
+		this.playerShoot = playerShoot;
 	}
 
 	public static UserInterface getStateFromMap(STATE state) {

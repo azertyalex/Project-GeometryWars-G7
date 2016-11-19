@@ -57,7 +57,7 @@ public class GameUtils {
 			
 			
 		} catch (FileNotFoundException ex) {
-			throw new MyException("Failed to load sound",ex);
+			throw new MyException("Failed to load audio",ex);
 		} 
 		return sound;
 	}
