@@ -4,6 +4,8 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -111,7 +113,7 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		
 		this.addMouseListener(inputHandler);
 		this.addKeyListener(inputHandler);
-
+		
 		new Window(WIDTH, HEIGHT, "Geometry Wars Howest", this);
 	}
 
@@ -189,7 +191,12 @@ public class Game extends Canvas implements Runnable, GameLoop {
 		}
 
 		g = bufferStrategy.getDrawGraphics();
-
+		Graphics2D g2d = (Graphics2D) g;
+		g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
+		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+		g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
 		//System.out.println("In Render: {g: " + g + "}");
 
 		g.drawImage(bg, 0, 0, WIDTH, HEIGHT, null);

@@ -1,8 +1,10 @@
 package be.howest.objects;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -202,7 +204,6 @@ public class testObject extends GameObject{
 		
 		float rotation;
 		if(controller){
-
 			rotation = gamepad.getRotationR();
 		}else{
 			rotation = PlayerShoot.getRotation();
@@ -218,10 +219,7 @@ public class testObject extends GameObject{
 		Color c = new Color(1f,0f,0f,0f);
 		
 		g2d.setColor(c);
-		g2d.draw(getBounds());
-		
-
-		
+		g2d.draw(getBounds());	
 	}
 
 	public int getScore() {

@@ -1,10 +1,14 @@
 package be.howest.objects.particles;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import be.howest.game.Game;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
 
@@ -37,8 +41,16 @@ public class ParticleEntity extends GameObject{
 	public void render(Graphics g) {
 		g.setColor(color);
 		g.fillRect(x, y, randomInt, randomInt);
-		
-		
+		Graphics2D g2d = (Graphics2D) g;
+	    java.awt.geom.Point2D center = new java.awt.geom.Point2D.Float(getCenterX(), getCenterY());
+	    float radius = 10;
+	    float[] dist = {0.0f, 0.9f};
+	    Color[] colors = {this.color, new Color(0.0f, 0.0f, 0.0f, 0.0f)};
+	    RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
+	    g2d.setPaint(p);
+	    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .6f));
+	    g2d.fillRect(0, 0, Game.WIDTH, Game.WIDTH);
+	    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	}
 
 	@Override

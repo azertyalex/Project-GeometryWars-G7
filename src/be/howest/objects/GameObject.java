@@ -2,7 +2,7 @@ package be.howest.objects;
 
 import java.awt.Color;
 import java.awt.Rectangle;
-
+import java.awt.image.BufferedImage;
 
 import be.howest.game.Handler;
 
@@ -41,6 +41,12 @@ public abstract class GameObject implements GameLoop{
 	
 	
 	public GameObject(int x, int y,int height, int width, ID id){
+		this(x,y,id);
+		this.objectHeight = height;
+		this.objectWidth = width;
+	}
+	
+	public GameObject(int x, int y,int height, int width, ID id, BufferedImage[] frames, int frameDelay){
 		this(x,y,id);
 		this.objectHeight = height;
 		this.objectWidth = width;

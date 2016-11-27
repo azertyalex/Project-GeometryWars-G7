@@ -12,6 +12,7 @@ import be.howest.game.Game.STATE;
 import be.howest.game.Handler;
 import be.howest.input.Gamepad;
 import be.howest.input.InputHandler;
+import be.howest.util.GraphicUtils;
 
 public class Menu extends InputHandler implements UserInterface{
 	public Rectangle playButton = new Rectangle(Game.WIDTH / 2 - 150, 200, 300, 75);
@@ -31,46 +32,42 @@ public class Menu extends InputHandler implements UserInterface{
 		        RenderingHints.KEY_TEXT_ANTIALIASING,
 		        RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		
-		Font title = new Font("Arial", Font.BOLD,50);
-		Font small_title = new Font("Arial", Font.BOLD, 30);
-		Font text = new Font("Arial", Font.PLAIN, 18);
-
-
-		g.setFont(title);
-		g.setColor(Color.white);
-		drawCenteredString(g, 100, "GEOMETRY WARS");
-		
-		g.setFont(small_title);
-		drawCenteredString(g, 135, "PROTOTYPE (13 NOV.)");
-
 		g2d.fill(playButton);
 		g2d.fill(CustomizationButton);
 		g2d.fill(OptionButton);
 		g2d.fill(ExitButton);
+		
+		GraphicUtils.setTitleFont();
+		GraphicUtils.drawText("GEOMETRY WARS", 100, g);
 
-		g.setColor(Color.black);
-		drawCenteredString(g, 250, "PLAY");
-		drawCenteredString(g, 400, "GAMEPAD ON/OFF");
-		drawCenteredString(g, 550, "EXTRA");
-		drawCenteredString(g, 700, "EXIT");
+		GraphicUtils.setSmallTitleFont();
+		GraphicUtils.drawText("PROTOTYPE (NOV.)", 135, g);
 
-		g.setFont(text);
-		g.setColor(Color.white);
-		drawCenteredString(g, 300, "\"PLAY\" bevat de core gameplay van het spel.\n Je kunt het schip besturen en er mee schieten. De drone kan alleen de speler volgen.\n Er zullen een paar vijanden komen die je kan dood schieten.");
-		drawCenteredString(g, 450, "Met \"GAMEPAD ON/OFF\" kan je de input naar controller of keyboard/mouse zetten. \n Om te navigeren in de UI moet je de muis gebruiken.");
-		drawCenteredString(g, 600, "\"EXTRA\" bevat de clickable droneUpgrade en PowerShop.\n Deze is nog niet gekoppeld aan de core gameplay.");
-		drawCenteredString(g, 750, "EXIT");
+		GraphicUtils.changeColor(Color.black);
+		GraphicUtils.drawText("PLAY", 250, g);
+		GraphicUtils.drawText("GAMEPAD ON/OFF", 400, g);
+		GraphicUtils.drawText("EXTRA", 550, g);
+		GraphicUtils.drawText("EXIT", 700, g);
+		GraphicUtils.resetColor();
 
+		GraphicUtils.setNormalFont();
+		GraphicUtils.drawText("\"PLAY\" bevat de core gameplay van het spel.\n Je kunt het schip besturen en er mee schieten. De drone kan alleen de speler volgen.\n Er zullen een paar vijanden komen die je kan dood schieten.", 300, g);
+		GraphicUtils.drawText("Met \"GAMEPAD ON/OFF\" kan je de input naar controller of keyboard/mouse zetten. \n Om te navigeren in de UI moet je de muis gebruiken.", 450, g);
+		GraphicUtils.drawText("\"EXTRA\" bevat de clickable droneUpgrade en PowerShop.\n Deze is nog niet gekoppeld aan de core gameplay.", 600, g);
+		GraphicUtils.drawText("EXIT", 750, g);
+
+		GraphicUtils.resetFont();
+		GraphicUtils.resetColor();
+		
+	//--TEMP
 		g.setColor(Color.red);
 		String input = (Game.CONTROLLER) ? (game.isControllerFound())? "Controller (CONNECTED)" :"Controller (NOT CONNECTED)" : "Keyboard/PlayerShoot";
 		g.drawString("INPUT: " + input, Game.WIDTH / 2 + 160 , 395);
-		
-		//System.out.println("Check controller state: " + game.isControllerFound());
-		
 			
 		if (Game.CONTROLLER && !game.isControllerFound()){
 			g2d.fill(new Rectangle(0, 30, Game.WIDTH, 150));
 			g.setColor(Color.white);
+			Font title = new Font("Arial", Font.BOLD,50);
 			g.setFont(title);
 			drawCenteredString(g, 100, "Press \"Start\" to connect the controller.");
 		}
@@ -85,7 +82,8 @@ public class Menu extends InputHandler implements UserInterface{
 			g.drawString(line, Game.WIDTH / 2 - textWidth, height);
 			height += textHeight;
 	    }
-	    }
+	 }
+	//--
 	
 	public void tick(){
 		

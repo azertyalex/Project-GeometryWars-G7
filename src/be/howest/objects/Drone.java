@@ -3,6 +3,7 @@ package be.howest.objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
@@ -93,6 +94,7 @@ public class Drone extends GameObject{
 	@Override
 	public void render(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
+		
 		g2d.rotate(Math.toRadians(rotation+180),this.getCenterX(),this.getCenterY());
 		g2d.drawImage(imgDrone, x, y, objectWidth, objectHeight,null);
 

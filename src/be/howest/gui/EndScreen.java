@@ -51,7 +51,7 @@ public class EndScreen extends InputHandler implements UserInterface{
 			g.drawString(line, Game.WIDTH / 2 - textWidth, height);
 			height += textHeight;
 	    }
-	    }
+	}
 	
 	public void tick(String endScreenText){
 		this.endScreenText = endScreenText;

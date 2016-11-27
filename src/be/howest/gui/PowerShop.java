@@ -14,6 +14,7 @@ import java.util.List;
 import be.howest.game.Game;
 import be.howest.game.Game.STATE;
 import be.howest.util.GameUtils;
+import be.howest.util.GraphicUtils;
 import be.howest.game.Handler;
 import be.howest.input.InputHandler;
 
@@ -35,24 +36,26 @@ public class PowerShop extends InputHandler implements UserInterface {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 
-		// Big Title
-		Font title = new Font("Arial", Font.BOLD, 50);
-		g.setFont(title);
-		g.setColor(Color.white);
-		g.drawString("INTERMISSION", 50, 75);
-		g.setColor(Color.red);
-		g.drawString("POWER SHOP", 49, 125);
-		drawPowerCards(g);
+		GraphicUtils.setTitleFont();
+		GraphicUtils.drawText("INTERMISSION", 75, 50, g);
 
-		// UI - button
-		Font smaller_title = new Font("Arial", Font.BOLD, 30);
-		g.setFont(smaller_title);
-		g.setColor(Color.white);
+		GraphicUtils.changeColor(Color.red);
+		GraphicUtils.drawText("POWER SHOP", 125, 50, g);
+		GraphicUtils.resetColor();
 
+		
 		g.setColor(Color.red);
 		g2d.fill(next);
-		g.setColor(Color.black);
-		g.drawString(buttonText, Game.WIDTH / 2 - 30, 850);
+		
+		GraphicUtils.setSmallTitleFont();
+		GraphicUtils.changeColor(Color.black);
+		GraphicUtils.drawText(buttonText, 850, g);
+		GraphicUtils.resetColor();
+
+		drawPowerCards(g);
+		
+		GraphicUtils.resetFont();
+		GraphicUtils.resetColor();
 	}
 
 	private void drawPowerCards(Graphics g) {
@@ -62,8 +65,6 @@ public class PowerShop extends InputHandler implements UserInterface {
 
 		//The SHORT IF is used when it needs to calculate what row the card is in.
 		//A row contains 4 Cards
-		
-		
 		for (int i = 0; i < powerList.size(); i++) {
 			g.drawImage(
 					GameUtils.loadImage("/images/UI/Card/" + powerList.get(i) + ".png"), //Image

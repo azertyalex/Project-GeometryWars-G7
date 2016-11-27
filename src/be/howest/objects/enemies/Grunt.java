@@ -1,7 +1,10 @@
 package be.howest.objects.enemies;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RadialGradientPaint;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import be.howest.game.Game;
@@ -84,6 +87,17 @@ public class Grunt extends GameObject{
 	
 	public void render(Graphics g) {
 		g.drawImage(imgGrunt, x, y, objectWidth, objectHeight,null);
+		Graphics2D g2d = (Graphics2D) g;
+
+		 java.awt.geom.Point2D center = new java.awt.geom.Point2D.Float(getCenterX(), getCenterY());
+		    float radius = 20;
+		    float[] dist = {0.0f, 0.7f};
+		    Color[] colors = {Color.cyan, new Color(0.0f, 0.0f, 0.0f, 0.0f)};
+		    RadialGradientPaint p = new RadialGradientPaint(center, radius, dist, colors);
+		    g2d.setPaint(p);
+		    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, .3f));
+		    g2d.fillRect(0, 0, Game.WIDTH, Game.WIDTH);
+		    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 	}
 
 	
