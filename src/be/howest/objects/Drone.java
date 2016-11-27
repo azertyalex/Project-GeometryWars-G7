@@ -3,7 +3,6 @@ package be.howest.objects;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import be.howest.game.Handler;
@@ -83,8 +82,7 @@ public class Drone extends GameObject{
 		
 		velX = (int) ((norm)*diffX)/1000;
 		velY = (int) ((norm)*diffY)/1000;
-		//System.out.println(norm);
-		
+
 		rotation = getRotation();
 			
 		
@@ -118,9 +116,6 @@ public class Drone extends GameObject{
 						tempy)
 				)
 			);
-		
-		
-		System.out.println(rotation);
 		return rotation;
 	}
 

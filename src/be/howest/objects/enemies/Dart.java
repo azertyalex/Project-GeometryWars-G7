@@ -1,4 +1,4 @@
-package be.howest.objects.powers;
+package be.howest.objects.enemies;
 
 
 import java.awt.Color;

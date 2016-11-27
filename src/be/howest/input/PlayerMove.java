@@ -27,6 +27,8 @@ public class PlayerMove extends KeyAdapter{
 			if(tempObject.getId() == ID.Player2){
 				//Keyevent for player
 				
+				//TODO make the movement smoother! 
+				
 				if(key == KeyEvent.VK_Z) tempObject.setVelY(-tempObject.getSpeed());
 				if(key == KeyEvent.VK_S) tempObject.setVelY(tempObject.getSpeed());
 				if(key == KeyEvent.VK_Q) tempObject.setVelX(-tempObject.getSpeed());

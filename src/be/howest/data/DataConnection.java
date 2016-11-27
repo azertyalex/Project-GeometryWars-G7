@@ -1,7 +1,7 @@
 package be.howest.data;
 import be.howest.objects.GameObject;
 import be.howest.objects.powers.*;
-import be.howest.util.MyException;
+import be.howest.util.GameException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -36,7 +36,7 @@ public class DataConnection {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException ex) {
-            throw new MyException("Driver not found",ex);
+            throw new GameException("Driver not found",ex);
         }
     }
     
@@ -44,7 +44,7 @@ public class DataConnection {
         try {
             connection = DriverManager.getConnection(URL, USER, PASS);
         } catch (SQLException ex) {
-            throw new MyException("Connection with database failed!",ex);
+            throw new GameException("Connection with database failed!",ex);
         }
         
     }
@@ -78,7 +78,7 @@ public class DataConnection {
                stmt.close();
                
            } catch (SQLException ex) {
-               throw new MyException("Cannot find difficulties.", ex);
+               throw new GameException("Cannot find difficulties.", ex);
            }
         return null;
     }
@@ -139,7 +139,7 @@ public class DataConnection {
                stmt.close();
                
            } catch (SQLException ex) {
-        	   throw new MyException("Cannot find Powers.", ex);
+        	   throw new GameException("Cannot find Powers.", ex);
            }
         return powerList;
     }

@@ -4,10 +4,9 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Enumeration;
 import java.util.zip.*;
-
 import javax.imageio.ImageIO;
+
 import be.howest.objects.GameObject;
-import sun.audio.AudioPlayer;
 
 
 public class GameUtils {
@@ -67,7 +66,7 @@ public class GameUtils {
 			
 			
 		} catch (FileNotFoundException ex) {
-			throw new MyException("Failed to load audio",ex);
+			throw new GameException("Failed to load audio",ex);
 		} 
 		return sound;
 	}
@@ -76,9 +75,8 @@ public class GameUtils {
 		ZipFile zipFile = null;
 		try {
 			zipFile = new ZipFile("resources\\resourcepack.zip");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException ex) {
+			throw new GameException("Cannot load resource file!",ex);
 		}
 
 	    Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -88,18 +86,16 @@ public class GameUtils {
 	        try {
 				InputStream stream = zipFile.getInputStream(entry);
 				System.out.println(stream.toString());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (IOException ex) {
+				throw new GameException("Cannot load resource file!",ex);
 			}
 	    }
 	    
 	    try {
 			zipFile.close();
 			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (IOException ex) {
+			throw new GameException("Cannot load resource file!",ex);
 		}
 	    
 	    

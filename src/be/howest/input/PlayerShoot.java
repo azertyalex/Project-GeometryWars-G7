@@ -7,8 +7,6 @@ import be.howest.game.Handler;
 import be.howest.game.ID;
 import be.howest.objects.GameObject;
 import be.howest.objects.Laser;
-import be.howest.util.GameUtils;
-import be.howest.util.MyException;
 
 
 public class PlayerShoot extends MouseAdapter{

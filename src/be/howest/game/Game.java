@@ -26,7 +26,7 @@ import be.howest.objects.*;
 import be.howest.objects.enemies.Grunt;
 import be.howest.objects.enemies.MineLayer;
 import be.howest.objects.enemies.Wanderer;
-import be.howest.objects.powers.Dart;
+import be.howest.objects.enemies.Dart;
 import be.howest.util.GameLoop;
 import be.howest.util.GameUtils;
 
